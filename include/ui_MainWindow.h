@@ -14,11 +14,13 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -27,12 +29,11 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QWidget *gridLayoutWidget;
-    QGridLayout *viewportWidget;
+    QGridLayout *mainWindowGridLayout;
+    QVBoxLayout *verticalLayout;
+    QGroupBox *groupBox;
     QSpacerItem *verticalSpacer;
-    QWidget *gridLayoutWidget_2;
-    QGridLayout *flowViewWidget;
-    QSpacerItem *verticalSpacer_2;
+    QSpacerItem *horizontalSpacer;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -40,38 +41,33 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(945, 732);
+        MainWindow->resize(1135, 837);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
-        centralwidget->setSizePolicy(sizePolicy);
-        gridLayoutWidget = new QWidget(centralwidget);
-        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(0, 0, 941, 351));
-        viewportWidget = new QGridLayout(gridLayoutWidget);
-        viewportWidget->setObjectName(QStringLiteral("viewportWidget"));
-        viewportWidget->setContentsMargins(0, 0, 0, 0);
+        mainWindowGridLayout = new QGridLayout(centralwidget);
+        mainWindowGridLayout->setObjectName(QStringLiteral("mainWindowGridLayout"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        groupBox = new QGroupBox(centralwidget);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+
+        verticalLayout->addWidget(groupBox);
+
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        viewportWidget->addItem(verticalSpacer, 0, 0, 1, 1);
+        verticalLayout->addItem(verticalSpacer);
 
-        gridLayoutWidget_2 = new QWidget(centralwidget);
-        gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(0, 370, 941, 321));
-        flowViewWidget = new QGridLayout(gridLayoutWidget_2);
-        flowViewWidget->setObjectName(QStringLiteral("flowViewWidget"));
-        flowViewWidget->setContentsMargins(0, 0, 0, 0);
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        flowViewWidget->addItem(verticalSpacer_2, 0, 0, 1, 1);
+        mainWindowGridLayout->addLayout(verticalLayout, 0, 1, 1, 1);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        mainWindowGridLayout->addItem(horizontalSpacer, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 945, 19));
+        menubar->setGeometry(QRect(0, 0, 1135, 19));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -84,7 +80,8 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Fur System", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("MainWindow", "Node Controls", Q_NULLPTR));
     } // retranslateUi
 
 };

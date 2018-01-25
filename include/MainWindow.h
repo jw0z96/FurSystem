@@ -31,7 +31,7 @@ class MainWindow : public QMainWindow
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief keypress event handling
 		//----------------------------------------------------------------------------------------------------------------------
-		void keyPressEvent(QKeyEvent *_event);
+		void keyPressEvent(QKeyEvent *_event) override;
 
 	public slots:
 
