@@ -56,7 +56,7 @@ class ObjMeshModel : public NodeDataModel
 
 	protected:
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief event filter  gets whether we clicked in the node
+		/// @brief event filter gets whether we clicked in the node
 		//----------------------------------------------------------------------------------------------------------------------
 		bool eventFilter(QObject *object, QEvent *event) override;
 
@@ -69,6 +69,10 @@ class ObjMeshModel : public NodeDataModel
 		/// @brief mesh object
 		//----------------------------------------------------------------------------------------------------------------------
 		Mesh _mesh;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief function to load obj file into a Mesh object
+		//----------------------------------------------------------------------------------------------------------------------
+		bool loadObj(QString _file);
 };
 
 #endif // OBJMESHMODEL_H

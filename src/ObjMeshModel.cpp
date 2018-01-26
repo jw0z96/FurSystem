@@ -7,14 +7,18 @@
 
 #include <QtWidgets/QFileDialog>
 
-ObjMeshModel::ObjMeshModel() : _label(new QLabel("Double click to load obj"))
+#include <fstream>
+
+ObjMeshModel::ObjMeshModel() :
+	_label(new QLabel("Double click to load obj"))
 {
 	_label->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
 	QFont f = _label->font();
-	f.setBold(true);
-	f.setItalic(true);
+	// f.setBold(true);
+	// f.setItalic(true);
 	_label->setFont(f);
-	// _label->setFixedSize(200, 200);
+	_label->setFixedSize(200, 50);
+	_label->setWordWrap(true);
 	_label->installEventFilter(this);
 }
 
@@ -43,26 +47,20 @@ bool ObjMeshModel::eventFilter(QObject *object, QEvent *event)
 {
 	if (object == _label)
 	{
-		int w = _label->width();
-		int h = _label->height();
 		if (event->type() == QEvent::MouseButtonPress)
 		{
 			QString fileName = QFileDialog::getOpenFileName(
 				nullptr, tr("Load Obj"),
-				QDir::homePath(),
+				QDir::currentPath(),
 				tr("Mesh Files (*.obj)"));
 
 			_label->setText(fileName);
 
 			// TODO: load obj to _mesh
+			if(loadObj(fileName)) //obj was loaded successfully
+				emit dataUpdated(0);
 
-			emit dataUpdated(0);
 			return true;
-		}
-		else if (event->type() == QEvent::Resize)
-		{
-			// if (!_pixmap.isNull())
-				// _label->setPixmap(_pixmap.scaled(w, h, Qt::KeepAspectRatio));
 		}
 	}
 	return false;
@@ -77,3 +75,14 @@ std::shared_ptr<NodeData> ObjMeshModel::outData(PortIndex)
 {
 	return std::make_shared<MeshData>(_mesh);
 }
+
+bool ObjMeshModel::loadObj(QString _file)
+{
+	std::ifstream file(_file.toStdString());
+
+	if (!file.is_open())
+		return false;
+
+	Mesh tempMesh;
+}
+
