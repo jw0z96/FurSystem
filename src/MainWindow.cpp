@@ -1,5 +1,17 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include "ObjMeshModel.h"
+
+#include "nodeeditor/DataModelRegistry.hpp"
+
+using QtNodes::DataModelRegistry;
+
+static std::shared_ptr<DataModelRegistry> registerDataModels()
+{
+	auto ret = std::make_shared<DataModelRegistry>();
+	ret->registerModel<ObjMeshModel>();
+	return ret;
+}
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
@@ -11,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	m_gl = new QOpenGLWidget(this);
 	m_ui->mainWindowGridLayout->addWidget(m_gl, 0, 0, 1, 1);
 	// create node graph widget
-	m_nodes = new FlowScene();
+	m_nodes = new FlowScene(registerDataModels());
 	m_flowView = new FlowView(m_nodes);
 	m_ui->mainWindowGridLayout->addWidget(m_flowView, 1, 0, 1, 1);
 }
