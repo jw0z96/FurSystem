@@ -8,18 +8,21 @@
 #include <QtWidgets/QFileDialog>
 
 #include <fstream>
+#include <sstream>
+#include <boost/algorithm/string/predicate.hpp>
+
 
 ObjMeshModel::ObjMeshModel() :
-	_label(new QLabel("Double click to load obj"))
+	m_label(new QLabel("Double click to load obj"))
 {
-	_label->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
-	QFont f = _label->font();
+	m_label->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+	QFont f = m_label->font();
 	// f.setBold(true);
 	// f.setItalic(true);
-	_label->setFont(f);
-	_label->setFixedSize(200, 50);
-	_label->setWordWrap(true);
-	_label->installEventFilter(this);
+	m_label->setFont(f);
+	m_label->setFixedSize(200, 50);
+	m_label->setWordWrap(true);
+	m_label->installEventFilter(this);
 }
 
 unsigned int ObjMeshModel::nPorts(PortType portType) const
@@ -45,7 +48,7 @@ unsigned int ObjMeshModel::nPorts(PortType portType) const
 
 bool ObjMeshModel::eventFilter(QObject *object, QEvent *event)
 {
-	if (object == _label)
+	if (object == m_label)
 	{
 		if (event->type() == QEvent::MouseButtonPress)
 		{
@@ -54,7 +57,7 @@ bool ObjMeshModel::eventFilter(QObject *object, QEvent *event)
 				QDir::currentPath(),
 				tr("Mesh Files (*.obj)"));
 
-			_label->setText(fileName);
+			m_label->setText(fileName);
 
 			// TODO: load obj to _mesh
 			if(loadObj(fileName)) //obj was loaded successfully
@@ -73,7 +76,7 @@ NodeDataType ObjMeshModel::dataType(PortType, PortIndex) const
 
 std::shared_ptr<NodeData> ObjMeshModel::outData(PortIndex)
 {
-	return std::make_shared<MeshData>(_mesh);
+	return std::make_shared<MeshData>(m_mesh);
 }
 
 bool ObjMeshModel::loadObj(QString _file)
@@ -84,5 +87,84 @@ bool ObjMeshModel::loadObj(QString _file)
 		return false;
 
 	Mesh tempMesh;
+	// tempMesh.m_vertices.clear();
+	// tempMesh.m_faces.clear();
+
+	std::vector<glm::vec3> temp_vertices;
+	std::vector<glm::vec2> temp_uv;
+	std::vector<glm::vec3> temp_normal;
+	std::vector<Face> temp_faces;
+
+	unsigned int vertCount = 0;
+	unsigned int uvCount = 0;
+	unsigned int normalCount = 0;
+	unsigned int faceCount = 0;
+
+	std::string curline;
+	while (std::getline(file, curline))
+	{
+		if (boost::algorithm::starts_with(curline, "v "))
+		{
+			vertCount++;
+			std::istringstream s(curline.substr(2));
+			glm::vec3 v; s >> v.x; s >> v.y; s >> v.z;
+			temp_vertices.push_back(v);
+		}
+		else if (boost::algorithm::starts_with(curline, "vt"))
+		{
+			uvCount++;
+			std::istringstream s(curline.substr(3));
+			glm::vec2 uv; s >> uv.x; s >> uv.y;
+			temp_uv.push_back(uv);
+		}
+		else if (boost::algorithm::starts_with(curline, "vn"))
+		{
+			normalCount++;
+			std::istringstream s(curline.substr(2));
+			glm::vec3 normal; s >> normal.x; s >> normal.y; s >> normal.z;
+			temp_normal.push_back(normal);
+		}
+		else if (boost::algorithm::starts_with(curline, "f"))
+		{
+			faceCount++;
+			// unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
+			Face temp_face;
+			int matches = sscanf((curline.substr(2)).c_str(),
+				"%d/%d/%d %d/%d/%d %d/%d/%d\n",
+				&temp_face.pos[0], &temp_face.uv[0], &temp_face.normal[0],
+				&temp_face.pos[1], &temp_face.uv[1], &temp_face.normal[1],
+				&temp_face.pos[2], &temp_face.uv[2], &temp_face.normal[2]
+				);
+			if (matches != 9)
+			{
+				std::cout<<"faces can't be read\n";
+				return false;
+			}
+			// decrement as we were 1-indexed
+			temp_face.pos[0]--; temp_face.uv[0]--; temp_face.normal[0]--;
+			temp_face.pos[1]--; temp_face.uv[1]--; temp_face.normal[1]--;
+			temp_face.pos[2]--; temp_face.uv[2]--; temp_face.normal[2]--;
+			temp_faces.push_back(temp_face);
+			// else
+			// {
+			// 	std::cout<<"face: "<<vertexIndex[0]<<"/"<<uvIndex[0]<<"/"<<normalIndex[0]<<" "<<vertexIndex[1]<<"/"<<uvIndex[1]<<"/"<<normalIndex[1]<<" "<<vertexIndex[2]<<"/"<<uvIndex[2]<<"/"<<normalIndex[2]<<"\n";
+			// }
+		}
+		else if (boost::algorithm::starts_with(curline, "#"))
+		{
+			// pass
+		}
+	}
+
+	std::cout<<"vertex count: "<<vertCount<<"\n";
+	std::cout<<"uv count: "<<uvCount<<"\n";
+	std::cout<<"normal count: "<<normalCount<<"\n";
+	std::cout<<"face count: "<<faceCount<<"\n";
+	// for (int i = 0; i < temp_vertices.size(); ++i)
+	// {
+	// 	std::cout<<i<<": "<<temp_vertices[i].x<<", "<<temp_vertices[i].y<<", "<<temp_vertices[i].z<<"\n";
+	// }
+	file.close();
+	return true;
 }
 
