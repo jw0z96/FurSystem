@@ -14,13 +14,11 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -30,9 +28,6 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QGridLayout *mainWindowGridLayout;
-    QVBoxLayout *verticalLayout;
-    QGroupBox *groupBox;
-    QSpacerItem *verticalSpacer;
     QSpacerItem *horizontalSpacer;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -46,20 +41,6 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         mainWindowGridLayout = new QGridLayout(centralwidget);
         mainWindowGridLayout->setObjectName(QStringLiteral("mainWindowGridLayout"));
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        groupBox = new QGroupBox(centralwidget);
-        groupBox->setObjectName(QStringLiteral("groupBox"));
-
-        verticalLayout->addWidget(groupBox);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer);
-
-
-        mainWindowGridLayout->addLayout(verticalLayout, 0, 1, 1, 1);
-
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         mainWindowGridLayout->addItem(horizontalSpacer, 0, 0, 1, 1);
@@ -81,7 +62,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Fur System", Q_NULLPTR));
-        groupBox->setTitle(QApplication::translate("MainWindow", "Node Controls", Q_NULLPTR));
     } // retranslateUi
 
 };

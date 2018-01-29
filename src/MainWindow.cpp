@@ -20,12 +20,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	// setup ui
 	m_ui->setupUi(this);
 	// create viewport widget
-	m_gl = new QOpenGLWidget(this);
+	m_gl = new Viewport(this);
 	m_ui->mainWindowGridLayout->addWidget(m_gl, 0, 0, 1, 1);
 	// create node graph widget
 	m_nodes = new FlowScene(registerDataModels());
 	m_flowView = new FlowView(m_nodes);
-	m_ui->mainWindowGridLayout->addWidget(m_flowView, 1, 0, 1, 1);
+	m_ui->mainWindowGridLayout->addWidget(m_flowView, 0, 1, 1, 1);
 }
 
 MainWindow::~MainWindow()

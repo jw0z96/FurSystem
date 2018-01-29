@@ -5,6 +5,8 @@
 #include <QOpenGLWidget>
 #include <QKeyEvent>
 
+#include "Viewport.h"
+
 #include "nodeeditor/FlowView.hpp"
 #include "nodeeditor/FlowScene.hpp"
 
@@ -43,7 +45,7 @@ class MainWindow : public QMainWindow
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief m_gl our openGL viewport widget
 		//----------------------------------------------------------------------------------------------------------------------
-		QOpenGLWidget *m_gl;
+		Viewport *m_gl;
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief m_nodes Flow scene, contains the functionality of the node scene
 		//----------------------------------------------------------------------------------------------------------------------
