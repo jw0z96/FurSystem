@@ -86,10 +86,6 @@ bool ObjMeshModel::loadObj(QString _file)
 	if (!file.is_open())
 		return false;
 
-	Mesh tempMesh;
-	// tempMesh.m_vertices.clear();
-	// tempMesh.m_faces.clear();
-
 	std::vector<glm::vec3> temp_vertices;
 	std::vector<glm::vec2> temp_uv;
 	std::vector<glm::vec3> temp_normal;
@@ -127,7 +123,6 @@ bool ObjMeshModel::loadObj(QString _file)
 		else if (boost::algorithm::starts_with(curline, "f"))
 		{
 			faceCount++;
-			// unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
 			Face temp_face;
 			int matches = sscanf((curline.substr(2)).c_str(),
 				"%d/%d/%d %d/%d/%d %d/%d/%d\n",
@@ -145,10 +140,6 @@ bool ObjMeshModel::loadObj(QString _file)
 			temp_face.pos[1]--; temp_face.uv[1]--; temp_face.normal[1]--;
 			temp_face.pos[2]--; temp_face.uv[2]--; temp_face.normal[2]--;
 			temp_faces.push_back(temp_face);
-			// else
-			// {
-			// 	std::cout<<"face: "<<vertexIndex[0]<<"/"<<uvIndex[0]<<"/"<<normalIndex[0]<<" "<<vertexIndex[1]<<"/"<<uvIndex[1]<<"/"<<normalIndex[1]<<" "<<vertexIndex[2]<<"/"<<uvIndex[2]<<"/"<<normalIndex[2]<<"\n";
-			// }
 		}
 		else if (boost::algorithm::starts_with(curline, "#"))
 		{
@@ -156,15 +147,15 @@ bool ObjMeshModel::loadObj(QString _file)
 		}
 	}
 
+	file.close();
+
 	std::cout<<"vertex count: "<<vertCount<<"\n";
 	std::cout<<"uv count: "<<uvCount<<"\n";
 	std::cout<<"normal count: "<<normalCount<<"\n";
 	std::cout<<"face count: "<<faceCount<<"\n";
-	// for (int i = 0; i < temp_vertices.size(); ++i)
-	// {
-	// 	std::cout<<i<<": "<<temp_vertices[i].x<<", "<<temp_vertices[i].y<<", "<<temp_vertices[i].z<<"\n";
-	// }
-	file.close();
+
+	m_mesh = Mesh(temp_vertices, temp_uv, temp_normal, temp_faces);
+
 	return true;
 }
 

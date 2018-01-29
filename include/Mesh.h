@@ -49,11 +49,13 @@ struct Mesh
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief constructor
 	//----------------------------------------------------------------------------------------------------------------------
-	// Mesh(std::vector<Vertex>& _vertices, std::vector<Face>& _faces)
-	// {
-	// 	m_vertices = _vertices;
-	// 	m_faces = _faces;
-	// }
+	Mesh(std::vector<glm::vec3>& _pos, std::vector<glm::vec2>& _uv, std::vector<glm::vec3>& _norm, std::vector<Face>& _faces)
+	{
+		m_vertexPositions = _pos;
+		m_vertexUVs = _uv;
+		m_vertexNormals = _norm;
+		m_faces = _faces;
+	}
 	//----------------------------------------------------------------------------------------------------------------------
 	/// @brief m_vertices the vertices that make up the mesh
 	//----------------------------------------------------------------------------------------------------------------------
