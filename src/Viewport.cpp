@@ -5,6 +5,9 @@
 
 #include <iostream>
 
+// #include <GL/gl.h>
+// #include <GL/glew.h>
+
 //----------------------------------------------------------------------------------------------------------------------
 
 Viewport::Viewport(QWidget *_parent) : QOpenGLWidget(_parent)
@@ -14,6 +17,20 @@ Viewport::Viewport(QWidget *_parent) : QOpenGLWidget(_parent)
 	// re-size the widget to that of the parent (in this case the GLFrame passed in on construction)
 	this->resize(_parent->size());
 	m_timer.start();
+
+	// // set this first so that new driver features are included.
+	// glewExperimental = true;
+	// // now init glew
+	// GLenum err = glewInit();
+	// // error check
+	// if (GLEW_OK != err)
+	// {
+	// 	std::cerr<<"Error: "<<glewGetErrorString(err)<<"\n";
+	// }
+	// int majorVersion,minorVersion;
+	// glGetIntegerv(GL_MAJOR_VERSION, &majorVersion);
+	// glGetIntegerv(GL_MINOR_VERSION, &minorVersion);
+	// std::cerr <<"glew configured with GL version "<<majorVersion<<"."<<minorVersion<<"\n";
 }
 
 //----------------------------------------------------------------------------------------------------------------------
