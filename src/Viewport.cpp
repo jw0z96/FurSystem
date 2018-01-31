@@ -4,6 +4,7 @@
 #include <QKeyEvent>
 
 #include <iostream>
+#include <algorithm>
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -113,6 +114,9 @@ void Viewport::paintGL()
 	{
 		m_cam.move(xDirection,yDirection,m_deltaTime);
 	}
+
+	for (auto renderable : m_renderables)
+		renderable->draw();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -143,8 +147,24 @@ void Viewport::keyPressEvent(QKeyEvent *_event)
 	update();
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Viewport::keyReleaseEvent( QKeyEvent *_event	)
 {
 	// remove from our key set any keys that have been released
 	m_keysPressed -= static_cast<Qt::Key>(_event->key());
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void Viewport::registerRenderable(std::shared_ptr<Renderable> _renderable)
+{
+	m_renderables.push_back(_renderable);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void Viewport::deregisterRenderable(std::shared_ptr<Renderable> _renderable)
+{
+	m_renderables.erase(std::remove(m_renderables.begin(), m_renderables.end(), _renderable), m_renderables.end());
 }

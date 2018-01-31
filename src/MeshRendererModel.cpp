@@ -6,6 +6,7 @@
 #include <QtWidgets/QFileDialog>
 
 #include "MeshData.h"
+#include "Viewport.h"
 
 MeshRendererModel::MeshRendererModel() :
 	m_label(new QLabel(""))
@@ -17,7 +18,7 @@ MeshRendererModel::MeshRendererModel() :
 	m_label->setFont(f);
 	m_label->installEventFilter(this);
 
-	m_meshRenderable = MeshRenderable();
+	m_meshRenderable = std::make_shared<MeshRenderable>();
 }
 
 unsigned int MeshRendererModel::nPorts(PortType portType) const
@@ -68,12 +69,13 @@ void MeshRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 	if (_nodeData)
 	{
 		auto d = std::static_pointer_cast<MeshData>(_nodeData);
-		m_meshRenderable = MeshRenderable(d->mesh());
-
+		m_meshRenderable = std::make_shared<MeshRenderable>(d->mesh());
 		std::cout<<"register the renderable with the viewport\n";
+		Viewport::getInstance()->registerRenderable(m_meshRenderable);
 	}
 	else
 	{
 		std::cout<<"deregister the renderable from the viewport\n";
+		Viewport::getInstance()->deregisterRenderable(m_meshRenderable);
 	}
 }
