@@ -67,14 +67,13 @@ void MeshRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 
 	if (_nodeData)
 	{
-		// construct the MeshRenderable
-		// std::cout<<"MeshRendererModel::setInData _nodeData\n";
-		auto d = std::dynamic_pointer_cast<MeshData>(_nodeData);
+		auto d = std::static_pointer_cast<MeshData>(_nodeData);
 		m_meshRenderable = MeshRenderable(d->mesh());
+
+		std::cout<<"register the renderable with the viewport\n";
 	}
 	else
 	{
-		// delete the VAOS?
-		// std::cout<<"MeshRendererModel::setInData ELSE\n";
+		std::cout<<"deregister the renderable from the viewport\n";
 	}
 }

@@ -22,8 +22,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	// setup ui
 	m_ui->setupUi(this);
 	// create viewport widget
-	m_gl = new Viewport(this);
-	m_ui->mainWindowGridLayout->addWidget(m_gl, 0, 0, 1, 1);
+	// m_gl = new Viewport(this);
+	// Viewport* instance = Viewport::getInstance(this);
+	// m_ui->mainWindowGridLayout->addWidget(m_gl, 0, 0, 1, 1);
+	auto gl = Viewport::getInstance();
+	gl->setParent(this);
+	m_ui->mainWindowGridLayout->addWidget(gl, 0, 0, 1, 1);
 	// create node graph widget
 	m_nodes = new FlowScene(registerDataModels());
 	m_flowView = new FlowView(m_nodes);
@@ -33,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
 	delete m_ui;
-	delete m_gl;
+	// delete m_gl;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *_event)

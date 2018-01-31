@@ -7,14 +7,23 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Viewport::Viewport(QWidget *_parent) : QOpenGLWidget(_parent)
+Viewport* Viewport::m_instance = NULL;
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void Viewport::setParent(QWidget* _parent)
+{
+	QOpenGLWidget::setParent(_parent);
+	this->resize(_parent->size());
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+Viewport::Viewport()
 {
 	// set this widget to have the initial keyboard focus
 	setFocusPolicy (Qt::StrongFocus);
-	// re-size the widget to that of the parent (in this case the GLFrame passed in on construction)
-	this->resize(_parent->size());
 	m_timer.start();
-
 }
 
 //----------------------------------------------------------------------------------------------------------------------
