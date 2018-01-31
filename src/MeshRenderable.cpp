@@ -1,7 +1,5 @@
 #include "MeshRenderable.h"
 
-#include <GL/glew.h> // TODO: LOOK AT OTHER GLEW EXAMPLES
-
 MeshRenderable::MeshRenderable()
 {
 	m_VAO = 0;

@@ -1,5 +1,3 @@
-#include <GL/glew.h>
-
 #include "Viewport.h"
 
 #include <QApplication>
