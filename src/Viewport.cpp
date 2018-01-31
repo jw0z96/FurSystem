@@ -1,12 +1,11 @@
+#include <GL/glew.h>
+
 #include "Viewport.h"
 
 #include <QApplication>
 #include <QKeyEvent>
 
 #include <iostream>
-
-// #include <GL/gl.h>
-// #include <GL/glew.h>
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -18,19 +17,6 @@ Viewport::Viewport(QWidget *_parent) : QOpenGLWidget(_parent)
 	this->resize(_parent->size());
 	m_timer.start();
 
-	// // set this first so that new driver features are included.
-	// glewExperimental = true;
-	// // now init glew
-	// GLenum err = glewInit();
-	// // error check
-	// if (GLEW_OK != err)
-	// {
-	// 	std::cerr<<"Error: "<<glewGetErrorString(err)<<"\n";
-	// }
-	// int majorVersion,minorVersion;
-	// glGetIntegerv(GL_MAJOR_VERSION, &majorVersion);
-	// glGetIntegerv(GL_MINOR_VERSION, &minorVersion);
-	// std::cerr <<"glew configured with GL version "<<majorVersion<<"."<<minorVersion<<"\n";
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -53,6 +39,20 @@ void Viewport::resizeGL(int _w, int _h)
 
 void Viewport::initializeGL()
 {
+	// set this first so that new driver features are included.
+	glewExperimental = true;
+	// now init glew
+	GLenum err = glewInit();
+	// error check
+	if (GLEW_OK != err)
+	{
+		std::cerr<<"Error: "<<glewGetErrorString(err)<<"\n";
+	}
+	int majorVersion,minorVersion;
+	glGetIntegerv(GL_MAJOR_VERSION, &majorVersion);
+	glGetIntegerv(GL_MINOR_VERSION, &minorVersion);
+	std::cerr <<"glew configured with GL version "<<majorVersion<<"."<<minorVersion<<"\n";
+
 	// Grey Background
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	// enable depth testing for drawing

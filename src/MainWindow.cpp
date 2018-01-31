@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "ObjMeshModel.h"
+#include "MeshRendererModel.h"
 
 #include "nodeeditor/DataModelRegistry.hpp"
 
@@ -10,6 +11,7 @@ static std::shared_ptr<DataModelRegistry> registerDataModels()
 {
 	auto ret = std::make_shared<DataModelRegistry>();
 	ret->registerModel<ObjMeshModel>();
+	ret->registerModel<MeshRendererModel>();
 	return ret;
 }
 
