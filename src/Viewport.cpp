@@ -105,6 +105,7 @@ void Viewport::paintGL()
 		m_cam.move(xDirection,yDirection,m_deltaTime);
 	}
 
+	loadMatricesToRenderManager();
 	RenderableManager::getInstance()->drawRenderables();
 }
 
@@ -142,4 +143,15 @@ void Viewport::keyReleaseEvent( QKeyEvent *_event)
 {
 	// remove from our key set any keys that have been released
 	m_keysPressed -= static_cast<Qt::Key>(_event->key());
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void Viewport::loadMatricesToRenderManager()
+{
+	glm::mat4 M = glm::mat4(1.0);
+	glm::mat4 MV = m_cam.getView() * M;
+	glm::mat4 MVP = m_cam.getVP() * M;
+	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(MV)));
+	RenderableManager::getInstance()->setMatrices(M, MV, MVP, normalMatrix, m_cam.getEye());
 }

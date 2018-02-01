@@ -1,6 +1,10 @@
 #ifndef RENDERABLEMANAGER_H
 #define RENDERABLEMANAGER_H
 
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include <vector>
 #include <memory>
 
@@ -39,12 +43,28 @@ class RenderableManager
 		/// @brief draw our registered renderables
 		//----------------------------------------------------------------------------------------------------------------------
 		void drawRenderables();
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief set our matrices that get sent to the shader
+		//----------------------------------------------------------------------------------------------------------------------
+		void setMatrices(glm::mat4 _M, glm::mat4 _MV, glm::mat4 _MVP, glm::mat3 _normal, glm::vec3 _camPos);
 
 	private:
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief Our Renderables
+		/// @brief the Renderables
 		//----------------------------------------------------------------------------------------------------------------------
 		std::vector<std::shared_ptr<Renderable>> m_renderables;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief the matrices that get sent to the shader
+		//----------------------------------------------------------------------------------------------------------------------
+		glm::mat4 M;
+		glm::mat4 MV;
+		glm::mat4 MVP;
+		glm::mat3 normalMatrix;
+		glm::vec3 camPos;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief send the matrices to the shader
+		//----------------------------------------------------------------------------------------------------------------------
+		void loadMatricesToShader(GLuint _pid);
 };
 
 #endif // RENDERABLEMANAGER_H

@@ -1,6 +1,12 @@
 #ifndef RENDERABLE_H
 #define RENDERABLE_H
 
+enum renderableType
+{
+	DEFAULT,
+	MESH
+};
+
 class Renderable
 {
 	public:
@@ -16,6 +22,10 @@ class Renderable
 		/// @brief draw this renderable
 		//----------------------------------------------------------------------------------------------------------------------
 		virtual void draw(){}
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief get the type of this renderable
+		//----------------------------------------------------------------------------------------------------------------------
+		virtual renderableType getType() const {return DEFAULT;}
 };
 
 #endif // RENDERABLE_H

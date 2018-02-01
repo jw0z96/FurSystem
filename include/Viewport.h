@@ -142,6 +142,10 @@ class Viewport : public QOpenGLWidget
 		/// @param _event the Qt Event structure
 		//----------------------------------------------------------------------------------------------------------------------
 		void wheelEvent(QWheelEvent *_event) override;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief set the matrices for the shaders
+		//----------------------------------------------------------------------------------------------------------------------
+		void loadMatricesToRenderManager();
 };
 
 #endif // VIEWPORT_H

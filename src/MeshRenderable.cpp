@@ -3,7 +3,6 @@
 MeshRenderable::MeshRenderable()
 {
 	std::cout<<"MeshRenderable()\n";
-
 	m_VAO = 0;
 	m_VBO = 0;
 	m_indices = 0;
@@ -15,7 +14,6 @@ MeshRenderable::MeshRenderable()
 MeshRenderable::MeshRenderable(Mesh const &_mesh) : m_mesh(_mesh)
 {
 	std::cout<<"MeshRenderable(Mesh const &_mesh)\n";
-
 	m_VAO = 0;
 	m_VBO = 0;
 	m_indices = 0;
