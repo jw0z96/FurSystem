@@ -65,7 +65,7 @@ void Viewport::initializeGL()
 	m_cam.set(from, to, up);
 	// set the shape using FOV 45 Aspect Ratio based on Width and Height
 	// The final two are near and far clipping planes of 0.5 and 10
-	m_cam.setProjection(50,(float)1024/720,1.0f,800.0f);
+	m_cam.setProjection(50,(float)1024/720,1.0f,1000.0f);
 	// as re-size is not explicitly called we need to do this.
 	glViewport(0,0,width(),height());
 }
@@ -104,6 +104,8 @@ void Viewport::paintGL()
 	{
 		m_cam.move(xDirection,yDirection,m_deltaTime);
 	}
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	loadMatricesToRenderManager();
 	RenderableManager::getInstance()->drawRenderables();

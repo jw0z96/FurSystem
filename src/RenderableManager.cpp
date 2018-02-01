@@ -13,6 +13,7 @@ RenderableManager* RenderableManager::m_instance = NULL;
 
 RenderableManager::RenderableManager()
 {
+	meshShader = Shader("shaders/meshShader_vert.glsl", "shaders/meshShader_frag.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -46,6 +47,8 @@ void RenderableManager::drawRenderables()
 		{
 			case MESH:
 				std::cout<<"MESH draw call\n";
+				meshShader.use();
+				loadMatricesToShader(meshShader.getID());
 				renderable->draw();
 				break;
 			case DEFAULT:
