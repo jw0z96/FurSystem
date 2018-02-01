@@ -6,7 +6,7 @@
 #include <QtWidgets/QFileDialog>
 
 #include "MeshData.h"
-#include "Viewport.h"
+#include "RenderableManager.h"
 
 MeshRendererModel::MeshRendererModel()
 {
@@ -56,15 +56,15 @@ void MeshRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 	if (_nodeData) // connected
 	{
 		// deregister the current renderable from the viewport
-		Viewport::getInstance()->deregisterRenderable(m_meshRenderable);
+		RenderableManager::getInstance()->deregisterRenderable(m_meshRenderable);
 		auto d = std::static_pointer_cast<MeshData>(_nodeData);
 		m_meshRenderable = std::make_shared<MeshRenderable>(d->mesh());
 		std::cout<<"register the renderable with the viewport\n";
-		Viewport::getInstance()->registerRenderable(m_meshRenderable);
+		RenderableManager::getInstance()->registerRenderable(m_meshRenderable);
 	}
 	else // disconnected
 	{
 		std::cout<<"deregister the renderable from the viewport\n";
-		Viewport::getInstance()->deregisterRenderable(m_meshRenderable);
+		RenderableManager::getInstance()->deregisterRenderable(m_meshRenderable);
 	}
 }

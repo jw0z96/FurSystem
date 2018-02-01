@@ -1,58 +1,50 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef RENDERABLEMANAGER_H
+#define RENDERABLEMANAGER_H
 
-#include <QMainWindow>
-#include <QKeyEvent>
+#include <vector>
+#include <memory>
 
-#include "Viewport.h"
+#include "Renderable.h"
 
-#include "nodeeditor/FlowView.hpp"
-#include "nodeeditor/FlowScene.hpp"
-
-using QtNodes::FlowScene;
-using QtNodes::FlowView;
-
-namespace Ui {
-	class MainWindow;
-}
-
-class MainWindow : public QMainWindow
+class RenderableManager
 {
-	Q_OBJECT
+	private:
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief private dummy constructor for the singleton
+		//----------------------------------------------------------------------------------------------------------------------
+		RenderableManager();
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief our singleton instance
+		//----------------------------------------------------------------------------------------------------------------------
+		static RenderableManager* m_instance;
 
 	public:
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief constructor
+		/// @brief get the singleton instance
 		//----------------------------------------------------------------------------------------------------------------------
-		explicit MainWindow(QWidget *parent = 0);
+		static RenderableManager* getInstance() {if (!m_instance){m_instance = new RenderableManager();} return m_instance;}
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief destructor
+		/// @brief dtor
 		//----------------------------------------------------------------------------------------------------------------------
-		~MainWindow();
+		~RenderableManager();
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief keypress event handling
+		/// @brief register a new renderable
 		//----------------------------------------------------------------------------------------------------------------------
-		void keyPressEvent(QKeyEvent *_event) override;
-
-	public slots:
+		void registerRenderable(std::shared_ptr<Renderable> _renderable);
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief register a new renderable
+		//----------------------------------------------------------------------------------------------------------------------
+		void deregisterRenderable(std::shared_ptr<Renderable> _renderable);
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief draw our registered renderables
+		//----------------------------------------------------------------------------------------------------------------------
+		void drawRenderables();
 
 	private:
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief m_ui our qt ui widgets loaded from the ui file
+		/// @brief Our Renderables
 		//----------------------------------------------------------------------------------------------------------------------
-		Ui::MainWindow *m_ui;
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief m_gl our openGL viewport widget
-		//----------------------------------------------------------------------------------------------------------------------
-		Viewport *m_gl;
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief m_nodes Flow scene, contains the functionality of the node scene
-		//----------------------------------------------------------------------------------------------------------------------
-		FlowScene *m_nodes;
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief m_flowView viewport that displays the node graph
-		//----------------------------------------------------------------------------------------------------------------------
-		FlowView *m_flowView;
+		std::vector<std::shared_ptr<Renderable>> m_renderables;
 };
 
-#endif // MAINWINDOW_H
+#endif // RENDERABLEMANAGER_H

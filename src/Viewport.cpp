@@ -4,26 +4,16 @@
 #include <QKeyEvent>
 
 #include <iostream>
-#include <algorithm>
+
+#include "RenderableManager.h"
 
 //----------------------------------------------------------------------------------------------------------------------
 
-Viewport* Viewport::m_instance = NULL;
-
-//----------------------------------------------------------------------------------------------------------------------
-
-void Viewport::setParent(QWidget* _parent)
-{
-	QOpenGLWidget::setParent(_parent);
-	this->resize(_parent->size());
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
-Viewport::Viewport()
+Viewport::Viewport(QWidget* _parent) : QOpenGLWidget(_parent)
 {
 	// set this widget to have the initial keyboard focus
 	setFocusPolicy (Qt::StrongFocus);
+	this->resize(_parent->size());
 	m_timer.start();
 }
 
@@ -115,8 +105,7 @@ void Viewport::paintGL()
 		m_cam.move(xDirection,yDirection,m_deltaTime);
 	}
 
-	for (auto renderable : m_renderables)
-		renderable->draw();
+	RenderableManager::getInstance()->drawRenderables();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -149,22 +138,8 @@ void Viewport::keyPressEvent(QKeyEvent *_event)
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void Viewport::keyReleaseEvent( QKeyEvent *_event	)
+void Viewport::keyReleaseEvent( QKeyEvent *_event)
 {
 	// remove from our key set any keys that have been released
 	m_keysPressed -= static_cast<Qt::Key>(_event->key());
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
-void Viewport::registerRenderable(std::shared_ptr<Renderable> _renderable)
-{
-	m_renderables.push_back(_renderable);
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
-void Viewport::deregisterRenderable(std::shared_ptr<Renderable> _renderable)
-{
-	m_renderables.erase(std::remove(m_renderables.begin(), m_renderables.end(), _renderable), m_renderables.end());
 }
