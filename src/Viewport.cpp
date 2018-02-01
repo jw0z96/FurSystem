@@ -28,7 +28,7 @@ Viewport::~Viewport()
 
 void Viewport::resizeGL(int _w, int _h)
 {
-	m_cam.setProjection(45.0f, static_cast<float>(_w) / _h, 0.001f, 100.0f);
+	m_cam.setProjection(50.0f, static_cast<float>(_w) / _h, 0.1f, 1000.0f);
 	m_win.width  = static_cast<int>(_w * devicePixelRatio());
 	m_win.height = static_cast<int>(_h * devicePixelRatio());
 }
@@ -59,7 +59,7 @@ void Viewport::initializeGL()
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_BLEND);
 
-	glm::vec3 from(0.0, 1.0, 1.0);
+	glm::vec3 from(1.0, 1.0, 1.0);
 	glm::vec3 to(0.0, 0.0, 0.0);
 	glm::vec3 up(0.0, 1.0, 0.0);
 	m_cam.set(from, to, up);

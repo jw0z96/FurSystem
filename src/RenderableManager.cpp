@@ -1,6 +1,7 @@
 #include "RenderableManager.h"
 
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/ext.hpp>
 
 #include <iostream>
 #include <algorithm>
@@ -41,6 +42,21 @@ void RenderableManager::deregisterRenderable(std::shared_ptr<Renderable> _render
 
 void RenderableManager::drawRenderables()
 {
+	// std::cout<<"RenderableManager::drawRenderables()\n";
+
+	// // TRY NGL PRIMITIVES HERE???
+	meshShader.use();
+	loadMatricesToShader(meshShader.getID());
+
+	// std::cout<<"camPos: "<<glm::to_string(camPos)<<"\n";
+	// std::cout<<"MVP: "<<glm::to_string(MVP)<<"\n";
+
+	glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(glm::vec3(1.0, 0.0, 0.0)));
+
+	// prim->draw("sphere");
+
+	glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(glm::vec3(0.0, 1.0, 0.0)));
+
 	for (auto renderable : m_renderables)
 	{
 		switch(renderable->getType())

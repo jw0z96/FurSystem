@@ -54,7 +54,7 @@ bool ObjMeshModel::eventFilter(QObject *object, QEvent *event)
 		{
 			QString fileName = QFileDialog::getOpenFileName(
 				nullptr, tr("Load Obj"),
-				QDir::currentPath(),
+				QDir::currentPath() + "/meshes",
 				tr("Mesh Files (*.obj)"));
 
 			m_label->setText(fileName);

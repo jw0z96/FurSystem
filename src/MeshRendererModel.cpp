@@ -58,6 +58,7 @@ void MeshRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 		// deregister the current renderable from the viewport
 		RenderableManager::getInstance()->deregisterRenderable(m_meshRenderable);
 		auto d = std::static_pointer_cast<MeshData>(_nodeData);
+		// TODO: this calls delete on the MeshRenderable, which should be used to clear VAOS
 		m_meshRenderable = std::make_shared<MeshRenderable>(d->mesh());
 		std::cout<<"register the renderable with the viewport\n";
 		RenderableManager::getInstance()->registerRenderable(m_meshRenderable);

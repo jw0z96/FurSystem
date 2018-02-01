@@ -18,9 +18,10 @@ void main()
 {
 	TexCoords = inUV;
 	// pass worldspace position to fragment shader
-	WorldPos = vec3(M * vec4(inPos, 1.0f));
+	WorldPos = vec3(M * vec4(inPos, 1.0));
 	// pass worldspace normal to fragment shader
 	Normal = inNormal;
 	// transform input vertex
-	gl_Position = MVP * vec4(inPos,1.0);
+	// gl_Position = MVP * vec4(inPos, 1.0);
+	gl_Position = vec4(inPos, 1.0);
 }
