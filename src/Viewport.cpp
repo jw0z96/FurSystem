@@ -157,8 +157,8 @@ void Viewport::loadMatricesToRenderManager()
 	glm::mat4 M = glm::mat4(1.0);
 	glm::mat4 MV = m_cam.getView() * M;
 	glm::mat4 MVP = m_cam.getVP() * M;
-	// glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(MV)));
-	glm::mat3 normalMatrix = glm::mat3(MV);
+	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(MV)));
+	// glm::mat3 normalMatrix = glm::mat3(MV);
 	RenderableManager::getInstance()->setMatrices(M, MV, MVP, normalMatrix, m_cam.getEye());
 }
 
