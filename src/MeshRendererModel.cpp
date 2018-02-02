@@ -65,7 +65,7 @@ void MeshRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 	}
 	else // disconnected
 	{
-		std::cout<<"deregister the renderable from the viewport\n";
-		RenderableManager::getInstance()->deregisterRenderable(m_meshRenderable);
+		std::cout<<"set renderable to be deleted\n";
+		m_meshRenderable->setToBeDeleted();
 	}
 }

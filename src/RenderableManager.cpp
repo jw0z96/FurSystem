@@ -40,24 +40,39 @@ void RenderableManager::deregisterRenderable(std::shared_ptr<Renderable> _render
 
 //----------------------------------------------------------------------------------------------------------------------
 
+void RenderableManager::cleanupRenderables()
+{
+	for (auto renderable : m_renderables)
+	{
+		if (renderable->getToBeDeleted())
+		{
+			renderable->cleanupVAO();
+			deregisterRenderable(renderable);
+		}
+	}
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void RenderableManager::constructRenderables()
+{
+	for (auto renderable : m_renderables)
+	{
+		if (!renderable->getVAOConstructed())
+			renderable->generateVAO();
+	}
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
 void RenderableManager::drawRenderables()
 {
-	// std::cout<<"RenderableManager::drawRenderables()\n";
-
-	// // TRY NGL PRIMITIVES HERE???
-	// meshShader.use();
-	// loadMatricesToShader(meshShader.getID());
-
-	// std::cout<<"camPos: "<<glm::to_string(camPos)<<"\n";
-	// std::cout<<"MVP: "<<glm::to_string(MVP)<<"\n";
-
 	for (auto renderable : m_renderables)
 	{
 		switch(renderable->getType())
 		{
 			case MESH:
 				std::cout<<"MESH draw call\n";
-				renderable->generateVAO();
 				meshShader.use();
 				loadMatricesToShader(meshShader.getID());
 				glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(glm::vec3(0.0, 1.0, 0.0)));
