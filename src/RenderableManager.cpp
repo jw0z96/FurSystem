@@ -45,17 +45,11 @@ void RenderableManager::drawRenderables()
 	// std::cout<<"RenderableManager::drawRenderables()\n";
 
 	// // TRY NGL PRIMITIVES HERE???
-	meshShader.use();
-	loadMatricesToShader(meshShader.getID());
+	// meshShader.use();
+	// loadMatricesToShader(meshShader.getID());
 
 	// std::cout<<"camPos: "<<glm::to_string(camPos)<<"\n";
 	// std::cout<<"MVP: "<<glm::to_string(MVP)<<"\n";
-
-	glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(glm::vec3(1.0, 0.0, 0.0)));
-
-	// prim->draw("sphere");
-
-	glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(glm::vec3(0.0, 1.0, 0.0)));
 
 	for (auto renderable : m_renderables)
 	{
@@ -63,8 +57,10 @@ void RenderableManager::drawRenderables()
 		{
 			case MESH:
 				std::cout<<"MESH draw call\n";
+				renderable->generateVAO();
 				meshShader.use();
 				loadMatricesToShader(meshShader.getID());
+				glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(glm::vec3(0.0, 1.0, 0.0)));
 				renderable->draw();
 				break;
 			case DEFAULT:

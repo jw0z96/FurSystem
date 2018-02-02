@@ -16,8 +16,7 @@ in vec2 TexCoords;
 
 void main()
 {
-	vec3 view = normalize(WorldPos - camPos);
-	float ndotv = max(dot(view, Normal), 0.0);
+	vec3 view = normalize(camPos - WorldPos);
+	float ndotv = max(dot(Normal, view), 0.0);
 	fragColor = vec4(colour * ndotv, 1.0);
-	// fragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }

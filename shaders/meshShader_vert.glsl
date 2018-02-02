@@ -22,6 +22,5 @@ void main()
 	// pass worldspace normal to fragment shader
 	Normal = inNormal;
 	// transform input vertex
-	// gl_Position = MVP * vec4(inPos, 1.0);
-	gl_Position = vec4(inPos, 1.0);
+	gl_Position = MVP * vec4(inPos, 1.0);
 }
