@@ -15,6 +15,7 @@ Viewport::Viewport(QWidget* _parent) : QOpenGLWidget(_parent)
 	setFocusPolicy (Qt::StrongFocus);
 	this->resize(_parent->size());
 	m_timer.start();
+	// startTimer(10);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -59,7 +60,7 @@ void Viewport::initializeGL()
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_BLEND);
 
-	glm::vec3 from(1.0, 1.0, 1.0);
+	glm::vec3 from(-2.0, 2.0, -2.0);
 	glm::vec3 to(0.0, 0.0, 0.0);
 	glm::vec3 up(0.0, 1.0, 0.0);
 	m_cam.set(from, to, up);
@@ -156,6 +157,14 @@ void Viewport::loadMatricesToRenderManager()
 	glm::mat4 M = glm::mat4(1.0);
 	glm::mat4 MV = m_cam.getView() * M;
 	glm::mat4 MVP = m_cam.getVP() * M;
-	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(MV)));
+	// glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(MV)));
+	glm::mat3 normalMatrix = glm::mat3(MV);
 	RenderableManager::getInstance()->setMatrices(M, MV, MVP, normalMatrix, m_cam.getEye());
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void Viewport::timerEvent(QTimerEvent *_event)
+{
+	update();
 }

@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	// create node graph widget
 	m_nodes = new FlowScene(registerDataModels());
 	m_flowView = new FlowView(m_nodes);
+
 	m_ui->mainWindowGridLayout->addWidget(m_flowView, 0, 1, 1, 1);
 }
 
