@@ -87,7 +87,7 @@ void Viewport::paintGL()
 	// now we loop for each of the pressed keys in the the set
 	// and see which ones have been pressed. If they have been pressed
 	// we set the movement value to be an incremental value
-	constexpr float s_update = 10.0f;
+	constexpr float s_update = 1.0f;
 	foreach(Qt::Key key, m_keysPressed)
 	{
 		switch (key)
@@ -101,10 +101,10 @@ void Viewport::paintGL()
 	}
 	// if the set is non zero size we can update the ship movement
 	// then tell openGL to re-draw
-	// if (m_keysPressed.size() !=0)
-	// {
-	// 	m_cam.move(xDirection,yDirection,m_deltaTime);
-	// }
+	if (m_keysPressed.size() !=0)
+	{
+		m_cam.move(xDirection, yDirection, m_deltaTime);
+	}
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
