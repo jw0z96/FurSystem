@@ -29,7 +29,7 @@ Viewport::~Viewport()
 
 void Viewport::resizeGL(int _w, int _h)
 {
-	m_cam.setProjection(50.0f, static_cast<float>(_w) / _h, 0.1f, 1000.0f);
+	m_cam.setProjection(45.0f, static_cast<float>(_w) / _h, 0.1f, 1000.0f);
 	m_win.width  = static_cast<int>(_w * devicePixelRatio());
 	m_win.height = static_cast<int>(_h * devicePixelRatio());
 }
@@ -66,7 +66,7 @@ void Viewport::initializeGL()
 	m_cam.set(from, to, up);
 	// set the shape using FOV 45 Aspect Ratio based on Width and Height
 	// The final two are near and far clipping planes of 0.5 and 10
-	m_cam.setProjection(50,(float)1024/720,1.0f,1000.0f);
+	m_cam.setProjection(45.0f,(float)1024/720,1.0f,1000.0f);
 	// as re-size is not explicitly called we need to do this.
 	glViewport(0,0,width(),height());
 }
@@ -101,10 +101,10 @@ void Viewport::paintGL()
 	}
 	// if the set is non zero size we can update the ship movement
 	// then tell openGL to re-draw
-	if (m_keysPressed.size() !=0)
-	{
-		m_cam.move(xDirection,yDirection,m_deltaTime);
-	}
+	// if (m_keysPressed.size() !=0)
+	// {
+	// 	m_cam.move(xDirection,yDirection,m_deltaTime);
+	// }
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

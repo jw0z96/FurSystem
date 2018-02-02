@@ -15,8 +15,14 @@ void FirstPersonCamera::set(glm::vec3 _eye, glm::vec3 _look, glm::vec3 _up) noex
 	m_eye = _eye;
 	m_look = _look;
 	m_up = _up;
+
+	m_eye.x = m_radius*cos(m_phi)*sin(m_theta);
+	m_eye.y = m_radius*sin(m_phi)*sin(m_theta);
+	m_eye.z = m_radius*cos(m_theta);
+
 	updateCameraVectors();
 }
+
 void FirstPersonCamera::setProjection(float _fov, float _aspect, float _near, float _far) noexcept
 {
 	m_zoom = _fov;
@@ -28,49 +34,26 @@ void FirstPersonCamera::setProjection(float _fov, float _aspect, float _near, fl
 
 void FirstPersonCamera::updateCameraVectors() noexcept
 {
-	// Calculate the new Front vector
-	m_front.x = cosf(glm::radians(m_yaw)) * cosf(glm::radians(m_pitch));
-	m_front.y = sinf(glm::radians(m_pitch));
-	m_front.z = sinf(glm::radians(m_yaw)) * cosf(glm::radians(m_pitch));
-	m_front = glm::normalize(m_front);
-	// Also re-calculate the Right and Up vector
-	m_right = glm::cross(m_front, m_worldUp);  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
-	m_up = glm::cross(m_right, m_front);
-	m_right = glm::normalize(m_right);
-	m_front = glm::normalize(m_front);
-	m_view = glm::lookAt(m_eye, m_eye + m_front, m_up);
-
+	m_view = glm::lookAt(m_eye, m_look, m_up);
 }
-
 
 void FirstPersonCamera::move(float _x, float _y,float _deltaTime)
 {
-	float velocity = m_speed * _deltaTime;
-	m_eye += m_front * velocity*_x;
-	m_eye += m_right * velocity*_y;
-	updateCameraVectors();
-
-
+	// float velocity = m_speed * _deltaTime;
+	// m_eye += m_front * velocity*_x;
+	// m_eye += m_right * velocity*_y;
+	// updateCameraVectors();
 }
 
 void FirstPersonCamera::processMouseMovement(float _xoffset, float _yoffset, bool _constrainPitch ) noexcept
 {
-	_xoffset *= m_sensitivity;
-	_yoffset *= m_sensitivity;
+	m_theta += m_sensitivity * m_sensitivity * _xoffset;
+	m_phi += m_sensitivity * m_sensitivity * _yoffset;
 
-	m_yaw   += _xoffset;
-	m_pitch += _yoffset;
+	m_eye.x = m_radius * cos(m_phi) * sin(m_theta);
+	m_eye.y = m_radius * sin(m_phi) * sin(m_theta);
+	m_eye.z = m_radius * cos(m_theta);
 
-	// Make sure that when pitch is out of bounds, screen doesn't get flipped
-	if (_constrainPitch)
-	{
-		if (m_pitch > 89.0f)
-			m_pitch = 89.0f;
-		if (m_pitch < -89.0f)
-			m_pitch = -89.0f;
-	}
-
-	// Update Front, Right and Up Vectors using the updated Eular angles
 	updateCameraVectors();
 }
 
