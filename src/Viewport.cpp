@@ -60,7 +60,7 @@ void Viewport::initializeGL()
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_BLEND);
 
-	glm::vec3 from(-2.0, 2.0, -2.0);
+	glm::vec3 from(-1.0, 0.0, -1.0);
 	glm::vec3 to(0.0, 0.0, 0.0);
 	glm::vec3 up(0.0, 1.0, 0.0);
 	m_cam.set(from, to, up);

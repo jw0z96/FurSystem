@@ -97,7 +97,7 @@ void MeshRenderable::cleanupVAO()
 
 void MeshRenderable::draw()
 {
-	std::cout<<"drawing "<<this<<" & "<<m_indices<<" VAO indices\n";
+	// std::cout<<"drawing "<<this<<" & "<<m_indices<<" VAO indices\n";
 	glBindVertexArray(m_VAO);
 	// check OpenGL error
 	GLenum err;

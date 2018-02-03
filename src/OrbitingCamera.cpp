@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cmath>
 
+#define M_HALF_PI 1.57079632679
+
 OrbitingCamera::OrbitingCamera(glm::vec3 _eye, glm::vec3 _look, glm::vec3 _up) :
 	m_eye(_eye),
 	m_look(_look),
@@ -42,10 +44,19 @@ void OrbitingCamera::move(float _x, float _y,float _deltaTime)
 	updateCameraVectors();
 }
 
-void OrbitingCamera::processMouseMovement(float _xoffset, float _yoffset, bool _constrainPitch ) noexcept
+void OrbitingCamera::processMouseMovement(float _xoffset, float _yoffset, bool _constrainPitch) noexcept
 {
-	m_theta += m_sensitivity * m_sensitivity * _xoffset;
-	m_phi += m_sensitivity * m_sensitivity * _yoffset;
+	m_theta += m_sensitivity * _xoffset;
+	m_phi += m_sensitivity * _yoffset;
+
+	if (_constrainPitch)
+	{
+		float pitchLimit = 0.1;
+		if (m_phi >= M_HALF_PI - pitchLimit)
+			m_phi = M_HALF_PI - pitchLimit;
+		else if (m_phi <= -M_HALF_PI + pitchLimit)
+			m_phi = -M_HALF_PI + pitchLimit;
+	}
 
 	calculateOrbitPos();
 	updateCameraVectors();
@@ -54,14 +65,13 @@ void OrbitingCamera::processMouseMovement(float _xoffset, float _yoffset, bool _
 void OrbitingCamera::processMouseScroll(float _yoffset) noexcept
 {
 	m_radius += _yoffset;
-
 	calculateOrbitPos();
 	updateCameraVectors();
 }
 
 void OrbitingCamera::calculateOrbitPos() noexcept
 {
-	m_eye.x = m_radius * cos(m_phi) * sin(m_theta);
-	m_eye.y = m_radius * sin(m_phi) * sin(m_theta);
-	m_eye.z = m_radius * cos(m_theta);
+	m_eye.x = m_radius * sin(m_theta) * cos(m_phi);
+	m_eye.y = m_radius * sin(m_phi);
+	m_eye.z = m_radius * cos(m_theta) * cos(m_phi);
 }
