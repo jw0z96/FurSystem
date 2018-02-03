@@ -23,7 +23,7 @@ MeshRenderable::MeshRenderable(Mesh const &_mesh) : m_mesh(_mesh)
 
 MeshRenderable::~MeshRenderable()
 {
-	std::cout<<"~MeshRenderable\n";
+	std::cout<<"~MeshRenderable "<<this<<"\n";
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ void MeshRenderable::cleanupVAO()
 
 void MeshRenderable::draw()
 {
-	std::cout<<"drawing "<<m_indices<<" VAO indices\n";
+	std::cout<<"drawing "<<this<<" & "<<m_indices<<" VAO indices\n";
 	glBindVertexArray(m_VAO);
 	// check OpenGL error
 	GLenum err;
@@ -105,4 +105,12 @@ void MeshRenderable::draw()
 		std::cout << "OpenGL error: " << err << std::endl;
 	glDrawArrays(GL_TRIANGLES, 0, m_indices);
 	glBindVertexArray(0);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void MeshRenderable::setMesh(Mesh const &_mesh)
+{
+	m_mesh = _mesh;
+	isVAOConstructed = false;
 }

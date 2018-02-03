@@ -13,6 +13,12 @@ MeshRendererModel::MeshRendererModel()
 	m_meshRenderable = std::make_shared<MeshRenderable>();
 }
 
+MeshRendererModel::~MeshRendererModel()
+{
+	std::cout<<"~MeshRenderable, setting "<<m_meshRenderable<<" to be deleted\n";
+	m_meshRenderable->setToBeDeleted();
+}
+
 unsigned int MeshRendererModel::nPorts(PortType portType) const
 {
 	unsigned int result = 1;
@@ -55,17 +61,14 @@ void MeshRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 
 	if (_nodeData) // connected
 	{
-		// deregister the current renderable from the viewport
-		RenderableManager::getInstance()->deregisterRenderable(m_meshRenderable);
-		auto d = std::static_pointer_cast<MeshData>(_nodeData);
-		// TODO: this calls delete on the MeshRenderable, which should be used to clear VAOS
-		m_meshRenderable = std::make_shared<MeshRenderable>(d->mesh());
-		std::cout<<"register the renderable with the viewport\n";
+		// register the renderable with the RenderableManager if it isn't already
 		RenderableManager::getInstance()->registerRenderable(m_meshRenderable);
+		auto d = std::static_pointer_cast<MeshData>(_nodeData);
+		m_meshRenderable->setMesh(d->mesh());
+		m_meshRenderable->setVisibility(true);
 	}
 	else // disconnected
 	{
-		std::cout<<"set renderable to be deleted\n";
-		m_meshRenderable->setToBeDeleted();
+		m_meshRenderable->setVisibility(false);
 	}
 }

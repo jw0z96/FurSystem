@@ -28,7 +28,9 @@ RenderableManager::~RenderableManager()
 
 void RenderableManager::registerRenderable(std::shared_ptr<Renderable> _renderable)
 {
-	m_renderables.push_back(_renderable);
+	// add a renderable to the vector providing it does not already exist in the vector
+	if (std::find(m_renderables.begin(), m_renderables.end(), _renderable) == m_renderables.end())
+		m_renderables.push_back(_renderable);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -36,19 +38,29 @@ void RenderableManager::registerRenderable(std::shared_ptr<Renderable> _renderab
 void RenderableManager::deregisterRenderable(std::shared_ptr<Renderable> _renderable)
 {
 	m_renderables.erase(std::remove(m_renderables.begin(), m_renderables.end(), _renderable), m_renderables.end());
+	std::cout<<"deregistered "<<_renderable<<"\n";
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
 void RenderableManager::cleanupRenderables()
 {
+	// temporary vector of the renderables to be deleted so we dont remove items
+	// from the m_renderables vector as we iterate through it.
+	std::vector<std::shared_ptr<Renderable>> renderablesToBeDeleted;
+
 	for (auto renderable : m_renderables)
 	{
 		if (renderable->getToBeDeleted())
 		{
 			renderable->cleanupVAO();
-			deregisterRenderable(renderable);
+			renderablesToBeDeleted.push_back(renderable);
 		}
+	}
+
+	for (auto deletedRenderable : renderablesToBeDeleted)
+	{
+		deregisterRenderable(deletedRenderable);
 	}
 }
 
@@ -69,20 +81,23 @@ void RenderableManager::drawRenderables()
 {
 	for (auto renderable : m_renderables)
 	{
-		switch(renderable->getType())
+		if (renderable->getVisibility())
 		{
-			case MESH:
-				std::cout<<"MESH draw call\n";
-				meshShader.use();
-				loadMatricesToShader(meshShader.getID());
-				glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(glm::vec3(0.0, 1.0, 0.0)));
-				renderable->draw();
-				break;
-			case DEFAULT:
-				std::cout<<"DEFAULT draw call\n";
-				break;
-			default:
-				std::cout<<"fall through draw call\n";
+			switch(renderable->getType())
+			{
+				case MESH:
+					// std::cout<<"MESH draw call\n";
+					meshShader.use();
+					loadMatricesToShader(meshShader.getID());
+					glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(glm::vec3(0.0, 1.0, 0.0)));
+					renderable->draw();
+					break;
+				case DEFAULT:
+					// std::cout<<"DEFAULT draw call\n";
+					break;
+				default:
+					std::cout<<"fall through draw call\n";
+			}
 		}
 	}
 }
