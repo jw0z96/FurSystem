@@ -8,15 +8,28 @@
 #include "MeshData.h"
 #include "RenderableManager.h"
 
-MeshRendererModel::MeshRendererModel()
+MeshRendererModel::MeshRendererModel() :
+	m_embedded(new QWidget()),
+	m_ui(new Ui::MeshRendererModelWidget())
 {
+	// setup ui
+	m_ui->setupUi(m_embedded);
+	// auto style = nodeStyle();
+	// connect colour controls
+	connect(m_ui->redAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
+	connect(m_ui->greenAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
+	connect(m_ui->blueAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
+
 	m_meshRenderable = std::make_shared<MeshRenderable>();
 }
 
 MeshRendererModel::~MeshRendererModel()
 {
-	std::cout<<"~MeshRenderable, setting "<<m_meshRenderable<<" to be deleted\n";
+	std::cout<<"~MeshRendererModel, setting "<<m_meshRenderable<<" to be deleted\n";
 	m_meshRenderable->setToBeDeleted();
+	delete m_ui;
+	// delete m_embedded; // for some reason these causes crash
+	// m_embedded->deleteLater();
 }
 
 unsigned int MeshRendererModel::nPorts(PortType portType) const
@@ -41,6 +54,8 @@ unsigned int MeshRendererModel::nPorts(PortType portType) const
 
 bool MeshRendererModel::eventFilter(QObject *object, QEvent *event)
 {
+	if (object == m_embedded)
+		m_embedded->setFocusPolicy(Qt::StrongFocus);
 	return false;
 }
 
@@ -71,4 +86,13 @@ void MeshRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 	{
 		m_meshRenderable->setVisibility(false);
 	}
+}
+
+void MeshRendererModel::setColour()
+{
+	glm::vec3 col;
+	col.x = m_ui->redAmountDoubleSpinBox->value();
+	col.y = m_ui->greenAmountDoubleSpinBox->value();
+	col.z = m_ui->blueAmountDoubleSpinBox->value();
+	m_meshRenderable->setColour(col);
 }

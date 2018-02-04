@@ -7,16 +7,7 @@ MeshRenderable::MeshRenderable()
 	m_VBO = 0;
 	m_indices = 0;
 	m_mesh = Mesh();
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
-MeshRenderable::MeshRenderable(Mesh const &_mesh) : m_mesh(_mesh)
-{
-	std::cout<<"MeshRenderable(Mesh const &_mesh)\n";
-	m_VAO = 0;
-	m_VBO = 0;
-	m_indices = 0;
+	m_colour = glm::vec3(1.0, 0.0, 0.0);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -113,4 +104,11 @@ void MeshRenderable::setMesh(Mesh const &_mesh)
 {
 	m_mesh = _mesh;
 	isVAOConstructed = false;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void MeshRenderable::setColour(glm::vec3 const &_col)
+{
+	m_colour = _col;
 }

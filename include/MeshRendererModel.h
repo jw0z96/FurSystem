@@ -3,6 +3,8 @@
 
 #include "MeshRenderable.h"
 
+#include "widgets/MeshRendererModelWidget.h"
+
 #include <iostream>
 
 #include <QtCore/QObject>
@@ -50,9 +52,15 @@ class MeshRendererModel : public NodeDataModel
 		//----------------------------------------------------------------------------------------------------------------------
 		void setInData(std::shared_ptr<NodeData> nodeData, PortIndex port) override;
 		//----------------------------------------------------------------------------------------------------------------------
-		QWidget* embeddedWidget() override {return NULL;};
+		QWidget* embeddedWidget() override {return m_embedded;};
 		//----------------------------------------------------------------------------------------------------------------------
 		bool resizable() const override {return false;};
+
+	public slots:
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief set the colour of our renderable
+		//----------------------------------------------------------------------------------------------------------------------
+		void setColour();
 
 	protected:
 		//----------------------------------------------------------------------------------------------------------------------
@@ -69,6 +77,11 @@ class MeshRendererModel : public NodeDataModel
 		/// @brief node data
 		//----------------------------------------------------------------------------------------------------------------------
 		std::shared_ptr<NodeData> _nodeData;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief m_embedded, m_ui our qt ui widget and contents from the ui file
+		//----------------------------------------------------------------------------------------------------------------------
+		QWidget* m_embedded;
+		Ui::MeshRendererModelWidget* m_ui;
 };
 
 #endif // MESHRENDERERMODEL_H

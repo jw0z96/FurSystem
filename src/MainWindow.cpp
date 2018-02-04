@@ -1,5 +1,5 @@
 #include "MainWindow.h"
-#include "ui_MainWindow.h"
+#include "widgets/ui_MainWindow.h"
 #include "ObjMeshModel.h"
 #include "MeshRendererModel.h"
 

@@ -12,7 +12,7 @@
 Viewport::Viewport(QWidget* _parent) : QOpenGLWidget(_parent)
 {
 	// set this widget to have the initial keyboard focus
-	setFocusPolicy (Qt::StrongFocus);
+	setFocusPolicy(Qt::StrongFocus);
 	this->resize(_parent->size());
 	m_timer.start();
 	// startTimer(10);

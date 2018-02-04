@@ -1,5 +1,7 @@
 #include "RenderableManager.h"
 
+#include "MeshRenderable.h"
+
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/ext.hpp>
 
@@ -79,6 +81,8 @@ void RenderableManager::constructRenderables()
 
 void RenderableManager::drawRenderables()
 {
+	glm::vec3 col;
+
 	for (auto renderable : m_renderables)
 	{
 		if (renderable->getVisibility())
@@ -86,14 +90,14 @@ void RenderableManager::drawRenderables()
 			switch(renderable->getType())
 			{
 				case MESH:
-					// std::cout<<"MESH draw call\n";
 					meshShader.use();
 					loadMatricesToShader(meshShader.getID());
-					glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(glm::vec3(0.0, 1.0, 0.0)));
+					col = std::static_pointer_cast<MeshRenderable>(renderable)->getColour();
+					glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(col));
+					// std::cout<<"MESH draw call\n";
 					renderable->draw();
 					break;
 				case DEFAULT:
-					// std::cout<<"DEFAULT draw call\n";
 					break;
 				default:
 					std::cout<<"fall through draw call\n";
