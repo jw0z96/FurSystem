@@ -2,6 +2,8 @@
 #include "widgets/ui_MainWindow.h"
 #include "ObjMeshModel.h"
 #include "MeshRendererModel.h"
+#include "CurvesRendererModel.h"
+#include "DistributorModel.h"
 
 #include "nodeeditor/DataModelRegistry.hpp"
 
@@ -12,6 +14,8 @@ static std::shared_ptr<DataModelRegistry> registerDataModels()
 	auto ret = std::make_shared<DataModelRegistry>();
 	ret->registerModel<ObjMeshModel>();
 	ret->registerModel<MeshRendererModel>();
+	ret->registerModel<CurvesRendererModel>();
+	ret->registerModel<DistributorModel>();
 	return ret;
 }
 

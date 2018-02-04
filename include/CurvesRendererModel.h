@@ -1,76 +1,87 @@
-#ifndef RENDERABLE_H
-#define RENDERABLE_H
+#ifndef CURVESRENDERERMODEL_H
+#define CURVESRENDERERMODEL_H
+
+#include "CurvesRenderable.h"
+
+#include "widgets/MeshRendererModelWidget.h"
 
 #include <iostream>
 
-enum renderableType
-{
-	DEFAULT,
-	CURVES,
-	MESH
-};
+#include <QtCore/QObject>
+#include <QtWidgets/QLabel>
 
-class Renderable
+#include "nodeeditor/DataModelRegistry.hpp"
+#include "nodeeditor/NodeDataModel.hpp"
+
+using QtNodes::PortType;
+using QtNodes::PortIndex;
+using QtNodes::NodeData;
+using QtNodes::NodeDataType;
+using QtNodes::NodeDataModel;
+using QtNodes::NodeValidationState;
+
+class CurvesRendererModel : public NodeDataModel
 {
+	Q_OBJECT
+
 	public:
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief constructor
 		//----------------------------------------------------------------------------------------------------------------------
-		Renderable(){std::cout<<"Renderable()\n";}
+		CurvesRendererModel();
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief destructor
 		//----------------------------------------------------------------------------------------------------------------------
-		~Renderable(){}
+		~CurvesRendererModel();
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief draw this renderable
+		/// @brief overrides for NodeDataModel
 		//----------------------------------------------------------------------------------------------------------------------
-		virtual void draw(){}
+		QString caption() const override {return QString("Draw Curves");};
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief get the type of this renderable
+		QString name() const override {return QString("CurvesRendererModel");};
 		//----------------------------------------------------------------------------------------------------------------------
-		virtual renderableType getType() const {return DEFAULT;}
+		std::unique_ptr<NodeDataModel> clone() const override {return std::make_unique<CurvesRendererModel>();};
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief draw this renderable
+		virtual QString modelName() const {return QString("Rendered Curves");};
 		//----------------------------------------------------------------------------------------------------------------------
-		virtual void generateVAO(){}
+		unsigned int nPorts(PortType portType) const override;
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief delete the VAO for the renderable
+		NodeDataType dataType(PortType portType, PortIndex portIndex) const override;
 		//----------------------------------------------------------------------------------------------------------------------
-		virtual void cleanupVAO(){}
+		std::shared_ptr<NodeData> outData(PortIndex port) override;
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief return whether the VAO is constructed
+		void setInData(std::shared_ptr<NodeData> nodeData, PortIndex port) override;
 		//----------------------------------------------------------------------------------------------------------------------
-		bool getVAOConstructed() const {return isVAOConstructed;}
+		QWidget* embeddedWidget() override {return m_embedded;};
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief return whether the VAO is to be deleted
+		bool resizable() const override {return false;};
+
+	public slots:
 		//----------------------------------------------------------------------------------------------------------------------
-		bool getToBeDeleted() const {return toBeDeleted;}
+		/// @brief set the colour of our renderable
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief set whether the VAO is to be deleted
-		//----------------------------------------------------------------------------------------------------------------------
-		void setToBeDeleted() {toBeDeleted = true;}
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief set whether the renderable is to be drawn
-		//----------------------------------------------------------------------------------------------------------------------
-		void setVisibility(bool _visibility) {visibility = _visibility;}
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief get whether the renderable is to be drawn
-		//----------------------------------------------------------------------------------------------------------------------
-		bool getVisibility() const {return visibility;}
+		void setColour();
 
 	protected:
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief whether the VAO is constructed
+		/// @brief event filter gets whether we clicked in the node
 		//----------------------------------------------------------------------------------------------------------------------
-		bool isVAOConstructed = false;
+		bool eventFilter(QObject *object, QEvent *event) override;
+
+	private:
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief whether the VAO is to be deleted
+		/// @brief renderable mesh object
 		//----------------------------------------------------------------------------------------------------------------------
-		bool toBeDeleted = false;
+		std::shared_ptr<CurvesRenderable> m_curvesRenderable;
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief whether the renderable is to be drawn
+		/// @brief node data
 		//----------------------------------------------------------------------------------------------------------------------
-		bool visibility = false;
+		std::shared_ptr<NodeData> _nodeData;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief m_embedded, m_ui our qt ui widget and contents from the ui file
+		//----------------------------------------------------------------------------------------------------------------------
+		QWidget* m_embedded;
+		Ui::MeshRendererModelWidget* m_ui;
 };
 
-#endif // RENDERABLE_H
+#endif // CURVESRENDERERMODEL_H
