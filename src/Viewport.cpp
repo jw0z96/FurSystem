@@ -54,7 +54,6 @@ void Viewport::initializeGL()
 
 	// Grey Background
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-	// enable depth testing for drawing
 	glEnable(GL_DEPTH_TEST);
 	// enable multisampling for smoother drawing
 	glEnable(GL_MULTISAMPLE);
@@ -64,11 +63,11 @@ void Viewport::initializeGL()
 	glm::vec3 to(0.0, 0.0, 0.0);
 	glm::vec3 up(0.0, 1.0, 0.0);
 	m_cam.set(from, to, up);
-	// set the shape using FOV 45 Aspect Ratio based on Width and Height
-	// The final two are near and far clipping planes of 0.5 and 10
 	m_cam.setProjection(45.0f,(float)1024/720,1.0f,1000.0f);
-	// as re-size is not explicitly called we need to do this.
+
 	glViewport(0,0,width(),height());
+
+	RenderableManager::getInstance()->registerViewport(this);
 }
 
 //----------------------------------------------------------------------------------------------------------------------

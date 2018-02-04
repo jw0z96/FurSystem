@@ -28,7 +28,7 @@ MeshRendererModel::~MeshRendererModel()
 	std::cout<<"~MeshRendererModel, setting "<<m_meshRenderable<<" to be deleted\n";
 	m_meshRenderable->setToBeDeleted();
 	delete m_ui;
-	// delete m_embedded; // for some reason these causes crash
+	// delete m_embedded; // for some reason these cause crash
 	// m_embedded->deleteLater();
 }
 
@@ -81,10 +81,12 @@ void MeshRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 		auto d = std::static_pointer_cast<MeshData>(_nodeData);
 		m_meshRenderable->setMesh(d->mesh());
 		m_meshRenderable->setVisibility(true);
+		RenderableManager::getInstance()->updateViewport();
 	}
 	else // disconnected
 	{
 		m_meshRenderable->setVisibility(false);
+		RenderableManager::getInstance()->updateViewport();
 	}
 }
 
@@ -95,4 +97,5 @@ void MeshRendererModel::setColour()
 	col.y = m_ui->greenAmountDoubleSpinBox->value();
 	col.z = m_ui->blueAmountDoubleSpinBox->value();
 	m_meshRenderable->setColour(col);
+	RenderableManager::getInstance()->updateViewport();
 }
