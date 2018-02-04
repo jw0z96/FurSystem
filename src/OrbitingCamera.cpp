@@ -46,7 +46,7 @@ void OrbitingCamera::move(float _x, float _y,float _deltaTime)
 
 void OrbitingCamera::processMouseMovement(float _xoffset, float _yoffset, bool _constrainPitch) noexcept
 {
-	m_theta += m_sensitivity * _xoffset;
+	m_theta -= m_sensitivity * _xoffset;
 	m_phi += m_sensitivity * _yoffset;
 
 	if (_constrainPitch)
