@@ -13,7 +13,7 @@ DistributorModel::DistributorModel()
 		Curve curve;
 		for (int j = 0; j < 5; ++j)
 		{
-			curve.vertices[j] = glm::vec3((i + j) / 10.0, i / 10.0, (i - j) / 10.0);
+			curve.vertices[j] = glm::vec3((i + j) / 10.0, i / 10.0, (i - j * j) / 10.0);
 		}
 		m_curves.m_curves.push_back(curve);
 	}
@@ -90,7 +90,7 @@ void DistributorModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 			Curve curve;
 			for (int j = 0; j < 5; ++j)
 			{
-				curve.vertices[j] = glm::vec3((i + j) / 10.0, i / 10.0, (i - j) / 10.0);
+				curve.vertices[j] = glm::vec3((i + j) / 10.0, i / 10.0, (i - j * j) / 10.0);
 			}
 			m_curves.m_curves.push_back(curve);
 		}
