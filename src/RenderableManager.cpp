@@ -26,6 +26,8 @@ RenderableManager::RenderableManager()
 RenderableManager::~RenderableManager()
 {
 	std::cout<<"~RenderableManager\n";
+	meshShader.cleanUp();
+	curvesShader.cleanUp();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
