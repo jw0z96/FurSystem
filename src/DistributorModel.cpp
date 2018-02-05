@@ -7,7 +7,16 @@
 
 DistributorModel::DistributorModel()
 {
-	m_curves = std::make_shared<Curves>();
+	m_curves = Curves();
+	for (int i = 0; i < 10; ++i)
+	{
+		Curve curve;
+		for (int j = 0; j < 5; ++j)
+		{
+			curve.vertices[j] = glm::vec3((i + j) / 10.0, i / 10.0, (i - j) / 10.0);
+		}
+		m_curves.m_curves.push_back(curve);
+	}
 }
 
 DistributorModel::~DistributorModel() {}
@@ -66,7 +75,7 @@ NodeDataType DistributorModel::dataType(PortType portType, PortIndex portIndex) 
 
 std::shared_ptr<NodeData> DistributorModel::outData(PortIndex)
 {
-	return _nodeData;
+	return std::make_shared<CurvesData>(m_curves);
 }
 
 void DistributorModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
@@ -75,16 +84,21 @@ void DistributorModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 
 	if (_nodeData) // connected or updated
 	{
-		// register the renderable with the RenderableManager if it isn't already
-		// RenderableManager::getInstance()->registerRenderable(m_meshRenderable);
-		// auto d = std::static_pointer_cast<MeshData>(_nodeData);
-		// m_meshRenderable->setMesh(d->mesh());
-		// m_meshRenderable->setVisibility(true);
-		// RenderableManager::getInstance()->updateViewport();
+		m_curves.m_curves.clear();
+		for (int i = 0; i < 10; ++i)
+		{
+			Curve curve;
+			for (int j = 0; j < 5; ++j)
+			{
+				curve.vertices[j] = glm::vec3((i + j) / 10.0, i / 10.0, (i - j) / 10.0);
+			}
+			m_curves.m_curves.push_back(curve);
+		}
 	}
 	else // disconnected
 	{
-		// m_meshRenderable->setVisibility(false);
-		// RenderableManager::getInstance()->updateViewport();
+		m_curves.m_curves.clear();
 	}
+
+	emit dataUpdated(0);
 }

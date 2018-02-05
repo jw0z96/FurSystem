@@ -1,6 +1,7 @@
 #include "RenderableManager.h"
 
 #include "MeshRenderable.h"
+#include "CurvesRenderable.h"
 
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/ext.hpp>
@@ -17,6 +18,7 @@ RenderableManager* RenderableManager::m_instance = NULL;
 RenderableManager::RenderableManager()
 {
 	meshShader = Shader("shaders/meshShader_vert.glsl", "shaders/meshShader_frag.glsl");
+	curvesShader = Shader("shaders/curvesShader_vert.glsl", "shaders/curvesShader_frag.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -90,15 +92,26 @@ void RenderableManager::drawRenderables()
 			switch(renderable->getType())
 			{
 				case MESH:
+					// std::cout<<"MESH draw call\n";
 					meshShader.use();
 					loadMatricesToShader(meshShader.getID());
 					col = std::static_pointer_cast<MeshRenderable>(renderable)->getColour();
 					glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(col));
-					// std::cout<<"MESH draw call\n";
 					renderable->draw();
 					break;
+
+				case CURVES:
+					// std::cout<<"CURVES draw call\n";
+					curvesShader.use();
+					loadMatricesToShader(curvesShader.getID());
+					col = std::static_pointer_cast<CurvesRenderable>(renderable)->getColour();
+					glUniform3fv(glGetUniformLocation(curvesShader.getID(), "colour"), 1, glm::value_ptr(col));
+					renderable->draw();
+					break;
+
 				case DEFAULT:
 					break;
+
 				default:
 					std::cout<<"fall through draw call\n";
 			}

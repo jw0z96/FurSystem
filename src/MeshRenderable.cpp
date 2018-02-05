@@ -21,8 +21,6 @@ MeshRenderable::~MeshRenderable()
 
 void MeshRenderable::generateVAO()
 {
-	std::cout<<"generating VAO\n";
-
 	std::vector<Vertex> vertices;
 	for (auto face : m_mesh.m_faces)
 	{
@@ -36,8 +34,6 @@ void MeshRenderable::generateVAO()
 	}
 
 	m_indices = vertices.size();
-
-	std::cout<<m_indices<<" indices\n";
 
 	if (m_VAO)
 		glDeleteVertexArrays(1, &m_VAO);
