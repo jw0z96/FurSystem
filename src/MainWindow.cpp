@@ -6,8 +6,10 @@
 #include "DistributorModel.h"
 
 #include "nodeeditor/DataModelRegistry.hpp"
+#include "nodeeditor/ConnectionStyle.hpp"
 
 using QtNodes::DataModelRegistry;
+using QtNodes::ConnectionStyle;
 
 static std::shared_ptr<DataModelRegistry> registerDataModels()
 {
@@ -17,6 +19,18 @@ static std::shared_ptr<DataModelRegistry> registerDataModels()
 	ret->registerModel<CurvesRendererModel>();
 	ret->registerModel<DistributorModel>();
 	return ret;
+}
+
+static void setStyle()
+{
+	ConnectionStyle::setConnectionStyle(
+		R"(
+		{
+			"ConnectionStyle": {
+				"UseDataDefinedColors": true
+			}
+		}
+		)");
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -29,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	m_gl = new Viewport(this);
 	m_ui->mainWindowGridLayout->addWidget(m_gl, 0, 0, 1, 1);
 	// create node graph widget
+	::setStyle();
 	m_nodes = new FlowScene(registerDataModels());
 	m_flowView = new FlowView(m_nodes);
 
