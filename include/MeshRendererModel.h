@@ -38,7 +38,7 @@ class MeshRendererModel : public NodeDataModel
 		//----------------------------------------------------------------------------------------------------------------------
 		QString caption() const override {return QString("Draw Mesh");};
 		//----------------------------------------------------------------------------------------------------------------------
-		QString name() const override {return QString("MeshRendererModel");};
+		QString name() const override {return QString("Mesh Renderer");};
 		//----------------------------------------------------------------------------------------------------------------------
 		std::unique_ptr<NodeDataModel> clone() const override {return std::make_unique<MeshRendererModel>();};
 		//----------------------------------------------------------------------------------------------------------------------

@@ -64,7 +64,8 @@ void OrbitingCamera::processMouseMovement(float _xoffset, float _yoffset, bool _
 
 void OrbitingCamera::processMouseScroll(float _yoffset) noexcept
 {
-	m_radius += _yoffset;
+	if ((m_radius + _yoffset) >= 0.0) // ensure radius isn't negative
+		m_radius += _yoffset;
 	calculateOrbitPos();
 	updateCameraVectors();
 }

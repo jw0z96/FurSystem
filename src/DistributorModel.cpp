@@ -115,7 +115,7 @@ void DistributorModel::distribute()
 		Curve curve;
 		for (int j = 0; j < 5; ++j)
 		{
-			curve.vertices[j] = basePos + (float(j) * baseNorm * 0.01f);
+			curve.vertices[j] = basePos + (float(j) * baseNorm * 0.1f);
 		}
 		m_curves.m_curves.push_back(curve);
 	}

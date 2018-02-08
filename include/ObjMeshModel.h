@@ -36,7 +36,7 @@ class ObjMeshModel : public NodeDataModel
 		//----------------------------------------------------------------------------------------------------------------------
 		QString caption() const override {return QString("Load Obj Mesh");};
 		//----------------------------------------------------------------------------------------------------------------------
-		QString name() const override {return QString("ObjMeshModel");};
+		QString name() const override {return QString("Obj Mesh Loader");};
 		//----------------------------------------------------------------------------------------------------------------------
 		std::unique_ptr<NodeDataModel> clone() const override {return std::make_unique<ObjMeshModel>();};
 		//----------------------------------------------------------------------------------------------------------------------

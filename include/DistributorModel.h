@@ -37,7 +37,7 @@ class DistributorModel : public NodeDataModel
 		//----------------------------------------------------------------------------------------------------------------------
 		QString caption() const override {return QString("Disribute curves on Mesh");};
 		//----------------------------------------------------------------------------------------------------------------------
-		QString name() const override {return QString("DistributorModel");};
+		QString name() const override {return QString("Distributor");};
 		//----------------------------------------------------------------------------------------------------------------------
 		std::unique_ptr<NodeDataModel> clone() const override {return std::make_unique<DistributorModel>();};
 		//----------------------------------------------------------------------------------------------------------------------
