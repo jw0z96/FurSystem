@@ -84,21 +84,40 @@ void DistributorModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 
 	if (_nodeData) // connected or updated
 	{
-		m_curves.m_curves.clear();
-		for (int i = 0; i < 10; ++i)
-		{
-			Curve curve;
-			for (int j = 0; j < 5; ++j)
-			{
-				curve.vertices[j] = glm::vec3((i + j) / 10.0, i / 10.0, (i - j * j) / 10.0);
-			}
-			m_curves.m_curves.push_back(curve);
-		}
+		m_mesh = std::static_pointer_cast<MeshData>(_nodeData)->mesh();
+		distribute();
 	}
 	else // disconnected
 	{
 		m_curves.m_curves.clear();
+		m_mesh = Mesh();
 	}
 
 	emit dataUpdated(0);
+}
+
+void DistributorModel::distribute()
+{
+	m_curves.m_curves.clear();
+
+	for (auto face : m_mesh.m_faces)
+	{
+		glm::vec3 basePos = m_mesh.m_vertexPositions[face.pos[0]];
+		basePos += m_mesh.m_vertexPositions[face.pos[1]];
+		basePos += m_mesh.m_vertexPositions[face.pos[2]];
+		basePos /= 3.0;
+
+		glm::vec3 baseNorm = m_mesh.m_vertexNormals[face.normal[0]];
+		baseNorm += m_mesh.m_vertexNormals[face.normal[1]];
+		baseNorm += m_mesh.m_vertexNormals[face.normal[2]];
+		baseNorm = glm::normalize(baseNorm);
+
+		Curve curve;
+		for (int j = 0; j < 5; ++j)
+		{
+			curve.vertices[j] = basePos + (float(j) * baseNorm * 0.01f);
+		}
+		m_curves.m_curves.push_back(curve);
+	}
+
 }
