@@ -75,15 +75,13 @@ void AbstractCurveOperatorModel::setInData(std::shared_ptr<NodeData> nodeData, P
 
 	if (_nodeData) // connected or updated
 	{
-		// resetCurves();
-		operateCurves();
+		updateCurves();
 	}
 	else // disconnected
 	{
 		m_curves = Curves();
+		emit dataUpdated(0);
 	}
-
-	emit dataUpdated(0);
 }
 
 void AbstractCurveOperatorModel::operateCurves()
@@ -93,4 +91,11 @@ void AbstractCurveOperatorModel::operateCurves()
 void AbstractCurveOperatorModel::resetCurves()
 {
 	m_curves = std::static_pointer_cast<CurvesData>(_nodeData)->curves();
+}
+
+void AbstractCurveOperatorModel::updateCurves()
+{
+	resetCurves();
+	operateCurves();
+	emit dataUpdated(0);
 }

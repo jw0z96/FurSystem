@@ -8,7 +8,7 @@ BendCurveOperatorModel::BendCurveOperatorModel() :
 	m_spinbox->setSingleStep(0.01);
 	m_spinbox->setValue(0.1);
 
-	connect(m_spinbox, SIGNAL(valueChanged(double)), this, SLOT(operateCurves()));
+	connect(m_spinbox, SIGNAL(valueChanged(double)), this, SLOT(updateCurves()));
 
 	m_curves = Curves();
 }
@@ -35,6 +35,4 @@ void BendCurveOperatorModel::operateCurves()
 			curve.vertices[j] += float(j) * float(j) * intensity * bendDirection;
 		}
 	}
-
-	emit dataUpdated(0);
 }
