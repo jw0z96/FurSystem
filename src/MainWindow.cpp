@@ -4,6 +4,7 @@
 #include "MeshRendererModel.h"
 #include "CurvesRendererModel.h"
 #include "BasicDistributorModel.h"
+#include "RandomDistributorModel.h"
 #include "BendCurveOperatorModel.h"
 
 #include "nodeeditor/DataModelRegistry.hpp"
@@ -19,6 +20,7 @@ static std::shared_ptr<DataModelRegistry> registerDataModels()
 	ret->registerModel<MeshRendererModel>("Renderers");
 	ret->registerModel<CurvesRendererModel>("Renderers");
 	ret->registerModel<BasicDistributorModel>("Distributors");
+	ret->registerModel<RandomDistributorModel>("Distributors");
 	ret->registerModel<BendCurveOperatorModel>("Curve Operators");
 	return ret;
 }
