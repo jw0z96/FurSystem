@@ -1,13 +1,13 @@
-#include "DistributorModel.h"
+#include "BasicDistributorModel.h"
 
-DistributorModel::DistributorModel()
+BasicDistributorModel::BasicDistributorModel()
 {
 	m_curves = Curves();
 }
 
-DistributorModel::~DistributorModel() {}
+BasicDistributorModel::~BasicDistributorModel() {}
 
-void DistributorModel::distribute()
+void BasicDistributorModel::distribute()
 {
 	m_curves.m_curves.clear();
 

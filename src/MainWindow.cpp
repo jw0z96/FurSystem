@@ -3,7 +3,7 @@
 #include "ObjMeshModel.h"
 #include "MeshRendererModel.h"
 #include "CurvesRendererModel.h"
-#include "DistributorModel.h"
+#include "BasicDistributorModel.h"
 #include "BendCurveOperatorModel.h"
 
 #include "nodeeditor/DataModelRegistry.hpp"
@@ -18,7 +18,7 @@ static std::shared_ptr<DataModelRegistry> registerDataModels()
 	ret->registerModel<ObjMeshModel>();
 	ret->registerModel<MeshRendererModel>();
 	ret->registerModel<CurvesRendererModel>();
-	ret->registerModel<DistributorModel>();
+	ret->registerModel<BasicDistributorModel>();
 	ret->registerModel<BendCurveOperatorModel>();
 	return ret;
 }

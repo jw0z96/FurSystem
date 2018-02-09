@@ -1,9 +1,9 @@
-#ifndef DISTRIBUTORMODEL_H
-#define DISTRIBUTORMODEL_H
+#ifndef BASICDISTRIBUTORMODEL_H
+#define BASICDISTRIBUTORMODEL_H
 
 #include "AbstractDistributorModel.h"
 
-class DistributorModel : public AbstractDistributorModel
+class BasicDistributorModel : public AbstractDistributorModel
 {
 	Q_OBJECT
 
@@ -11,23 +11,24 @@ class DistributorModel : public AbstractDistributorModel
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief constructor
 		//----------------------------------------------------------------------------------------------------------------------
-		DistributorModel();
+		BasicDistributorModel();
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief destructor
 		//----------------------------------------------------------------------------------------------------------------------
-		~DistributorModel();
+		~BasicDistributorModel();
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief overrides for NodeDataModel
 		//----------------------------------------------------------------------------------------------------------------------
 		QString caption() const override {return QString("Disribute curves on Mesh");};
 		//----------------------------------------------------------------------------------------------------------------------
-		QString name() const override {return QString("Distributor");};
+		QString name() const override {return QString("Basic Distributor");};
 		//----------------------------------------------------------------------------------------------------------------------
-		std::unique_ptr<NodeDataModel> clone() const override {return std::make_unique<DistributorModel>();};
+		std::unique_ptr<NodeDataModel> clone() const override {return std::make_unique<BasicDistributorModel>();};
 		//----------------------------------------------------------------------------------------------------------------------
 		virtual QString modelName() const {return QString("Distributed Curves");};
 		//----------------------------------------------------------------------------------------------------------------------
 
+	private:
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief distribute curves on the mesh
 		//----------------------------------------------------------------------------------------------------------------------
@@ -35,4 +36,4 @@ class DistributorModel : public AbstractDistributorModel
 
 };
 
-#endif // DISTRIBUTORMODEL_H
+#endif // BASICDISTRIBUTORMODEL_H
