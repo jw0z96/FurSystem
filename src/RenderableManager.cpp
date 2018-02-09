@@ -26,8 +26,19 @@ RenderableManager::RenderableManager()
 RenderableManager::~RenderableManager()
 {
 	std::cout<<"~RenderableManager\n";
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void RenderableManager::cleanUpAll()
+{
 	meshShader.cleanUp();
 	curvesShader.cleanUp();
+
+	for (auto renderable : m_renderables)
+	{
+		renderable->cleanupVAO();
+	}
 }
 
 //----------------------------------------------------------------------------------------------------------------------

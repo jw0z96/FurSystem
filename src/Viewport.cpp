@@ -23,6 +23,7 @@ Viewport::Viewport(QWidget* _parent) : QOpenGLWidget(_parent)
 Viewport::~Viewport()
 {
 	std::cout<<"~Viewport\n";
+	RenderableManager::getInstance()->cleanUpAll();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
