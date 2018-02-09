@@ -15,11 +15,11 @@ using QtNodes::ConnectionStyle;
 static std::shared_ptr<DataModelRegistry> registerDataModels()
 {
 	auto ret = std::make_shared<DataModelRegistry>();
-	ret->registerModel<ObjMeshModel>();
-	ret->registerModel<MeshRendererModel>();
-	ret->registerModel<CurvesRendererModel>();
-	ret->registerModel<BasicDistributorModel>();
-	ret->registerModel<BendCurveOperatorModel>();
+	ret->registerModel<ObjMeshModel>("Mesh Loaders");
+	ret->registerModel<MeshRendererModel>("Renderers");
+	ret->registerModel<CurvesRendererModel>("Renderers");
+	ret->registerModel<BasicDistributorModel>("Distributors");
+	ret->registerModel<BendCurveOperatorModel>("Curve Operators");
 	return ret;
 }
 
