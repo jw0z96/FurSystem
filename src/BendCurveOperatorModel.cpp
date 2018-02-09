@@ -26,8 +26,6 @@ void BendCurveOperatorModel::operateCurves()
 
 	float intensity = m_spinbox->value();
 
-	std::cout<<"bending: "<<m_curves.m_curves.size()<<"\n";
-
 	for (auto &curve : m_curves.m_curves)
 	{
 		for (unsigned int j = 1; j < 5; ++j)
