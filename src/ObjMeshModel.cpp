@@ -23,6 +23,8 @@ ObjMeshModel::ObjMeshModel() :
 	m_label->setFixedSize(200, 50);
 	m_label->setWordWrap(true);
 	m_label->installEventFilter(this);
+	m_meshLoaded = false;
+	m_mesh = Mesh();
 }
 
 unsigned int ObjMeshModel::nPorts(PortType portType) const
@@ -59,8 +61,8 @@ bool ObjMeshModel::eventFilter(QObject *object, QEvent *event)
 
 			m_label->setText(fileName);
 
-			// TODO: load obj to _mesh
-			if(loadObj(fileName)) //obj was loaded successfully
+			m_meshLoaded = loadObj(fileName);
+			if(m_meshLoaded) //obj was loaded successfully
 				emit dataUpdated(0);
 
 			return true;
@@ -78,6 +80,31 @@ std::shared_ptr<NodeData> ObjMeshModel::outData(PortIndex)
 {
 	return std::make_shared<MeshData>(m_mesh);
 }
+
+QJsonObject ObjMeshModel::save() const
+{
+	QJsonObject modelJson = NodeDataModel::save();
+
+	if (m_meshLoaded)
+		modelJson["label"] = QString(m_label->text());
+
+	return modelJson;
+}
+
+void ObjMeshModel::restore(QJsonObject const &p)
+{
+	QJsonValue v = p["label"];
+
+	if (!v.isUndefined())
+	{
+		QString fileName = v.toString();
+		m_label->setText(fileName);
+		m_meshLoaded = loadObj(fileName);
+		if(m_meshLoaded) //obj was loaded successfully
+			emit dataUpdated(0);
+	}
+}
+
 
 bool ObjMeshModel::loadObj(QString _file)
 {

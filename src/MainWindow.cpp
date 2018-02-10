@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
 	delete m_ui;
-	// delete m_gl;
+	delete m_gl;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *_event)
@@ -67,6 +67,8 @@ void MainWindow::keyPressEvent(QKeyEvent *_event)
 	{
 		// escape key to quit
 		case Qt::Key_Escape : QGuiApplication::exit(EXIT_SUCCESS); break;
+		case Qt::Key_S : m_nodes->save(); break;
+		case Qt::Key_L : m_nodes->load(); break;
 		default: break;
 	}
 }
