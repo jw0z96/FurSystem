@@ -42,3 +42,5 @@ isEqual(QT_MAJOR_VERSION, 5) {
 
 LIBS+=-lboost_system
 LIBS+=-lGLEW
+
+QMAKE_CXXFLAGS += -Wold-style-cast

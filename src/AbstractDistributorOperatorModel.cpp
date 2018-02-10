@@ -76,6 +76,7 @@ void AbstractDistributorModel::setInData(std::shared_ptr<NodeData> nodeData, Por
 	if (_nodeData) // connected or updated
 	{
 		m_mesh = std::static_pointer_cast<MeshData>(_nodeData)->mesh();
+		meshChanged();
 		updateDistribution();
 	}
 	else // disconnected
@@ -91,9 +92,14 @@ void AbstractDistributorModel::distribute()
 {
 }
 
+void AbstractDistributorModel::meshChanged()
+{
+}
+
 void AbstractDistributorModel::updateDistribution()
 {
 	m_curves.m_curves.clear();
 	distribute();
 	emit dataUpdated(0);
 }
+
