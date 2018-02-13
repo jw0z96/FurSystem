@@ -1,5 +1,7 @@
 #include "ComputeManager.h"
 
+#include <iostream>
+
 //----------------------------------------------------------------------------------------------------------------------
 
 ComputeManager* ComputeManager::m_instance = NULL;
