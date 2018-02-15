@@ -1,11 +1,9 @@
-#ifndef RANDOMDISTRIBUTORMODEL_H
-#define RANDOMDISTRIBUTORMODEL_H
+#ifndef RANDOMCOMPUTESHADERDISTRIBUTORMODEL_H
+#define RANDOMCOMPUTESHADERDISTRIBUTORMODEL_H
 
-#include "AbstractDistributorModel.h"
+#include "RandomDistributorModel.h"
 
-#include <QtWidgets/QSpinBox>
-
-class RandomDistributorModel : public AbstractDistributorModel
+class RandomComputeShaderDistributorModel : public RandomDistributorModel
 {
 	Q_OBJECT
 
@@ -13,26 +11,26 @@ class RandomDistributorModel : public AbstractDistributorModel
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief constructor
 		//----------------------------------------------------------------------------------------------------------------------
-		RandomDistributorModel();
+		RandomComputeShaderDistributorModel();
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief destructor
 		//----------------------------------------------------------------------------------------------------------------------
-		~RandomDistributorModel();
+		~RandomComputeShaderDistributorModel();
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief overrides for NodeDataModel
 		//----------------------------------------------------------------------------------------------------------------------
 		QString caption() const override {return QString("Disribute random curves on Mesh");};
 		//----------------------------------------------------------------------------------------------------------------------
-		QString name() const override {return QString("Random Distributor");};
+		QString name() const override {return QString("Random Distributor (Compute Shader)");};
 		//----------------------------------------------------------------------------------------------------------------------
-		std::unique_ptr<NodeDataModel> clone() const override {return std::make_unique<RandomDistributorModel>();};
+		std::unique_ptr<NodeDataModel> clone() const override {return std::make_unique<RandomComputeShaderDistributorModel>();};
 		//----------------------------------------------------------------------------------------------------------------------
 		virtual QString modelName() const {return QString("Distributed Curves");};
 		//----------------------------------------------------------------------------------------------------------------------
 		QWidget* embeddedWidget() override {return m_spinbox;};
 		//----------------------------------------------------------------------------------------------------------------------
 
-	protected:
+	private:
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief recalculate the mesh area
 		//----------------------------------------------------------------------------------------------------------------------
@@ -42,18 +40,9 @@ class RandomDistributorModel : public AbstractDistributorModel
 		//----------------------------------------------------------------------------------------------------------------------
 		void distribute() override;
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief spinbox to control intensity (temporary)
+		/// @brief SSBO ID
 		//----------------------------------------------------------------------------------------------------------------------
-		QSpinBox* m_spinbox;
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief calculate the total mesh area
-		//----------------------------------------------------------------------------------------------------------------------
-		float calculateMeshArea() const;
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief the total mesh area
-		//----------------------------------------------------------------------------------------------------------------------
-		float m_totalMeshArea;
-
+		unsigned int m_MeshSSBOID;
 };
 
-#endif // RANDOMDISTRIBUTORMODEL_H
+#endif // RANDOMCOMPUTESHADERDISTRIBUTORMODEL_H

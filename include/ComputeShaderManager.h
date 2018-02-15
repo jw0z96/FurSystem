@@ -1,33 +1,37 @@
-#ifndef COMPUTEMANAGER_H
-#define COMPUTEMANAGER_H
+#ifndef COMPUTESHADERMANAGER_H
+#define COMPUTESHADERMANAGER_H
 
 #include <GL/glew.h>
 
-class ComputeManager
+class ComputeShaderManager
 {
 	private:
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief private dummy constructor for the singleton
 		//----------------------------------------------------------------------------------------------------------------------
-		ComputeManager();
+		ComputeShaderManager();
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief our singleton instance
 		//----------------------------------------------------------------------------------------------------------------------
-		static ComputeManager* m_instance;
+		static ComputeShaderManager* m_instance;
 
 	public:
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief get the singleton instance
 		//----------------------------------------------------------------------------------------------------------------------
-		static ComputeManager* getInstance() {if (!m_instance){m_instance = new ComputeManager();} return m_instance;}
+		static ComputeShaderManager* getInstance() {if (!m_instance){m_instance = new ComputeShaderManager();} return m_instance;}
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief dtor
 		//----------------------------------------------------------------------------------------------------------------------
-		~ComputeManager();
+		~ComputeShaderManager();
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief delete all shaders
 		//----------------------------------------------------------------------------------------------------------------------
 		void cleanUpAll();
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief create an SSBO for a mesh
+		//----------------------------------------------------------------------------------------------------------------------
+		void registerMesh();
 
 	private:
 		//----------------------------------------------------------------------------------------------------------------------
@@ -36,4 +40,4 @@ class ComputeManager
 		// Shader meshShader, curvesShader;
 };
 
-#endif // COMPUTEMANAGER_H
+#endif // COMPUTESHADERMANAGER_H

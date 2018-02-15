@@ -1,26 +1,33 @@
-#include "ComputeManager.h"
+#include "ComputeShaderManager.h"
 
 #include <iostream>
 
 //----------------------------------------------------------------------------------------------------------------------
 
-ComputeManager* ComputeManager::m_instance = NULL;
+ComputeShaderManager* ComputeShaderManager::m_instance = NULL;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-ComputeManager::ComputeManager()
+ComputeShaderManager::ComputeShaderManager()
 {
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-ComputeManager::~ComputeManager()
+ComputeShaderManager::~ComputeShaderManager()
 {
-	std::cout<<"~ComputeManager\n";
+	std::cout<<"~ComputeShaderManager\n";
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void ComputeManager::cleanUpAll()
+void ComputeShaderManager::cleanUpAll()
 {
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void ComputeShaderManager::registerMesh()
+{
+	std::cout<<"creating an SSBO\n";
 }
