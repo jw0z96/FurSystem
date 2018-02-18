@@ -13,7 +13,7 @@ RandomComputeShaderDistributorModel::~RandomComputeShaderDistributorModel() {}
 void RandomComputeShaderDistributorModel::meshChanged()
 {
 	std::cout<<"update SSBO for mesh here\n";
-	ComputeShaderManager::getInstance()->registerMesh();
+	ComputeShaderManager::getInstance()->createMeshSSBO(m_MeshSSBOID, m_mesh);
 	RandomDistributorModel::meshChanged();
 }
 

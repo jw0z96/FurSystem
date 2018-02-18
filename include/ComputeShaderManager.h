@@ -1,6 +1,8 @@
 #ifndef COMPUTESHADERMANAGER_H
 #define COMPUTESHADERMANAGER_H
 
+#include "Mesh.h"
+
 #include <GL/glew.h>
 
 class ComputeShaderManager
@@ -31,7 +33,7 @@ class ComputeShaderManager
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief create an SSBO for a mesh
 		//----------------------------------------------------------------------------------------------------------------------
-		void registerMesh();
+		void createMeshSSBO(unsigned int &buffer, Mesh &mesh);
 
 	private:
 		//----------------------------------------------------------------------------------------------------------------------
