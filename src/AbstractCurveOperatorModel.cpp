@@ -5,6 +5,8 @@
 #include "MeshData.h"
 #include "CurvesData.h"
 
+#include "ComputeShaderManager.h"
+
 AbstractCurveOperatorModel::AbstractCurveOperatorModel()
 {
 	m_curves = Curves();
@@ -66,7 +68,19 @@ NodeDataType AbstractCurveOperatorModel::dataType(PortType portType, PortIndex p
 
 std::shared_ptr<NodeData> AbstractCurveOperatorModel::outData(PortIndex)
 {
-	return std::make_shared<CurvesData>(m_curves);
+	switch (std::static_pointer_cast<CurvesData>(_nodeData)->curveType())
+	{
+		case CPU:
+			return std::make_shared<CurvesData>(m_curves);
+			break;
+
+		case SSBO:
+			return std::make_shared<CurvesData>(m_curvesSSBO);
+			break;
+	}
+
+	// FIXME: control may reach end of non-void function [-Wreturn-type]
+	// return std::make_shared<CurvesData>(m_curves);
 }
 
 void AbstractCurveOperatorModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
@@ -90,12 +104,14 @@ void AbstractCurveOperatorModel::operateCurves()
 
 void AbstractCurveOperatorModel::resetCurves()
 {
-	m_curves = std::static_pointer_cast<CurvesData>(_nodeData)->curves();
+	auto data = std::static_pointer_cast<CurvesData>(_nodeData);
+	m_curves = data->curves();
+	ComputeShaderManager::getInstance()->copyCurvesSSBO(data->curvesSSBO(), m_curvesSSBO);
 }
 
 void AbstractCurveOperatorModel::updateCurves()
 {
-	resetCurves();
+	// resetCurves();
 	operateCurves();
 	emit dataUpdated(0);
 }

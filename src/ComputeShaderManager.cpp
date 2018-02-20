@@ -25,13 +25,29 @@ ComputeShaderManager::~ComputeShaderManager()
 
 void ComputeShaderManager::cleanUpAll()
 {
+	// delete compute shaders
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void ComputeShaderManager::createCurvesSSBO(unsigned int &buffer, unsigned int _count)
+{
+	std::cout<<"creating an SSBO for curves\n";
+
+	if (buffer)
+		glDeleteBuffers(1, &buffer);
+
+	glGenBuffers(1, &buffer);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, buffer);
+	// use glBufferData to allocate all 5*count vec3 or infer from curves object
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
 void ComputeShaderManager::createMeshSSBO(unsigned int &buffer, Mesh &mesh)
 {
-	std::cout<<"creating an SSBO\n";
+	std::cout<<"creating an SSBO for mesh\n";
 
 	if (buffer)
 		glDeleteBuffers(1, &buffer);
@@ -64,4 +80,14 @@ void ComputeShaderManager::createMeshSSBO(unsigned int &buffer, Mesh &mesh)
 
 	// glBufferData(GL_SHADER_STORAGE_BUFFER, size, data, usage);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void ComputeShaderManager::copyCurvesSSBO(unsigned int src, unsigned int &dst)
+{
+	std::cout<<"copying an SSBO into another\n";
+	// first check if dst is a buffer
+	// then check if they are equal sized
+	// then glCopyBufferSubData
 }

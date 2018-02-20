@@ -1,5 +1,7 @@
 #include "BendCurveOperatorModel.h"
 
+#include "CurvesData.h"
+
 BendCurveOperatorModel::BendCurveOperatorModel() :
 	m_spinbox(new QDoubleSpinBox())
 {
@@ -22,15 +24,25 @@ void BendCurveOperatorModel::operateCurves()
 {
 	AbstractCurveOperatorModel::resetCurves();
 
+	float intensity = m_spinbox->value();
 	glm::vec3 bendDirection = glm::vec3(0.0, -1.0, 0.0);
 
-	float intensity = m_spinbox->value();
-
-	for (auto &curve : m_curves.m_curves)
+	switch (std::static_pointer_cast<CurvesData>(_nodeData)->curveType())
 	{
-		for (unsigned int j = 1; j < 5; ++j)
-		{
-			curve.vertices[j] += float(j) * float(j) * intensity * bendDirection;
-		}
+		case CPU:
+			for (auto &curve : m_curves.m_curves)
+			{
+				for (unsigned int j = 1; j < 5; ++j)
+				{
+					curve.vertices[j] += float(j) * float(j) * intensity * bendDirection;
+				}
+			}
+			break;
+
+		case SSBO:
+			std::cout<<"processing SSBO\n";
+			// ComputeShaderManager::getInstance()->bendOperator(m_curvesSSBOID);
+			break;
 	}
+
 }
