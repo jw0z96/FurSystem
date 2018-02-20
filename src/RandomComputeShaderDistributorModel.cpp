@@ -27,6 +27,7 @@ void RandomComputeShaderDistributorModel::meshChanged()
 void RandomComputeShaderDistributorModel::distribute()
 {
 	RandomDistributorModel::distribute();
+	// this function needs to create / resize m_curvesSSBOID
 	// ComputeShaderManager::getInstance()->randomDistribution(m_meshSSBOID, m_curvesSSBOID);
 }
 
