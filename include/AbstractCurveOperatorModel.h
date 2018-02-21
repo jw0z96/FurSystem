@@ -2,6 +2,7 @@
 #define ABSTRACTCURVEOPERATORMODEL_H
 
 #include "Curves.h"
+#include "CurvesData.h"
 
 #include <iostream>
 
@@ -76,7 +77,7 @@ class AbstractCurveOperatorModel : public NodeDataModel
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief node data
 		//----------------------------------------------------------------------------------------------------------------------
-		std::shared_ptr<NodeData> _nodeData;
+		std::shared_ptr<CurvesData> _nodeData;
 };
 
 #endif // ABSTRACTCURVEOPERATORMODEL_H

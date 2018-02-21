@@ -22,8 +22,6 @@ BendCurveOperatorModel::~BendCurveOperatorModel()
 
 void BendCurveOperatorModel::operateCurves()
 {
-	AbstractCurveOperatorModel::resetCurves();
-
 	float intensity = m_spinbox->value();
 	glm::vec3 bendDirection = glm::vec3(0.0, -1.0, 0.0);
 

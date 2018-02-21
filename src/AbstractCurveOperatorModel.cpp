@@ -3,13 +3,13 @@
 #include <QtCore/QEvent>
 
 #include "MeshData.h"
-#include "CurvesData.h"
 
 #include "ComputeShaderManager.h"
 
 AbstractCurveOperatorModel::AbstractCurveOperatorModel()
 {
 	m_curves = Curves();
+	_nodeData = nullptr;
 }
 
 AbstractCurveOperatorModel::~AbstractCurveOperatorModel() {}
@@ -68,24 +68,28 @@ NodeDataType AbstractCurveOperatorModel::dataType(PortType portType, PortIndex p
 
 std::shared_ptr<NodeData> AbstractCurveOperatorModel::outData(PortIndex)
 {
-	switch (std::static_pointer_cast<CurvesData>(_nodeData)->curveType())
+	if(_nodeData) // so we dont die if nothing is connected to the input
 	{
-		case CPU:
-			return std::make_shared<CurvesData>(m_curves);
-			break;
+		switch (std::static_pointer_cast<CurvesData>(_nodeData)->curveType())
+		{
+			case CPU:
+				return std::make_shared<CurvesData>(m_curves);
+				break;
 
-		case SSBO:
-			return std::make_shared<CurvesData>(m_curvesSSBO);
-			break;
+			case SSBO:
+				return std::make_shared<CurvesData>(m_curvesSSBO);
+				break;
+		}
 	}
 
-	// FIXME: control may reach end of non-void function [-Wreturn-type]
-	// return std::make_shared<CurvesData>(m_curves);
+	// TODO: what do we do if nothing is connected???
+	return std::make_shared<CurvesData>(m_curves);
 }
 
 void AbstractCurveOperatorModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 {
-	_nodeData = nodeData;
+	if(nodeData)
+		_nodeData = std::static_pointer_cast<CurvesData>(nodeData);
 
 	if (_nodeData) // connected or updated
 	{
@@ -94,6 +98,7 @@ void AbstractCurveOperatorModel::setInData(std::shared_ptr<NodeData> nodeData, P
 	else // disconnected
 	{
 		m_curves = Curves();
+		// clear ssbo???
 		emit dataUpdated(0);
 	}
 }
@@ -104,14 +109,21 @@ void AbstractCurveOperatorModel::operateCurves()
 
 void AbstractCurveOperatorModel::resetCurves()
 {
-	auto data = std::static_pointer_cast<CurvesData>(_nodeData);
-	m_curves = data->curves();
-	ComputeShaderManager::getInstance()->copyCurvesSSBO(data->curvesSSBO(), m_curvesSSBO);
+	switch (_nodeData->curveType())
+	{
+		case CPU:
+			m_curves = _nodeData->curves();
+			break;
+
+		case SSBO:
+			ComputeShaderManager::getInstance()->copyCurvesSSBO(_nodeData->curvesSSBO(), m_curvesSSBO);
+			break;
+	}
 }
 
 void AbstractCurveOperatorModel::updateCurves()
 {
-	// resetCurves();
+	resetCurves();
 	operateCurves();
 	emit dataUpdated(0);
 }

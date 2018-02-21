@@ -21,14 +21,19 @@ void RandomComputeShaderDistributorModel::meshChanged()
 {
 	std::cout<<"update SSBO for mesh here\n";
 	ComputeShaderManager::getInstance()->createMeshSSBO(m_meshSSBOID, m_mesh);
-	RandomDistributorModel::meshChanged();
+	RandomDistributorModel::meshChanged(); // recalculate the mesh area
 }
 
 void RandomComputeShaderDistributorModel::distribute()
 {
-	RandomDistributorModel::distribute();
 	// this function needs to create / resize m_curvesSSBOID
-	// ComputeShaderManager::getInstance()->randomDistribution(m_meshSSBOID, m_curvesSSBOID);
+	ComputeShaderManager::getInstance()->randomDistribution(
+		m_meshSSBOID,
+		m_curvesSSBOID,
+		m_spinbox->value(),
+		m_mesh.m_faces.size(),
+		m_totalMeshArea
+		);
 }
 
 std::shared_ptr<NodeData> RandomComputeShaderDistributorModel::outData(PortIndex)

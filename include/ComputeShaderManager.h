@@ -2,6 +2,7 @@
 #define COMPUTESHADERMANAGER_H
 
 #include "Mesh.h"
+#include "Shader.h"
 
 #include <GL/glew.h>
 
@@ -43,11 +44,16 @@ class ComputeShaderManager
 		//----------------------------------------------------------------------------------------------------------------------
 		void copyCurvesSSBO(unsigned int src, unsigned int &dst);
 
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief copy Curves SSBO
+		//----------------------------------------------------------------------------------------------------------------------
+		void randomDistribution(unsigned int &meshSSBO, unsigned int &curvesSSBO, unsigned int curveCount, unsigned int faceCount, float meshArea);
+
 	private:
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief our compute shaders
 		//----------------------------------------------------------------------------------------------------------------------
-		// Shader meshShader, curvesShader;
+		Shader randomDistributionShader;
 };
 
 #endif // COMPUTESHADERMANAGER_H
