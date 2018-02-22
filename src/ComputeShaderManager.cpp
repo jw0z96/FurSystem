@@ -168,5 +168,8 @@ void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned i
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, meshSSBO);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, curvesSSBO);
 
-	// glDispatchCompute(1, 1, 1);
+	// int work_grp_cnt;
+	// glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &work_grp_cnt);
+	// glDispatchCompute(work_grp_cnt, 1, 1);
+	glDispatchCompute((int(curveCount) / 128) + 1, 1, 1);
 }
