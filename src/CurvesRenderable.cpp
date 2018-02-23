@@ -1,10 +1,14 @@
 #include "CurvesRenderable.h"
 
+#include "ComputeShaderManager.h"
+
 CurvesRenderable::CurvesRenderable()
 {
 	std::cout<<"CurvesRenderable()\n";
-	m_VAO = 0;
-	m_VBO = 0;
+	// m_VAO = 0;
+	// m_VBO = 0;
+	m_emptyVAO = 0;
+	m_SSBO = 0;
 	m_curves = Curves();
 	m_colour = glm::vec3(1.0, 0.0, 0.0);
 }
@@ -18,62 +22,58 @@ CurvesRenderable::~CurvesRenderable()
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void CurvesRenderable::generateVAO()
+void CurvesRenderable::generate()
 {
-	std::vector<glm::vec3> vertices;
-	for (auto curve : m_curves.m_curves)
+	switch (m_curveType)
 	{
-		// push back pairs of vertices since GL_LINES draws 2 vertices at a time
-		for (int i = 0; i < 4; ++i)
-		{
-			vertices.push_back(curve.vertices[i]);
-			vertices.push_back(curve.vertices[i + 1]);
-		}
+		case CPU:
+			ComputeShaderManager::getInstance()->createCurvesSSBO(m_SSBO, m_curves);
+			m_indices = m_curves.m_curves.size();
+			break;
+
+		case SSBO:
+			GLuint newId = 0;
+			ComputeShaderManager::getInstance()->copyCurvesSSBO(m_SSBO, newId);
+			m_SSBO = newId;
+			// get size of curves buffer
+			GLint SSBOSize = 0;
+			glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_SSBO);
+			glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &SSBOSize);
+			glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+			std::cout<<"SSBO size : "<<SSBOSize<<"\n";
+			m_indices = SSBOSize / (sizeof(glm::vec4) * 5);
+			std::cout<<"m_indices from SSBO size : "<<m_indices<<"\n";
+			break;
 	}
 
-	m_indices = vertices.size();
+	if (m_emptyVAO)
+		glDeleteVertexArrays(1, &m_emptyVAO);
 
-	if (m_VAO)
-		glDeleteVertexArrays(1, &m_VAO);
-	if (m_VBO)
-		glDeleteBuffers(1, &m_VBO);
-
-	glGenVertexArrays(1, &m_VAO);
-	glBindVertexArray(m_VAO);
-
-	glGenBuffers(1, &m_VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
-
-	// vertex positions
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	// create empty vao for procedural geometry
+	glGenVertexArrays(1, &m_emptyVAO); // Create our Vertex Array Object
+	glBindVertexArray(m_emptyVAO); // Bind our Vertex Array Object so we can use it
 	glBindVertexArray(0);
 
-	// check OpenGL error
-	GLenum err;
-	while ((err = glGetError()) != GL_NO_ERROR)
-		std::cout << "OpenGL error: " << err << std::endl;
-
-	std::cout<<"created VAO: "<<m_VAO<<" and VBO: "<<m_VBO<<"\n";
-	isVAOConstructed = true;
+	isConstructed = true;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void CurvesRenderable::cleanupVAO()
+void CurvesRenderable::cleanUp()
 {
-	if (isVAOConstructed)
+	if (isConstructed)
 	{
-		std::cout<<"deleting VAO: "<<m_VAO<<" and VBO: "<<m_VBO<<"\n";
-		if (m_VAO)
-			glDeleteVertexArrays(1, &m_VAO);
-		if (m_VBO)
-			glDeleteBuffers(1, &m_VBO);
-		isVAOConstructed = false;
+		// std::cout<<"deleting VAO: "<<m_VAO<<" and VBO: "<<m_VBO<<"\n";
+		// if (m_VAO)
+		// 	glDeleteVertexArrays(1, &m_VAO);
+		// if (m_VBO)
+		// 	glDeleteBuffers(1, &m_VBO);
+		if (m_SSBO)
+			glDeleteBuffers(1, &m_SSBO);
+		if (m_emptyVAO)
+			glDeleteVertexArrays(1, &m_emptyVAO);
+
+		isConstructed = false;
 	}
 }
 
@@ -81,14 +81,37 @@ void CurvesRenderable::cleanupVAO()
 
 void CurvesRenderable::draw()
 {
-	// std::cout<<"drawing "<<this<<" & "<<m_indices<<" VAO indices\n";
-	glBindVertexArray(m_VAO);
+	std::cout<<"drawing "<<this<<" & "<<m_indices<<" indices of "<<m_SSBO<<"\n";
+
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, m_SSBO);
+
+	glBindVertexArray(m_emptyVAO);
+
+	glLineWidth(2.5);
+	std::cout<<"drawing\n";
+	glDrawArrays(GL_LINES, 0, m_indices);
+	std::cout<<"done drawing\n";
+
 	// check OpenGL error
 	GLenum err;
 	while ((err = glGetError()) != GL_NO_ERROR)
 		std::cout << "OpenGL error: " << err << std::endl;
-	glDrawArrays(GL_LINES, 0, m_indices);
+
 	glBindVertexArray(0);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void CurvesRenderable::setSSBO(GLuint _SSBO)
+{
+	m_SSBO = _SSBO;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void CurvesRenderable::setCurveType(CurveType _type)
+{
+	m_curveType = _type;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -96,7 +119,7 @@ void CurvesRenderable::draw()
 void CurvesRenderable::setCurves(Curves const &_curves)
 {
 	m_curves = _curves;
-	isVAOConstructed = false;
+	isConstructed = false;
 }
 
 //----------------------------------------------------------------------------------------------------------------------

@@ -32,7 +32,7 @@ void ComputeShaderManager::cleanUpAll()
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void ComputeShaderManager::createCurvesSSBO(unsigned int &buffer, unsigned int _count)
+void ComputeShaderManager::createCurvesSSBO(unsigned int &buffer, Curves _curves)
 {
 	std::cout<<"creating an SSBO for curves\n";
 
@@ -41,11 +41,36 @@ void ComputeShaderManager::createCurvesSSBO(unsigned int &buffer, unsigned int _
 
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, buffer);
+
+	std::vector<glm::vec4> curvesData;
+	for (auto curve : _curves.m_curves)
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			curvesData.push_back(glm::vec4(curve.vertices[i], 0.0));
+		}
+	}
 	// use glBufferData to allocate all 5*count vec3 or infer from curves object
-	// TODO: don't init with NULL
-	glBufferData(GL_SHADER_STORAGE_BUFFER, 5 * _count * sizeof(glm::vec3(0.0)), NULL, GL_DYNAMIC_COPY);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, curvesData.size() * sizeof(glm::vec4(0.0)), &curvesData[0], GL_DYNAMIC_COPY);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+
+// void ComputeShaderManager::createCurvesSSBO(unsigned int &buffer, unsigned int _count)
+// {
+// 	std::cout<<"creating an SSBO for curves\n";
+
+// 	if (buffer)
+// 		glDeleteBuffers(1, &buffer);
+
+// 	glGenBuffers(1, &buffer);
+// 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, buffer);
+// 	// use glBufferData to allocate all 5*count vec3 or infer from curves object
+// 	// TODO: don't init with NULL
+// 	glBufferData(GL_SHADER_STORAGE_BUFFER, 5 * _count * sizeof(glm::vec4(0.0)), NULL, GL_DYNAMIC_COPY);
+// 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+// }
 
 //----------------------------------------------------------------------------------------------------------------------
 

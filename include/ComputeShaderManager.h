@@ -1,6 +1,7 @@
 #ifndef COMPUTESHADERMANAGER_H
 #define COMPUTESHADERMANAGER_H
 
+#include "Curves.h"
 #include "Mesh.h"
 #include "Shader.h"
 
@@ -34,7 +35,8 @@ class ComputeShaderManager
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief create an SSBO for a mesh
 		//----------------------------------------------------------------------------------------------------------------------
-		void createCurvesSSBO(unsigned int &buffer, unsigned int _count);
+		// void createCurvesSSBO(unsigned int &buffer, unsigned int _count);
+		void createCurvesSSBO(unsigned int &buffer, Curves _curves);
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief create an SSBO for a mesh
 		//----------------------------------------------------------------------------------------------------------------------

@@ -76,7 +76,9 @@ void CurvesRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortInde
 		// register the renderable with the RenderableManager if it isn't already
 		RenderableManager::getInstance()->registerRenderable(m_curvesRenderable);
 		auto d = std::static_pointer_cast<CurvesData>(_nodeData);
+		m_curvesRenderable->setCurveType(d->curveType());
 		m_curvesRenderable->setCurves(d->curves());
+		m_curvesRenderable->setSSBO(d->curvesSSBO());
 		m_curvesRenderable->setVisibility(true);
 		RenderableManager::getInstance()->updateViewport();
 	}

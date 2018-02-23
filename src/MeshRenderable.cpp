@@ -19,7 +19,7 @@ MeshRenderable::~MeshRenderable()
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void MeshRenderable::generateVAO()
+void MeshRenderable::generate()
 {
 	std::vector<Vertex> vertices;
 	for (auto face : m_mesh.m_faces)
@@ -62,21 +62,21 @@ void MeshRenderable::generateVAO()
 	glBindVertexArray(0);
 
 	std::cout<<"created VAO: "<<m_VAO<<" and VBO: "<<m_VBO<<"\n";
-	isVAOConstructed = true;
+	isConstructed = true;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void MeshRenderable::cleanupVAO()
+void MeshRenderable::cleanUp()
 {
-	if (isVAOConstructed)
+	if (isConstructed)
 	{
 		std::cout<<"deleting VAO: "<<m_VAO<<" and VBO: "<<m_VBO<<"\n";
 		if (m_VAO)
 			glDeleteVertexArrays(1, &m_VAO);
 		if (m_VBO)
 			glDeleteBuffers(1, &m_VBO);
-		isVAOConstructed = false;
+		isConstructed = false;
 	}
 }
 
@@ -99,7 +99,7 @@ void MeshRenderable::draw()
 void MeshRenderable::setMesh(Mesh const &_mesh)
 {
 	m_mesh = _mesh;
-	isVAOConstructed = false;
+	isConstructed = false;
 }
 
 //----------------------------------------------------------------------------------------------------------------------

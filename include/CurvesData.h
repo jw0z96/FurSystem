@@ -8,12 +8,6 @@
 using QtNodes::NodeData;
 using QtNodes::NodeDataType;
 
-enum CurveType
-{
-	CPU,
-	SSBO
-};
-
 class CurvesData : public NodeData
 {
 	public:
@@ -24,11 +18,11 @@ class CurvesData : public NodeData
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief constructor with curve input
 		//----------------------------------------------------------------------------------------------------------------------
-		CurvesData(Curves const &_curves) : m_curves(_curves), m_curveType(CPU) {}
+		CurvesData(Curves const &_curves) : m_curves(_curves), m_curvesSSBO(0), m_curveType(CPU) {}
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief constructor with curve input
 		//----------------------------------------------------------------------------------------------------------------------
-		CurvesData(unsigned int const &_ssbo) : m_curvesSSBO(_ssbo), m_curveType(SSBO) {}
+		CurvesData(unsigned int const &_ssbo) : m_curves(Curves()), m_curvesSSBO(_ssbo), m_curveType(SSBO) {}
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief return the datatype
 		//----------------------------------------------------------------------------------------------------------------------
@@ -56,7 +50,7 @@ class CurvesData : public NodeData
 		//----------------------------------------------------------------------------------------------------------------------
 		unsigned int m_curvesSSBO;
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief m_curvesSSBO The curves shader storage buffer object
+		/// @brief m_curveType The compute type of the curves
 		//----------------------------------------------------------------------------------------------------------------------
 		CurveType m_curveType;
 };

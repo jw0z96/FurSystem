@@ -18,7 +18,8 @@ RenderableManager* RenderableManager::m_instance = NULL;
 RenderableManager::RenderableManager()
 {
 	meshShader = Shader("shaders/meshShader_vert.glsl", "shaders/meshShader_frag.glsl");
-	curvesShader = Shader("shaders/curvesShader_vert.glsl", "shaders/curvesShader_frag.glsl");
+	// curvesShader = Shader("shaders/curvesShader_vert.glsl", "shaders/curvesShader_frag.glsl");
+	curvesShader = Shader("shaders/render/newcurvesShader_vert.glsl", "shaders/render/newcurvesShader_frag.glsl", "shaders/render/newcurvesShader_geo.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -37,7 +38,7 @@ void RenderableManager::cleanUpAll()
 
 	for (auto renderable : m_renderables)
 	{
-		renderable->cleanupVAO();
+		renderable->cleanUp();
 	}
 }
 
@@ -70,7 +71,7 @@ void RenderableManager::cleanupRenderables()
 	{
 		if (renderable->getToBeDeleted())
 		{
-			renderable->cleanupVAO();
+			renderable->cleanUp();
 			renderablesToBeDeleted.push_back(renderable);
 		}
 	}
@@ -87,8 +88,8 @@ void RenderableManager::constructRenderables()
 {
 	for (auto renderable : m_renderables)
 	{
-		if (!renderable->getVAOConstructed())
-			renderable->generateVAO();
+		if (!renderable->getConstructed())
+			renderable->generate();
 	}
 }
 
