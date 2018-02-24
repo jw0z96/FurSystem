@@ -8,7 +8,7 @@ uniform mat4 MV;
 uniform mat4 MVP;
 uniform mat3 normalMatrix; // This is the inverse transpose of the mv matrix
 uniform vec3 camPos;
-uniform vec3 colour;
+uniform vec3 u_colour;
 
 smooth in vec3 WorldPos;
 smooth in vec3 Normal;
@@ -18,5 +18,5 @@ void main()
 {
 	vec3 view = normalize(camPos - WorldPos);
 	float ndotv = max(dot(Normal, view), 0.0);
-	fragColor = vec4(colour * ndotv, 1.0);
+	fragColor = vec4(u_colour * ndotv, 1.0);
 }

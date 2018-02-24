@@ -109,7 +109,7 @@ void RenderableManager::drawRenderables()
 					meshShader.use();
 					loadMatricesToShader(meshShader.getID());
 					col = std::static_pointer_cast<MeshRenderable>(renderable)->getColour();
-					glUniform3fv(glGetUniformLocation(meshShader.getID(), "colour"), 1, glm::value_ptr(col));
+					glUniform3fv(glGetUniformLocation(meshShader.getID(), "u_colour"), 1, glm::value_ptr(col));
 					renderable->draw();
 					break;
 
@@ -117,8 +117,10 @@ void RenderableManager::drawRenderables()
 					// std::cout<<"CURVES draw call\n";
 					curvesShader.use();
 					loadMatricesToShader(curvesShader.getID());
-					col = std::static_pointer_cast<CurvesRenderable>(renderable)->getColour();
-					glUniform3fv(glGetUniformLocation(curvesShader.getID(), "colour"), 1, glm::value_ptr(col));
+					// auto r = std::static_pointer_cast<CurvesRenderable>(renderable);
+					// col = std::static_pointer_cast<CurvesRenderable>(renderable)->getColour();
+					glUniform3fv(glGetUniformLocation(curvesShader.getID(), "u_colour"), 1, glm::value_ptr(std::static_pointer_cast<CurvesRenderable>(renderable)->getColour()));
+					// glUniform1ui(glGetUniformLocation(curvesShader.getID(), "u_numIndices"), std::static_pointer_cast<CurvesRenderable>(renderable)->getIndices());
 					renderable->draw();
 					break;
 
