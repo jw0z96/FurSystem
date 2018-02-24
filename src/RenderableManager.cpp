@@ -18,7 +18,6 @@ RenderableManager* RenderableManager::m_instance = NULL;
 RenderableManager::RenderableManager()
 {
 	meshShader = Shader("shaders/meshShader_vert.glsl", "shaders/meshShader_frag.glsl");
-	// curvesShader = Shader("shaders/curvesShader_vert.glsl", "shaders/curvesShader_frag.glsl");
 	curvesShader = Shader("shaders/render/newcurvesShader_vert.glsl", "shaders/render/newcurvesShader_frag.glsl", "shaders/render/newcurvesShader_geo.glsl");
 }
 

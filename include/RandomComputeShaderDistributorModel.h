@@ -19,7 +19,7 @@ class RandomComputeShaderDistributorModel : public RandomDistributorModel
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief overrides for NodeDataModel
 		//----------------------------------------------------------------------------------------------------------------------
-		QString caption() const override {return QString("Disribute random curves on Mesh");};
+		QString caption() const override {return QString("Disribute random curves on Mesh (Compute Shader)");};
 		//----------------------------------------------------------------------------------------------------------------------
 		QString name() const override {return QString("Random Distributor (Compute Shader)");};
 		//----------------------------------------------------------------------------------------------------------------------

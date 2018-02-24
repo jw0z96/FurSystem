@@ -114,7 +114,7 @@ void ComputeShaderManager::createMeshSSBO(unsigned int &buffer, Mesh &mesh)
 
 void ComputeShaderManager::copyCurvesSSBO(unsigned int src, unsigned int &dst)
 {
-	std::cout<<"copying an SSBO into another\n";
+	std::cout<<"copying an SSBO into another: "<<src<<" to "<<dst<<"\n";
 	// get size of src buffer
 	GLint srcBufferSize = 0;
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, src);
@@ -162,6 +162,7 @@ void ComputeShaderManager::copyCurvesSSBO(unsigned int src, unsigned int &dst)
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, dst);
 	glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &newBufferSize);
 	std::cout<<"dst buffer size after copy : "<<newBufferSize<<"\n";
+	std::cout<<"dst after copy : "<<dst<<"\n";
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
@@ -171,9 +172,7 @@ void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned i
 {
 	// if the SSBO exists, delete it (we need to resize it anyway)
 	if (curvesSSBO)
-	{
 		glDeleteBuffers(1, &curvesSSBO);
-	}
 
 	// create a new buffer for the curves
 	glGenBuffers(1, &curvesSSBO);

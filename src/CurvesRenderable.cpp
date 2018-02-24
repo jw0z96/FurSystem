@@ -5,8 +5,6 @@
 CurvesRenderable::CurvesRenderable()
 {
 	std::cout<<"CurvesRenderable()\n";
-	// m_VAO = 0;
-	// m_VBO = 0;
 	m_emptyVAO = 0;
 	m_SSBO = 0;
 	m_curves = Curves();
@@ -32,9 +30,7 @@ void CurvesRenderable::generate()
 			break;
 
 		case SSBO:
-			GLuint newId = 0;
-			ComputeShaderManager::getInstance()->copyCurvesSSBO(m_SSBO, newId);
-			m_SSBO = newId;
+			ComputeShaderManager::getInstance()->copyCurvesSSBO(m_srcSSBO, m_SSBO);
 			// get size of curves buffer
 			GLint SSBOSize = 0;
 			glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_SSBO);
@@ -50,8 +46,8 @@ void CurvesRenderable::generate()
 		glDeleteVertexArrays(1, &m_emptyVAO);
 
 	// create empty vao for procedural geometry
-	glGenVertexArrays(1, &m_emptyVAO); // Create our Vertex Array Object
-	glBindVertexArray(m_emptyVAO); // Bind our Vertex Array Object so we can use it
+	glGenVertexArrays(1, &m_emptyVAO);
+	glBindVertexArray(m_emptyVAO);
 	glBindVertexArray(0);
 
 	isConstructed = true;
@@ -63,11 +59,8 @@ void CurvesRenderable::cleanUp()
 {
 	if (isConstructed)
 	{
-		// std::cout<<"deleting VAO: "<<m_VAO<<" and VBO: "<<m_VBO<<"\n";
-		// if (m_VAO)
-		// 	glDeleteVertexArrays(1, &m_VAO);
-		// if (m_VBO)
-		// 	glDeleteBuffers(1, &m_VBO);
+		std::cout<<"deleting SSBO: "<<m_SSBO<<" and empty VAO: "<<m_emptyVAO<<"\n";
+
 		if (m_SSBO)
 			glDeleteBuffers(1, &m_SSBO);
 		if (m_emptyVAO)
@@ -86,25 +79,20 @@ void CurvesRenderable::draw()
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, m_SSBO);
 
 	glBindVertexArray(m_emptyVAO);
-
-	glLineWidth(2.5);
-	std::cout<<"drawing\n";
-	glDrawArrays(GL_LINES, 0, m_indices);
-	std::cout<<"done drawing\n";
+	glDrawArrays(GL_POINTS, 0, m_indices);
+	glBindVertexArray(0);
 
 	// check OpenGL error
 	GLenum err;
 	while ((err = glGetError()) != GL_NO_ERROR)
 		std::cout << "OpenGL error: " << err << std::endl;
-
-	glBindVertexArray(0);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void CurvesRenderable::setSSBO(GLuint _SSBO)
+void CurvesRenderable::setSourceSSBO(GLuint _SSBO)
 {
-	m_SSBO = _SSBO;
+	m_srcSSBO = _SSBO;
 }
 
 //----------------------------------------------------------------------------------------------------------------------

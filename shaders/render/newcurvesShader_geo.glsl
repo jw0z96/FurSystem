@@ -22,11 +22,11 @@ uniform vec3 colour;
 
 void main()
 {
-	int curveID = gl_PrimitiveIDIn;
+	uint curveID = gl_PrimitiveIDIn;
 
 	for (int i = 0; i < 5; ++i)
 	{
-		gl_Position = MVP * curves[curveID].position[i];
+		gl_Position = MVP * vec4(curves[curveID].position[i].xyz, 1.0);
 		EmitVertex();
 	}
 
