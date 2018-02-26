@@ -43,16 +43,17 @@ void main()
 {
 	uint computeIndex = gl_GlobalInvocationID.x;
 
-	if (computeIndex >= u_curveCount)
+	if (computeIndex > u_curveCount)
 		return;
 
-	float indexWeight = rand(vec2(computeIndex, 0.0));
-	float areaWeighting = 1.0 / u_meshArea;
+	// float indexWeight = rand(vec2(computeIndex, 0.0));
+	float indexWeight = float(computeIndex) / float(u_curveCount);
+	// float areaWeighting = 1.0 / u_meshArea;
 	float weight = 0.0;
 
 	for (int i = 0; i < u_faceCount; ++i)
 	{
-		weight += faces[i].area * areaWeighting;
+		weight += (faces[i].area / u_meshArea);
 
 		if (weight > indexWeight)
 		{
