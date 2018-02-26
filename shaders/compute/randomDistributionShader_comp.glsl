@@ -8,6 +8,7 @@ struct Face
 	vec4 position[3];
 	vec4 normal[3];
 	vec4 uv[3];
+	float area;
 };
 
 struct Curve
@@ -49,23 +50,14 @@ void main()
 	float areaWeighting = 1.0 / u_meshArea;
 	float weight = 0.0;
 
-	for (uint i = 0; i < u_faceCount; ++i)
+	for (int i = 0; i < u_faceCount; ++i)
 	{
-		vec3 posA = faces[i].position[0].xyz;
-		vec3 posB = faces[i].position[1].xyz;
-		vec3 posC = faces[i].position[2].xyz;
-
-		vec3 e1 = posB - posA;
-		vec3 e2 = posC - posA;
-		vec3 e3 = cross(e1, e2);
-
-		float triArea = 0.5 * sqrt(e3.x * e3.x + e3.y * e3.y + e3.z * e3.z);
-		weight += (triArea * areaWeighting);
+		weight += faces[i].area * areaWeighting;
 
 		if (weight > indexWeight)
 		{
-			float baryA = rand(vec2(5.0, 5.0 * float(i)));
-			float baryB = rand(vec2(7.0 * float(i), 7.0));
+			float baryA = rand(vec2(computeIndex, 20.0));
+			float baryB = rand(vec2(computeIndex, 10.0));
 
 			if ((baryA + baryB) > 1.0)
 			{
@@ -74,6 +66,10 @@ void main()
 			}
 
 			float baryC = 1.0 - baryA - baryB;
+
+			vec3 posA = faces[i].position[0].xyz;
+			vec3 posB = faces[i].position[1].xyz;
+			vec3 posC = faces[i].position[2].xyz;
 
 			vec3 normA = faces[i].normal[0].xyz;
 			vec3 normB = faces[i].normal[1].xyz;
@@ -87,7 +83,7 @@ void main()
 				curves[computeIndex].position[j] = vec4((randPos + (float(j) * randNorm * 0.01f)), 0.0);
 			}
 
-			break;
+			return;
 		}
 	}
 }

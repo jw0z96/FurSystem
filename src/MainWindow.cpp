@@ -7,6 +7,8 @@
 #include "RandomDistributorModel.h"
 #include "RandomComputeShaderDistributorModel.h"
 #include "BendCurveOperatorModel.h"
+#include "ComputeShaderManager.h"
+#include "RenderableManager.h"
 
 #include "nodeeditor/DataModelRegistry.hpp"
 #include "nodeeditor/ConnectionStyle.hpp"
@@ -68,9 +70,13 @@ void MainWindow::keyPressEvent(QKeyEvent *_event)
 	switch(_event->key())
 	{
 		// escape key to quit
-		case Qt::Key_Escape : QGuiApplication::exit(EXIT_SUCCESS); break;
-		case Qt::Key_S : m_nodes->save(); break;
-		case Qt::Key_L : m_nodes->load(); break;
+		case Qt::Key_Escape: QGuiApplication::exit(EXIT_SUCCESS); break;
+		case Qt::Key_S: m_nodes->save(); break;
+		case Qt::Key_L: m_nodes->load(); break;
+		case Qt::Key_R:
+			ComputeShaderManager::getInstance()->recompileShaders();
+			RenderableManager::getInstance()->recompileShaders();
+			break;
 		default: break;
 	}
 }

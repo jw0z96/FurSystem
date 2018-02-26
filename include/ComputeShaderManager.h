@@ -33,6 +33,10 @@ class ComputeShaderManager
 		//----------------------------------------------------------------------------------------------------------------------
 		void cleanUpAll();
 		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief recompile all shaders
+		//----------------------------------------------------------------------------------------------------------------------
+		void recompileShaders();
+		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief create an SSBO for a mesh
 		//----------------------------------------------------------------------------------------------------------------------
 		// void createCurvesSSBO(unsigned int &buffer, unsigned int _count);
@@ -47,15 +51,19 @@ class ComputeShaderManager
 		void copyCurvesSSBO(unsigned int src, unsigned int &dst);
 
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief copy Curves SSBO
+		/// @brief randomly distribute curves in a compute shader
 		//----------------------------------------------------------------------------------------------------------------------
 		void randomDistribution(unsigned int &meshSSBO, unsigned int &curvesSSBO, unsigned int curveCount, unsigned int faceCount, float meshArea);
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief bend curves in a compute shader
+		//----------------------------------------------------------------------------------------------------------------------
+		void bendCurvesOperator(unsigned int curvesSSBO, glm::vec3 direction, float intensity);
 
 	private:
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief our compute shaders
 		//----------------------------------------------------------------------------------------------------------------------
-		Shader randomDistributionShader;
+		Shader randomDistributionShader, bendCurvesShader;
 };
 
 #endif // COMPUTESHADERMANAGER_H

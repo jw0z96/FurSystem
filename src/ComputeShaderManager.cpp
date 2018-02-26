@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#include <glm/gtc/type_ptr.hpp>
+
 //----------------------------------------------------------------------------------------------------------------------
 
 ComputeShaderManager* ComputeShaderManager::m_instance = NULL;
@@ -13,6 +15,7 @@ ComputeShaderManager* ComputeShaderManager::m_instance = NULL;
 ComputeShaderManager::ComputeShaderManager()
 {
 	randomDistributionShader = Shader("shaders/compute/randomDistributionShader_comp.glsl");
+	bendCurvesShader = Shader("shaders/compute/bendCurvesShader_comp.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -28,6 +31,15 @@ void ComputeShaderManager::cleanUpAll()
 {
 	// delete compute shaders
 	randomDistributionShader.cleanUp();
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void ComputeShaderManager::recompileShaders()
+{
+	cleanUpAll();
+	randomDistributionShader = Shader("shaders/compute/randomDistributionShader_comp.glsl");
+	bendCurvesShader = Shader("shaders/compute/bendCurvesShader_comp.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -100,8 +112,16 @@ void ComputeShaderManager::createMeshSSBO(unsigned int &buffer, Mesh &mesh)
 			tempFace.position[i] = glm::vec4(pos, 0.0);
 			tempFace.normal[i] = glm::vec4(norm, 0.0);
 			tempFace.uv[i] = glm::vec4(uv, 0.0, 0.0);
+
+
 			// maybe also compute face size?
 		}
+
+		glm::vec3 e1 = glm::vec3(tempFace.position[1] - tempFace.position[0]);
+		glm::vec3 e2 = glm::vec3(tempFace.position[2] - tempFace.position[0]);
+		glm::vec3 e3 = cross(e1, e2);
+
+		tempFace.area = 0.5 * sqrt(e3.x * e3.x + e3.y * e3.y + e3.z * e3.z);
 
 		SSBOFaces.push_back(tempFace);
 	}
@@ -195,5 +215,26 @@ void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned i
 	// int work_grp_cnt;
 	// glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &work_grp_cnt);
 	// glDispatchCompute(work_grp_cnt, 1, 1);
+	glDispatchCompute((int(curveCount) / 128) + 1, 1, 1);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void ComputeShaderManager::bendCurvesOperator(unsigned int curvesSSBO, glm::vec3 direction, float intensity)
+{
+	GLint SSBOSize = 0;
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, curvesSSBO);
+	glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &SSBOSize);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+	unsigned int curveCount = SSBOSize / (sizeof(glm::vec4) * 5);
+
+	// use shader & send uniforms
+	bendCurvesShader.use();
+	glUniform1f(glGetUniformLocation(bendCurvesShader.getID(), "u_intensity"), intensity);
+	glUniform1ui(glGetUniformLocation(bendCurvesShader.getID(), "u_curveCount"), curveCount);
+	glUniform3fv(glGetUniformLocation(bendCurvesShader.getID(), "u_direction"), 1, glm::value_ptr(direction));
+
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, curvesSSBO);
+
 	glDispatchCompute((int(curveCount) / 128) + 1, 1, 1);
 }

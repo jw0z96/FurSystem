@@ -1,0 +1,129 @@
+{
+    "connections": [
+        {
+            "in_id": "{ff508507-9407-4800-b833-878b570b899c}",
+            "in_index": 0,
+            "out_id": "{901aef6c-009d-4ea0-b577-5cfefab171d1}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{1be415cf-7b7b-467d-8c41-9829faca837b}",
+            "in_index": 0,
+            "out_id": "{ddeb11ce-6a3c-47c3-b6ed-0a788d726fb4}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{901aef6c-009d-4ea0-b577-5cfefab171d1}",
+            "in_index": 0,
+            "out_id": "{72f0f136-df05-4bb7-ab78-0b3d9aa70b82}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{ddeb11ce-6a3c-47c3-b6ed-0a788d726fb4}",
+            "in_index": 0,
+            "out_id": "{3aa03176-da0d-42a8-8228-9623795888fd}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{b50bd676-54cc-46c7-b6bf-ded659823664}",
+            "in_index": 0,
+            "out_id": "{3aa03176-da0d-42a8-8228-9623795888fd}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{72f0f136-df05-4bb7-ab78-0b3d9aa70b82}",
+            "in_index": 0,
+            "out_id": "{3aa03176-da0d-42a8-8228-9623795888fd}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{4357cdee-19ea-430d-b322-f8f2b973d0c1}",
+            "in_index": 0,
+            "out_id": "{1be415cf-7b7b-467d-8c41-9829faca837b}",
+            "out_index": 0
+        }
+    ],
+    "nodes": [
+        {
+            "id": "{901aef6c-009d-4ea0-b577-5cfefab171d1}",
+            "model": {
+                "name": "Bend Curves"
+            },
+            "position": {
+                "x": 142,
+                "y": 225
+            }
+        },
+        {
+            "id": "{ff508507-9407-4800-b833-878b570b899c}",
+            "model": {
+                "name": "Curves Renderer"
+            },
+            "position": {
+                "x": 431,
+                "y": 195
+            }
+        },
+        {
+            "id": "{ddeb11ce-6a3c-47c3-b6ed-0a788d726fb4}",
+            "model": {
+                "name": "Random Distributor (Compute Shader)"
+            },
+            "position": {
+                "x": -257,
+                "y": 313
+            }
+        },
+        {
+            "id": "{1be415cf-7b7b-467d-8c41-9829faca837b}",
+            "model": {
+                "name": "Bend Curves"
+            },
+            "position": {
+                "x": 134,
+                "y": 342
+            }
+        },
+        {
+            "id": "{4357cdee-19ea-430d-b322-f8f2b973d0c1}",
+            "model": {
+                "name": "Curves Renderer"
+            },
+            "position": {
+                "x": 423,
+                "y": 370
+            }
+        },
+        {
+            "id": "{72f0f136-df05-4bb7-ab78-0b3d9aa70b82}",
+            "model": {
+                "name": "Random Distributor"
+            },
+            "position": {
+                "x": -150,
+                "y": 212
+            }
+        },
+        {
+            "id": "{b50bd676-54cc-46c7-b6bf-ded659823664}",
+            "model": {
+                "name": "Mesh Renderer"
+            },
+            "position": {
+                "x": 281,
+                "y": 22
+            }
+        },
+        {
+            "id": "{3aa03176-da0d-42a8-8228-9623795888fd}",
+            "model": {
+                "label": "/home/i7463769/dev/FurSystem/meshes/triangleSizeTest.obj",
+                "name": "Obj Mesh Loader"
+            },
+            "position": {
+                "x": -186,
+                "y": 88
+            }
+        }
+    ]
+}

@@ -17,8 +17,8 @@ RenderableManager* RenderableManager::m_instance = NULL;
 
 RenderableManager::RenderableManager()
 {
-	meshShader = Shader("shaders/meshShader_vert.glsl", "shaders/meshShader_frag.glsl");
-	curvesShader = Shader("shaders/render/newcurvesShader_vert.glsl", "shaders/render/newcurvesShader_frag.glsl", "shaders/render/newcurvesShader_geo.glsl");
+	meshShader = Shader("shaders/render/meshShader_vert.glsl", "shaders/render/meshShader_frag.glsl");
+	curvesShader = Shader("shaders/render/curvesShader_vert.glsl", "shaders/render/curvesShader_frag.glsl", "shaders/render/curvesShader_geo.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -39,6 +39,16 @@ void RenderableManager::cleanUpAll()
 	{
 		renderable->cleanUp();
 	}
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void RenderableManager::recompileShaders()
+{
+	meshShader.cleanUp();
+	curvesShader.cleanUp();
+	meshShader = Shader("shaders/render/meshShader_vert.glsl", "shaders/render/meshShader_frag.glsl");
+	curvesShader = Shader("shaders/render/curvesShader_vert.glsl", "shaders/render/curvesShader_frag.glsl", "shaders/render/curvesShader_geo.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------

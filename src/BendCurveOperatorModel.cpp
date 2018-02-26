@@ -1,5 +1,7 @@
 #include "BendCurveOperatorModel.h"
 
+#include "ComputeShaderManager.h"
+
 #include "CurvesData.h"
 
 BendCurveOperatorModel::BendCurveOperatorModel() :
@@ -38,8 +40,8 @@ void BendCurveOperatorModel::operateCurves()
 			break;
 
 		case SSBO:
-			std::cout<<"processing SSBO\n";
-			// ComputeShaderManager::getInstance()->bendOperator(m_curvesSSBOID);
+			std::cout<<"processing bend curves SSBO\n";
+			ComputeShaderManager::getInstance()->bendCurvesOperator(m_curvesSSBO, bendDirection, intensity);
 			break;
 	}
 
