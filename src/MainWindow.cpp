@@ -5,7 +5,6 @@
 #include "CurvesRendererModel.h"
 #include "BasicDistributorModel.h"
 #include "RandomDistributorModel.h"
-#include "RandomComputeShaderDistributorModel.h"
 #include "BendCurveOperatorModel.h"
 #include "ComputeShaderManager.h"
 #include "RenderableManager.h"
@@ -24,7 +23,6 @@ static std::shared_ptr<DataModelRegistry> registerDataModels()
 	ret->registerModel<CurvesRendererModel>("Renderers");
 	ret->registerModel<BasicDistributorModel>("Distributors");
 	ret->registerModel<RandomDistributorModel>("Distributors");
-	ret->registerModel<RandomComputeShaderDistributorModel>("Distributors");
 	ret->registerModel<BendCurveOperatorModel>("Curve Operators");
 	return ret;
 }
