@@ -77,15 +77,24 @@
 \maketitle
 
 \begin{abstract}
-This document serves to demonstrate the short paper format used for the Principles of Rendering unit. This submission should be no longer than 2 pages, inclusive of references and images, but excluding appendices and code listings. You should aim for between 5 and 8 references in your bibliography.
-An abstract provides an executive summary of your short paper.
+For this project I developed a procedural fur system, with the aim of exploring the feasibility of offloading computation onto the GPU within artist tools. The final artefact is an application which serves to interface with the fur system API that I have developed. This report primarily documents the implementation of the API, as well as my findings.
 \end{abstract}
 
 \section{Introduction} \label{sec:introduction}
 Introduction Text.
 
-\section{Method Overview} \label{sec:overview}
+\subsection{Existing Solutions} \label{sec:existing}
+Existing Solutions.
+
+\section{Implementation} \label{sec:implementation}
 Method Text.
+
+\subsection{Resources} \label{sec:resources}
+I decided to develop the API side of the fur system using C++, primarly as it most commonly used when developing computationally heavy artist tools, but also because it is the language I am most comfortable using. I opted to use OpenGL over other APIs (CUDA, OpenCL) for offloading of computation onto the GPU, simply because my final artefact is a tool with a graphical interface, and OpenGL is capable of handling both arbitary computation using compute shaders and rendering of geometry.
+
+To handle the user interface I used the Qt framework within C++. Qt is commonly used for artist tools within visual effects as it is cross-platform, and applications can be configured to run within other applications that make use of it, such as Autodesk Maya.
+
+I wanted to include a node-graph style interface within my application, as it is commonly used within existing artist tools (Autodesk Maya, Unreal Engine), and would encourage modularity within my API. Qt does not natively provide this kind of interface, so I made use of NodeEditor \cite{Pinaev2017} an existing Qt-based library that provides this functionality.
 
 \section{Results} \label{sec:results}
 Results Text.
