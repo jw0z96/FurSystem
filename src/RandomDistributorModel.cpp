@@ -15,6 +15,7 @@ RandomDistributorModel::RandomDistributorModel() :
 	// connect spinbox and checkbox
 	connect(m_ui->countSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateDistribution()));
 	connect(m_ui->modeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(updateDistribution()));
+	connect(m_ui->lengthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(updateDistribution()));
 
 	m_curves = Curves();
 	m_meshSSBOID = 0;
@@ -50,7 +51,8 @@ void RandomDistributorModel::distribute()
 			m_curvesSSBOID,
 			m_ui->countSpinBox->value(),
 			m_mesh.m_faces.size(),
-			m_totalMeshArea
+			m_totalMeshArea,
+			m_ui->lengthSpinBox->value()
 			);
 	}
 	else
@@ -105,7 +107,7 @@ void RandomDistributorModel::distribute()
 
 					for (int j = 0; j < 5; ++j)
 					{
-						curve.vertices[j] = randPos + (float(j) * randNorm * 0.01f);
+						curve.vertices[j] = randPos + ((float(j) / 5.0f) * randNorm * float(m_ui->lengthSpinBox->value()));
 					}
 
 					m_curves.m_curves.push_back(curve);

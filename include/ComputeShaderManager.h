@@ -53,7 +53,7 @@ class ComputeShaderManager
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief randomly distribute curves in a compute shader
 		//----------------------------------------------------------------------------------------------------------------------
-		void randomDistribution(unsigned int &meshSSBO, unsigned int &curvesSSBO, unsigned int curveCount, unsigned int faceCount, float meshArea);
+		void randomDistribution(unsigned int &meshSSBO, unsigned int &curvesSSBO, unsigned int curveCount, unsigned int faceCount, float meshArea, float length);
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief bend curves in a compute shader
 		//----------------------------------------------------------------------------------------------------------------------

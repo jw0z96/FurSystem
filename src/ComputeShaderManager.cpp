@@ -188,7 +188,7 @@ void ComputeShaderManager::copyCurvesSSBO(unsigned int src, unsigned int &dst)
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned int &curvesSSBO, unsigned int curveCount, unsigned int faceCount, float meshArea)
+void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned int &curvesSSBO, unsigned int curveCount, unsigned int faceCount, float meshArea, float length)
 {
 	// if the SSBO exists, delete it (we need to resize it anyway)
 	if (curvesSSBO)
@@ -208,6 +208,7 @@ void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned i
 	glUniform1f(glGetUniformLocation(randomDistributionShader.getID(), "u_meshArea"), meshArea);
 	glUniform1ui(glGetUniformLocation(randomDistributionShader.getID(), "u_curveCount"), curveCount);
 	glUniform1ui(glGetUniformLocation(randomDistributionShader.getID(), "u_faceCount"), faceCount);
+	glUniform1f(glGetUniformLocation(randomDistributionShader.getID(), "u_length"), length);
 
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, meshSSBO);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, curvesSSBO);

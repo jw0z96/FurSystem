@@ -29,6 +29,7 @@ layout (std430, binding = 1) buffer curvesBuffer
 uniform float u_meshArea;
 uniform uint u_curveCount;
 uniform uint u_faceCount;
+uniform float u_length;
 
 // ----------------------------------------------------------------------------
 
@@ -81,7 +82,8 @@ void main()
 
 			for (int j = 0; j < 5; ++j)
 			{
-				curves[computeIndex].position[j] = vec4((randPos + (float(j) * randNorm * 0.01f)), 0.0);
+				vec3 cv = randPos + ((float(j) / 5.0) * randNorm * u_length);
+				curves[computeIndex].position[j] = vec4(cv, 0.0);
 			}
 
 			return;
