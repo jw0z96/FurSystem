@@ -16,6 +16,7 @@ ComputeShaderManager::ComputeShaderManager()
 {
 	randomDistributionShader = Shader("shaders/compute/randomDistributionShader_comp.glsl");
 	bendCurvesShader = Shader("shaders/compute/bendCurvesShader_comp.glsl");
+	clumpCurvesShader = Shader("shaders/compute/clumpCurvesShader_comp.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -31,6 +32,8 @@ void ComputeShaderManager::cleanUpAll()
 {
 	// delete compute shaders
 	randomDistributionShader.cleanUp();
+	bendCurvesShader.cleanUp();
+	clumpCurvesShader.cleanUp();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -40,6 +43,7 @@ void ComputeShaderManager::recompileShaders()
 	cleanUpAll();
 	randomDistributionShader = Shader("shaders/compute/randomDistributionShader_comp.glsl");
 	bendCurvesShader = Shader("shaders/compute/bendCurvesShader_comp.glsl");
+	clumpCurvesShader = Shader("shaders/compute/clumpCurvesShader_comp.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -69,23 +73,6 @@ void ComputeShaderManager::createCurvesSSBO(unsigned int &buffer, Curves _curves
 
 //----------------------------------------------------------------------------------------------------------------------
 
-// void ComputeShaderManager::createCurvesSSBO(unsigned int &buffer, unsigned int _count)
-// {
-// 	std::cout<<"creating an SSBO for curves\n";
-
-// 	if (buffer)
-// 		glDeleteBuffers(1, &buffer);
-
-// 	glGenBuffers(1, &buffer);
-// 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, buffer);
-// 	// use glBufferData to allocate all 5*count vec3 or infer from curves object
-// 	// TODO: don't init with NULL
-// 	glBufferData(GL_SHADER_STORAGE_BUFFER, 5 * _count * sizeof(glm::vec4(0.0)), NULL, GL_DYNAMIC_COPY);
-// 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-// }
-
-//----------------------------------------------------------------------------------------------------------------------
-
 void ComputeShaderManager::createMeshSSBO(unsigned int &buffer, Mesh &mesh)
 {
 	std::cout<<"creating an SSBO for mesh\n";
@@ -112,15 +99,12 @@ void ComputeShaderManager::createMeshSSBO(unsigned int &buffer, Mesh &mesh)
 			tempFace.position[i] = glm::vec4(pos, 0.0);
 			tempFace.normal[i] = glm::vec4(norm, 0.0);
 			tempFace.uv[i] = glm::vec4(uv, 0.0, 0.0);
-
-
-			// maybe also compute face size?
 		}
 
+		// compute face area TODO: evaluate whether it's faster to do this in shader
 		glm::vec3 e1 = glm::vec3(tempFace.position[1] - tempFace.position[0]);
 		glm::vec3 e2 = glm::vec3(tempFace.position[2] - tempFace.position[0]);
 		glm::vec3 e3 = cross(e1, e2);
-
 		tempFace.area = 0.5 * sqrt(e3.x * e3.x + e3.y * e3.y + e3.z * e3.z);
 
 		SSBOFaces.push_back(tempFace);
@@ -223,11 +207,7 @@ void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned i
 
 void ComputeShaderManager::bendCurvesOperator(unsigned int curvesSSBO, glm::vec3 direction, float intensity)
 {
-	GLint SSBOSize = 0;
-	glBindBuffer(GL_SHADER_STORAGE_BUFFER, curvesSSBO);
-	glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &SSBOSize);
-	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-	unsigned int curveCount = SSBOSize / (sizeof(glm::vec4) * 5);
+	unsigned int curveCount = getIndicesFromCurveSSBO(curvesSSBO);
 
 	// use shader & send uniforms
 	bendCurvesShader.use();
@@ -237,5 +217,32 @@ void ComputeShaderManager::bendCurvesOperator(unsigned int curvesSSBO, glm::vec3
 
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, curvesSSBO);
 
+	glDispatchCompute((int(curveCount) / 128) + 1, 1, 1);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void ComputeShaderManager::clumpCurvesOperator(unsigned int curvesSSBO, unsigned int clumpCurvesSSBO)
+{
+	//first, dispatch clumpCurveCount to get the closest member in curvesSSBO (and replace it)
+	//second, disptch curveCount to lerp all curves to their clumpee
+
+	unsigned int curveCount = getIndicesFromCurveSSBO(curvesSSBO);
+	unsigned int clumpCurveCount = getIndicesFromCurveSSBO(clumpCurvesSSBO);
+	std::cout<<"clumping "<<curveCount<<" curves to "<<clumpCurveCount<<" curves\n";
+
+	// use shader & send uniforms
+	clumpCurvesShader.use();
+
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, curvesSSBO);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, clumpCurvesSSBO);
+
+	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_curveCount"), curveCount);
+	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_clumpCurveCount"), clumpCurveCount);
+
+	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_mode"), 0);
+	glDispatchCompute((int(clumpCurveCount) / 128) + 1, 1, 1);
+	glMemoryBarrier(GL_ALL_BARRIER_BITS);
+	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_mode"), 1);
 	glDispatchCompute((int(curveCount) / 128) + 1, 1, 1);
 }

@@ -1,73 +1,72 @@
-#ifndef COMPUTESHADERMANAGER_H
-#define COMPUTESHADERMANAGER_H
+#ifndef CLUMPCURVEOPERATORMODEL_H
+#define CLUMPCURVEOPERATORMODEL_H
 
-#include "Curves.h"
-#include "Mesh.h"
-#include "Shader.h"
+#include "AbstractCurveOperatorModel.h"
 
-#include <GL/glew.h>
+#include <QtWidgets/QDoubleSpinBox>
 
-class ComputeShaderManager
+class ClumpCurveOperatorModel : public AbstractCurveOperatorModel
 {
-	private:
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief private dummy constructor for the singleton
-		//----------------------------------------------------------------------------------------------------------------------
-		ComputeShaderManager();
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief our singleton instance
-		//----------------------------------------------------------------------------------------------------------------------
-		static ComputeShaderManager* m_instance;
+	Q_OBJECT
 
 	public:
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief get the singleton instance
+		/// @brief constructor
 		//----------------------------------------------------------------------------------------------------------------------
-		static ComputeShaderManager* getInstance() {if (!m_instance){m_instance = new ComputeShaderManager();} return m_instance;}
+		ClumpCurveOperatorModel();
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief dtor
+		/// @brief destructor
 		//----------------------------------------------------------------------------------------------------------------------
-		~ComputeShaderManager();
+		~ClumpCurveOperatorModel();
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief delete all shaders
+		/// @brief overrides for NodeDataModel
 		//----------------------------------------------------------------------------------------------------------------------
-		void cleanUpAll();
+		QString caption() const override {return QString("Clump Curves");};
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief recompile all shaders
+		QString name() const override {return QString("Clump Curves");};
 		//----------------------------------------------------------------------------------------------------------------------
-		void recompileShaders();
+		std::unique_ptr<NodeDataModel> clone() const override {return std::make_unique<ClumpCurveOperatorModel>();};
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief create an SSBO for a mesh
+		virtual QString modelName() const {return QString("Clump Operated Curves");};
 		//----------------------------------------------------------------------------------------------------------------------
-		// void createCurvesSSBO(unsigned int &buffer, unsigned int _count);
-		void createCurvesSSBO(unsigned int &buffer, Curves _curves);
+		QWidget* embeddedWidget() const {return nullptr;};
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief create an SSBO for a mesh
+		unsigned int nPorts(PortType portType) const override;
 		//----------------------------------------------------------------------------------------------------------------------
-		void createMeshSSBO(unsigned int &buffer, Mesh &mesh);
+		void setInData(std::shared_ptr<NodeData> nodeData, PortIndex portIndex) override;
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief copy Curves SSBO
+		NodeDataType dataType(PortType portType, PortIndex portIndex) const override;
 		//----------------------------------------------------------------------------------------------------------------------
-		void copyCurvesSSBO(unsigned int src, unsigned int &dst);
-
+		virtual bool portCaptionVisible(PortType, PortIndex) const override {return true;};
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief randomly distribute curves in a compute shader
+		virtual QString portCaption(PortType portType, PortIndex portIndex) const override;
 		//----------------------------------------------------------------------------------------------------------------------
-		void randomDistribution(unsigned int &meshSSBO, unsigned int &curvesSSBO, unsigned int curveCount, unsigned int faceCount, float meshArea, float length);
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief bend curves in a compute shader
-		//----------------------------------------------------------------------------------------------------------------------
-		void bendCurvesOperator(unsigned int curvesSSBO, glm::vec3 direction, float intensity);
-		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief clump curves in a compute shader
-		//----------------------------------------------------------------------------------------------------------------------
-		void clumpCurvesOperator(unsigned int curvesSSBO, unsigned int clumpCurvesSSBO);
 
 	private:
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief our compute shaders
+		/// @brief reset curves to input state
 		//----------------------------------------------------------------------------------------------------------------------
-		Shader randomDistributionShader, bendCurvesShader, clumpCurvesShader;
+		void resetCurves();
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief manipulate curves
+		//----------------------------------------------------------------------------------------------------------------------
+		void operateCurves() override;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief spinbox to control intensity (temporary)
+		//----------------------------------------------------------------------------------------------------------------------
+		// QDoubleSpinBox* m_spinbox;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief curves SSBO object
+		//----------------------------------------------------------------------------------------------------------------------
+		unsigned int m_clumpCurvesSSBO;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief curves object
+		//----------------------------------------------------------------------------------------------------------------------
+		Curves m_clumpCurves;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief node data
+		//----------------------------------------------------------------------------------------------------------------------
+		std::shared_ptr<CurvesData> m_clumpNodeData;
 };
 
-#endif // COMPUTESHADERMANAGER_H
+#endif // CLUMPCURVEOPERATORMODEL_H

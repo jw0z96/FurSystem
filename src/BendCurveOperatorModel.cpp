@@ -5,16 +5,14 @@
 #include "CurvesData.h"
 
 BendCurveOperatorModel::BendCurveOperatorModel() :
+	AbstractCurveOperatorModel(),
 	m_spinbox(new QDoubleSpinBox())
 {
 	m_spinbox->setRange(0.0, 100.0);
 	m_spinbox->setDecimals(3);
 	m_spinbox->setSingleStep(0.01);
 	m_spinbox->setValue(0.1);
-
 	connect(m_spinbox, SIGNAL(valueChanged(double)), this, SLOT(updateCurves()));
-
-	m_curves = Curves();
 }
 
 BendCurveOperatorModel::~BendCurveOperatorModel()

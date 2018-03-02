@@ -9,4 +9,13 @@ struct SSBO_Face
 	float area; float pad[3];
 };
 
+unsigned int getIndicesFromCurveSSBO(unsigned int _ssbo)
+{
+	GLint SSBOSize = 0;
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, _ssbo);
+	glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &SSBOSize);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+	return (SSBOSize / (sizeof(glm::vec4) * 5));
+}
+
 #endif // COMPUTESHADERUTILS_H

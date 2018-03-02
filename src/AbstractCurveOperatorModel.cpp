@@ -2,17 +2,20 @@
 
 #include <QtCore/QEvent>
 
-#include "MeshData.h"
-
 #include "ComputeShaderManager.h"
 
 AbstractCurveOperatorModel::AbstractCurveOperatorModel()
 {
 	m_curves = Curves();
+	m_curvesSSBO = 0;
 	_nodeData = nullptr;
 }
 
-AbstractCurveOperatorModel::~AbstractCurveOperatorModel() {}
+AbstractCurveOperatorModel::~AbstractCurveOperatorModel()
+{
+	if (m_curvesSSBO)
+		glDeleteBuffers(1, &m_curvesSSBO);
+}
 
 unsigned int AbstractCurveOperatorModel::nPorts(PortType portType) const
 {
