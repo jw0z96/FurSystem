@@ -43,25 +43,30 @@ static void setStyle()
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
-	m_ui(new Ui::MainWindow)
+	m_ui(new Ui::MainWindow),
+	m_splitter(new QSplitter(parent))
 {
 	// setup ui
 	m_ui->setupUi(this);
 	// create viewport widget
 	m_gl = new Viewport(this);
-	m_ui->mainWindowGridLayout->addWidget(m_gl, 0, 0, 1, 1);
 	// create node graph widget
 	::setStyle();
 	m_nodes = new FlowScene(registerDataModels());
 	m_flowView = new FlowView(m_nodes);
-
-	m_ui->mainWindowGridLayout->addWidget(m_flowView, 0, 1, 1, 1);
+	// add widgets to splitter
+	m_splitter->addWidget(m_gl);
+	m_splitter->addWidget(m_flowView);
+	m_splitter->setSizes(QList<int>({INT_MAX, INT_MAX})); // set size of both splits to max so we fill 50/50
+	// add splitter to layout
+	m_ui->mainWindowGridLayout->addWidget(m_splitter, 0, 0, 1, 1);
 }
 
 MainWindow::~MainWindow()
 {
 	delete m_ui;
 	delete m_gl;
+	delete m_splitter;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *_event)

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QKeyEvent>
+#include <QSplitter>
 
 #include "Viewport.h"
 
@@ -53,6 +54,10 @@ class MainWindow : public QMainWindow
 		/// @brief m_flowView viewport that displays the node graph
 		//----------------------------------------------------------------------------------------------------------------------
 		FlowView *m_flowView;
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief m_splitter splitter object for dynamic layout
+		//----------------------------------------------------------------------------------------------------------------------
+		QSplitter *m_splitter;
 };
 
 #endif // MAINWINDOW_H
