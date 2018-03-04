@@ -193,6 +193,7 @@ void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned i
 	glUniform1ui(glGetUniformLocation(randomDistributionShader.getID(), "u_curveCount"), curveCount);
 	glUniform1ui(glGetUniformLocation(randomDistributionShader.getID(), "u_faceCount"), faceCount);
 	glUniform1f(glGetUniformLocation(randomDistributionShader.getID(), "u_length"), length);
+	glUniform1ui(glGetUniformLocation(randomDistributionShader.getID(), "u_seed"), curvesSSBO);
 
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, meshSSBO);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, curvesSSBO);

@@ -30,6 +30,7 @@ uniform float u_meshArea;
 uniform uint u_curveCount;
 uniform uint u_faceCount;
 uniform float u_length;
+uniform uint u_seed;
 
 // ----------------------------------------------------------------------------
 
@@ -58,8 +59,8 @@ void main()
 
 		if (weight > indexWeight)
 		{
-			float baryA = rand(vec2(computeIndex, 20.0));
-			float baryB = rand(vec2(computeIndex, 10.0));
+			float baryA = rand(vec2(computeIndex, float(u_seed + 20)));
+			float baryB = rand(vec2(computeIndex, float(u_seed + 10)));
 
 			if ((baryA + baryB) > 1.0)
 			{
