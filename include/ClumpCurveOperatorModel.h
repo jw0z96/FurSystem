@@ -3,7 +3,7 @@
 
 #include "AbstractCurveOperatorModel.h"
 
-#include <QtWidgets/QDoubleSpinBox>
+#include "widgets/ClumpCurveOperatorModelWidget.h"
 
 class ClumpCurveOperatorModel : public AbstractCurveOperatorModel
 {
@@ -29,7 +29,7 @@ class ClumpCurveOperatorModel : public AbstractCurveOperatorModel
 		//----------------------------------------------------------------------------------------------------------------------
 		virtual QString modelName() const {return QString("Clump Operated Curves");};
 		//----------------------------------------------------------------------------------------------------------------------
-		QWidget* embeddedWidget() const {return nullptr;};
+		QWidget* embeddedWidget() override {return m_embedded;};
 		//----------------------------------------------------------------------------------------------------------------------
 		unsigned int nPorts(PortType portType) const override;
 		//----------------------------------------------------------------------------------------------------------------------
@@ -52,9 +52,10 @@ class ClumpCurveOperatorModel : public AbstractCurveOperatorModel
 		//----------------------------------------------------------------------------------------------------------------------
 		void operateCurves() override;
 		//----------------------------------------------------------------------------------------------------------------------
-		/// @brief spinbox to control intensity (temporary)
+		/// @brief m_embedded, m_ui our qt ui widget and contents from the ui file
 		//----------------------------------------------------------------------------------------------------------------------
-		// QDoubleSpinBox* m_spinbox;
+		QWidget* m_embedded;
+		Ui::ClumpCurveOperatorModelWidget* m_ui;
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief curves SSBO object
 		//----------------------------------------------------------------------------------------------------------------------

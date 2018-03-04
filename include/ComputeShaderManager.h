@@ -61,7 +61,7 @@ class ComputeShaderManager
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief clump curves in a compute shader
 		//----------------------------------------------------------------------------------------------------------------------
-		void clumpCurvesOperator(unsigned int curvesSSBO, unsigned int clumpCurvesSSBO);
+		void clumpCurvesOperator(unsigned int curvesSSBO, unsigned int clumpCurvesSSBO, float envelope);
 
 	private:
 		//----------------------------------------------------------------------------------------------------------------------

@@ -61,6 +61,7 @@ public:
 
         modeCheckBox = new QCheckBox(RandomDistributorModelWidget);
         modeCheckBox->setObjectName(QStringLiteral("modeCheckBox"));
+        modeCheckBox->setChecked(true);
 
         formLayout->setWidget(2, QFormLayout::FieldRole, modeCheckBox);
 

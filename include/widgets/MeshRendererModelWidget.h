@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHeaderView>
@@ -31,12 +32,14 @@ public:
     QDoubleSpinBox *greenAmountDoubleSpinBox;
     QLabel *blueAmountLabel;
     QDoubleSpinBox *blueAmountDoubleSpinBox;
+    QLabel *visibilityLabel;
+    QCheckBox *visibilityCheckBox;
 
     void setupUi(QWidget *MeshRendererModelWidget)
     {
         if (MeshRendererModelWidget->objectName().isEmpty())
             MeshRendererModelWidget->setObjectName(QStringLiteral("MeshRendererModelWidget"));
-        MeshRendererModelWidget->resize(125, 97);
+        MeshRendererModelWidget->resize(129, 108);
         formLayout = new QFormLayout(MeshRendererModelWidget);
         formLayout->setObjectName(QStringLiteral("formLayout"));
         redAmountLabel = new QLabel(MeshRendererModelWidget);
@@ -76,6 +79,17 @@ public:
 
         formLayout->setWidget(2, QFormLayout::FieldRole, blueAmountDoubleSpinBox);
 
+        visibilityLabel = new QLabel(MeshRendererModelWidget);
+        visibilityLabel->setObjectName(QStringLiteral("visibilityLabel"));
+
+        formLayout->setWidget(3, QFormLayout::LabelRole, visibilityLabel);
+
+        visibilityCheckBox = new QCheckBox(MeshRendererModelWidget);
+        visibilityCheckBox->setObjectName(QStringLiteral("visibilityCheckBox"));
+        visibilityCheckBox->setChecked(true);
+
+        formLayout->setWidget(3, QFormLayout::FieldRole, visibilityCheckBox);
+
 
         retranslateUi(MeshRendererModelWidget);
 
@@ -88,6 +102,8 @@ public:
         redAmountLabel->setText(QApplication::translate("MeshRendererModelWidget", "Red", Q_NULLPTR));
         greenAmountLabel->setText(QApplication::translate("MeshRendererModelWidget", "Green", Q_NULLPTR));
         blueAmountLabel->setText(QApplication::translate("MeshRendererModelWidget", "Blue", Q_NULLPTR));
+        visibilityLabel->setText(QApplication::translate("MeshRendererModelWidget", "Visibility", Q_NULLPTR));
+        visibilityCheckBox->setText(QString());
     } // retranslateUi
 
 };

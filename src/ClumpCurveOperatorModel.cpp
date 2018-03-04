@@ -5,17 +5,26 @@
 #include "CurvesData.h"
 
 ClumpCurveOperatorModel::ClumpCurveOperatorModel() :
-	AbstractCurveOperatorModel()
+	AbstractCurveOperatorModel(),
+	m_embedded(new QWidget()),
+	m_ui(new Ui::ClumpCurveOperatorModelWidget())
 {
+	// init clump curve variables
 	m_clumpCurves = Curves();
 	m_clumpCurvesSSBO = 0;
 	m_clumpNodeData = nullptr;
+	// setup ui
+	m_ui->setupUi(m_embedded);
+	// connect spinbox and checkbox
+	connect(m_ui->envelopeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(updateCurves()));
 }
 
 ClumpCurveOperatorModel::~ClumpCurveOperatorModel()
 {
 	if (m_clumpCurvesSSBO)
 		glDeleteBuffers(1, &m_clumpCurvesSSBO);
+
+	delete m_ui;
 }
 
 QString ClumpCurveOperatorModel::portCaption(PortType portType, PortIndex portIndex) const
@@ -115,7 +124,7 @@ void ClumpCurveOperatorModel::operateCurves()
 	if (curveType == SSBO && clumpCurveType == SSBO)
 	{
 		std::cout<<"processing clump curves SSBO: "<<m_curvesSSBO<<" & "<<m_clumpCurvesSSBO<<"\n";
-		ComputeShaderManager::getInstance()->clumpCurvesOperator(m_curvesSSBO, m_clumpCurvesSSBO);
+		ComputeShaderManager::getInstance()->clumpCurvesOperator(m_curvesSSBO, m_clumpCurvesSSBO, m_ui->envelopeSpinBox->value());
 	}
 	else
 	{

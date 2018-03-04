@@ -20,6 +20,7 @@ layout (std430, binding = 1) buffer clumpCurvesBuffer
 uniform uint u_curveCount;
 uniform uint u_clumpCurveCount;
 uniform uint u_mode;
+uniform float u_envelope;
 
 // ----------------------------------------------------------------------------
 
@@ -89,7 +90,7 @@ void main()
 			float factor = float(i) / 4.0;
 			vec3 curvePos = curves[computeIndex].position[i].xyz;
 			vec3 clumpPos = clumpCurves[closestClumpCurveIndex].position[i].xyz;
-			vec3 pos = mix(curvePos, clumpPos, factor);
+			vec3 pos = mix(curvePos, clumpPos, factor * u_envelope);
 			curves[computeIndex].position[i] = vec4(pos, 0.0);
 		}
 	}

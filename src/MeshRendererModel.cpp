@@ -13,11 +13,11 @@ MeshRendererModel::MeshRendererModel() :
 	// setup ui
 	m_ui->setupUi(m_embedded);
 	// auto style = nodeStyle();
-	// connect colour controls
+	// connect colour & visibiliy controls
 	connect(m_ui->redAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
 	connect(m_ui->greenAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
 	connect(m_ui->blueAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
-
+	connect(m_ui->visibilityCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setVisibility()));
 	m_meshRenderable = std::make_shared<MeshRenderable>();
 }
 
@@ -77,7 +77,7 @@ void MeshRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
 		RenderableManager::getInstance()->registerRenderable(m_meshRenderable);
 		auto d = std::static_pointer_cast<MeshData>(_nodeData);
 		m_meshRenderable->setMesh(d->mesh());
-		m_meshRenderable->setVisibility(true);
+		m_meshRenderable->setVisibility(m_ui->visibilityCheckBox->isChecked());
 		RenderableManager::getInstance()->updateViewport();
 	}
 	else // disconnected
@@ -94,5 +94,11 @@ void MeshRendererModel::setColour()
 	col.y = m_ui->greenAmountDoubleSpinBox->value();
 	col.z = m_ui->blueAmountDoubleSpinBox->value();
 	m_meshRenderable->setColour(col);
+	RenderableManager::getInstance()->updateViewport();
+}
+
+void MeshRendererModel::setVisibility()
+{
+	m_meshRenderable->setVisibility(m_ui->visibilityCheckBox->isChecked());
 	RenderableManager::getInstance()->updateViewport();
 }

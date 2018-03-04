@@ -13,11 +13,11 @@ CurvesRendererModel::CurvesRendererModel() :
 	// setup ui
 	m_ui->setupUi(m_embedded);
 	// auto style = nodeStyle();
-	// connect colour controls
+	// connect colour & visibiliy controls
 	connect(m_ui->redAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
 	connect(m_ui->greenAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
 	connect(m_ui->blueAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
-
+	connect(m_ui->visibilityCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setVisibility()));
 	m_curvesRenderable = std::make_shared<CurvesRenderable>();
 }
 
@@ -79,7 +79,7 @@ void CurvesRendererModel::setInData(std::shared_ptr<NodeData> nodeData, PortInde
 		m_curvesRenderable->setCurveType(d->curveType());
 		m_curvesRenderable->setCurves(d->curves());
 		m_curvesRenderable->setSourceSSBO(d->curvesSSBO());
-		m_curvesRenderable->setVisibility(true);
+		m_curvesRenderable->setVisibility(m_ui->visibilityCheckBox->isChecked());
 		RenderableManager::getInstance()->updateViewport();
 	}
 	else // disconnected
@@ -96,5 +96,11 @@ void CurvesRendererModel::setColour()
 	col.y = m_ui->greenAmountDoubleSpinBox->value();
 	col.z = m_ui->blueAmountDoubleSpinBox->value();
 	m_curvesRenderable->setColour(col);
+	RenderableManager::getInstance()->updateViewport();
+}
+
+void CurvesRendererModel::setVisibility()
+{
+	m_curvesRenderable->setVisibility(m_ui->visibilityCheckBox->isChecked());
 	RenderableManager::getInstance()->updateViewport();
 }

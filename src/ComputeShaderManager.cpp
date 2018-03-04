@@ -222,11 +222,13 @@ void ComputeShaderManager::bendCurvesOperator(unsigned int curvesSSBO, glm::vec3
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void ComputeShaderManager::clumpCurvesOperator(unsigned int curvesSSBO, unsigned int clumpCurvesSSBO)
+void ComputeShaderManager::clumpCurvesOperator(unsigned int curvesSSBO, unsigned int clumpCurvesSSBO, float envelope)
 {
+	if (envelope == 0.0) // if envelope 0, dont bother!
+		return;
+
 	//first, dispatch clumpCurveCount to get the closest member in curvesSSBO (and replace it)
 	//second, disptch curveCount to lerp all curves to their clumpee
-
 	unsigned int curveCount = getIndicesFromCurveSSBO(curvesSSBO);
 	unsigned int clumpCurveCount = getIndicesFromCurveSSBO(clumpCurvesSSBO);
 	std::cout<<"clumping "<<curveCount<<" curves to "<<clumpCurveCount<<" curves\n";
@@ -239,6 +241,7 @@ void ComputeShaderManager::clumpCurvesOperator(unsigned int curvesSSBO, unsigned
 
 	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_curveCount"), curveCount);
 	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_clumpCurveCount"), clumpCurveCount);
+	glUniform1f(glGetUniformLocation(clumpCurvesShader.getID(), "u_envelope"), envelope);
 
 	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_mode"), 0);
 	glDispatchCompute((int(clumpCurveCount) / 128) + 1, 1, 1);
