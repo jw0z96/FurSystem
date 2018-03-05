@@ -94,15 +94,20 @@ I decided to develop the API side of the fur system using C++, primarly as it mo
 
 To handle the user interface I used the Qt framework within C++. Qt is commonly used for artist tools within visual effects as it is cross-platform, and applications can be configured to run within other applications that make use of it, such as Autodesk Maya.
 
-I wanted to include a node-graph style interface within my application, as it is commonly used within existing artist tools (Autodesk Maya, Unreal Engine), and would encourage modularity within my API. Qt does not natively provide this kind of interface, so I made use of NodeEditor \cite{Pinaev2017} an existing Qt-based library that provides this functionality.
+I wanted to include a node-graph style interface within my application, as it is commonly used within existing artist tools (Autodesk Maya, Unreal Engine), and would encourage modularity within my API. Qt does not natively provide this kind of interface, so I made use of NodeEditor \cite{Pinaev2017}, an existing Qt-based library that provides this functionality.
 
 \subsection{Design} \label{sec:design}
 From looking at existing fur systems I was able determine that my simplified fur system would need to consist of the following components:
+
 \begin{itemize}
+	\item Geometry Loaders - These are responsible for loading user specified geometry. Example Geometry Loaders could allow for the parsing of Wavefront OBJ files.
 	\item Distributors - These are responsible for the distribution of curves onto user specified geometry. User controllable parameters could include density (curve count), distribution pattern (random, uniform), and curve length. These parameters could potentially be controlled by texture inputs.
 	\item Operators - These are responsible for manipulation of the curves to achieve the desired look. Example operators could provide bending, clumping, or randomisation of input curves.
 	\item Renderers - These are responsible for the rendering of curves into the application viewport. Example renderers could provide mesh, cuves as lines, or curves as ribbons rendering functionality. User controllable parameters could provide controls for the shading model in use, as well as control of the base and tip widths when rendering curve ribbons for example.
 \end{itemize}
+
+Whilst the list of components specified above provide the required functionality for a standalone tool, they do not provide any functionality for exporting fur for use in a broader pipeline. I chose to omit this functionality to limit the scope of this assignment, but the ability to export hair curves as alembic would be desirable, as alembic is a widely adopted format that allows for the storage of multiple different types of curve geometry. Another candidate file type would be RenderMan's RIB format, which would allow for direct rendering of the hair curves in any RenderMan compliant renderer.
+
 
 \section{Results} \label{sec:results}
 Results Text.
