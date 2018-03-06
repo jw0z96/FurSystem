@@ -1,0 +1,32 @@
+alin's feedback:
+
+so in terms of what would be cool as feature
+to not have separate draw curves nodes but only one output node
+which will draw the particles
+I mean hair
+and then add some sort of mix nodes
+
+to mix say curve distributors
+
+then, a noise like you said which can be used for lengths or distribution or whatever else
+
+yea
+cus I was experimenting with normal length hair and then another generator thingy for longer less dense hair
+so if I could combine that result into one which I can render it out
+instead of having 2 or 3 different rendering nodes
+
+also clumping works cool I think
+
+length variation would be good and noise on the actual shape of the strand
+and different features maybe a gravity puller
+or brushes to comb it
+but thats really later on I guess
+
+for the interface I have more notes:
+overall it is quite intuitive, quite easy to pick up
+just a few things which would make things easier
+1. naming the node the same as in the node browser
+cus it tends to be confusing otherwise
+2. if you could also pop the browser with Tab
+3. pan in 2d mode with middle mouse button instead of left mouse button
+4. select stuff with left mouse button
