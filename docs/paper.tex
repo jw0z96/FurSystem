@@ -90,7 +90,7 @@ Existing Solutions. (Xgen, houdini)
 Method Text.
 
 \subsection{Resources} \label{sec:resources}
-I decided to develop the API side of the fur system using C++, primarly as it most commonly used when developing computationally heavy artist tools, but also because it is the language I am most comfortable using. I opted to use OpenGL over other APIs (CUDA, OpenCL) for offloading of computation onto the GPU, simply because my final artefact is a tool with a graphical interface, and OpenGL is capable of handling both arbitary computation using compute shaders and rendering of geometry.
+I decided to develop the API side of the fur system using C++, primarly as it most commonly used when developing computationally heavy artist tools, but also because it is the language I am most comfortable using. I opted to use OpenGL over other APIs (CUDA, OpenCL) for offloading of computation onto the GPU, simply because my final artefact is a tool with a graphical interface, and OpenGL is capable of handling both arbitary computation using compute shaders and rendering of geometry simultaneously.
 
 To handle the user interface I used the Qt framework within C++. Qt is commonly used for artist tools within visual effects as it is cross-platform, and applications can be configured to run within other applications that make use of it, such as Autodesk Maya.
 
@@ -108,9 +108,20 @@ From looking at existing fur systems I was able determine that my simplified fur
 
 Whilst the list of components specified above provide the required functionality for a standalone tool, they do not provide any functionality for exporting fur for use in a broader pipeline. I chose to omit this functionality to limit the scope of this assignment, but the ability to export hair curves as alembic would be desirable, as alembic is a widely adopted format that allows for the storage of multiple different types of curve geometry. Another candidate file type would be RenderMan's RIB format, which would allow for direct rendering of the hair curves in any RenderMan compliant renderer.
 
+\subsection{Development} \label{sec:development}
+
+write about obj loading
+
+write about distributing https://stackoverflow.com/questions/9294316/distribute-points-on-mesh-according-to-density
+
+write about GPU
 
 \section{Results} \label{sec:results}
 Results Text.
+
+\subsection{Performance} \label{sec:performance}
+
+insert stats comparing CPU/GPU compute
 
 \bibliographystyle{acmsiggraph}
 \bibliography{references}
