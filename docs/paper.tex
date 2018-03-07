@@ -116,6 +116,13 @@ write about distributing https://stackoverflow.com/questions/9294316/distribute-
 
 write about GPU
 
+\subsection{User Testing} \label{sec:usertesting}
+Near the end of the development I was able to get friend and fellow student Alin Bolcas to test the system and provide feedback from an artist's point of view; Alin is an experienced modelling and look development artist who uses a variety of different software packages to create his work, so getting his feedback on the usability of my tool proved extremely useful.
+
+His first comments were in regards to how the node graph handles rendering of meshes and curves; he found it quite unintuitive to manually create rendering nodes for each new curves object that needed to be drawn. He suggested that a node for the combination of curves should be added, which would consolidate multiple curve objects into a single output for simplified rendering.
+
+He noted that the lack of a node that applies noise to curves proved problematic during his testing; this kind of node is fundamental to achieving appealing fur visuals. He liked the behaviour of the clumping node, as this functionality is also very common and highly used within fur systems, though visual quality was somewhat compromised as my current implementation does not preserve the initial curve length. Adding a control in the distributor that would allow for the variation of curve length was also suggested as something that would improve the quality of the visual output.
+
 \section{Results} \label{sec:results}
 Results Text.
 
