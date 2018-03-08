@@ -17,6 +17,7 @@ ClumpCurveOperatorModel::ClumpCurveOperatorModel() :
 	m_ui->setupUi(m_embedded);
 	// connect spinbox and checkbox
 	connect(m_ui->envelopeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(updateCurves()));
+	connect(m_ui->preserveLengthCheckBox, SIGNAL(stateChanged(int)), this, SLOT(updateCurves()));
 }
 
 ClumpCurveOperatorModel::~ClumpCurveOperatorModel()
@@ -124,7 +125,7 @@ void ClumpCurveOperatorModel::operateCurves()
 	if (curveType == SSBO && clumpCurveType == SSBO)
 	{
 		std::cout<<"processing clump curves SSBO: "<<m_curvesSSBO<<" & "<<m_clumpCurvesSSBO<<"\n";
-		ComputeShaderManager::getInstance()->clumpCurvesOperator(m_curvesSSBO, m_clumpCurvesSSBO, m_ui->envelopeSpinBox->value());
+		ComputeShaderManager::getInstance()->clumpCurvesOperator(m_curvesSSBO, m_clumpCurvesSSBO, m_ui->envelopeSpinBox->value(), m_ui->preserveLengthCheckBox->isChecked());
 	}
 	else
 	{

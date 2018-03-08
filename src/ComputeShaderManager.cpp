@@ -226,7 +226,7 @@ void ComputeShaderManager::bendCurvesOperator(unsigned int curvesSSBO, glm::vec3
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void ComputeShaderManager::clumpCurvesOperator(unsigned int curvesSSBO, unsigned int clumpCurvesSSBO, float envelope)
+void ComputeShaderManager::clumpCurvesOperator(unsigned int curvesSSBO, unsigned int clumpCurvesSSBO, float envelope, bool preserveLength)
 {
 	if (envelope == 0.0) // if envelope 0, dont bother!
 		return;
@@ -246,10 +246,11 @@ void ComputeShaderManager::clumpCurvesOperator(unsigned int curvesSSBO, unsigned
 	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_curveCount"), curveCount);
 	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_clumpCurveCount"), clumpCurveCount);
 	glUniform1f(glGetUniformLocation(clumpCurvesShader.getID(), "u_envelope"), envelope);
+	glUniform1i(glGetUniformLocation(clumpCurvesShader.getID(), "u_preserveLength"), preserveLength);
 
-	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_mode"), 0);
-	glDispatchCompute((int(clumpCurveCount) / 128) + 1, 1, 1);
-	glMemoryBarrier(GL_ALL_BARRIER_BITS);
+	// glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_mode"), 0);
+	// glDispatchCompute((int(clumpCurveCount) / 128) + 1, 1, 1);
+	// glMemoryBarrier(GL_ALL_BARRIER_BITS);
 	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_mode"), 1);
 	glDispatchCompute((int(curveCount) / 128) + 1, 1, 1);
 }
