@@ -38,7 +38,7 @@ void CurvesRenderable::generate()
 			glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &SSBOSize);
 			glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 			std::cout<<"SSBO size : "<<SSBOSize<<"\n";
-			m_indices = SSBOSize / (sizeof(glm::vec4) * 5);
+			m_indices = SSBOSize / (sizeof(glm::vec4) * 6);
 			std::cout<<"m_indices from SSBO size : "<<m_indices<<"\n";
 			break;
 	}

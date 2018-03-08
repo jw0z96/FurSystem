@@ -109,9 +109,9 @@ void RandomDistributorModel::distribute()
 					{
 						curve.vertices[j] = randPos + ((float(j) / 5.0f) * randNorm * float(m_ui->lengthSpinBox->value()));
 					}
+					curve.length = m_ui->lengthSpinBox->value();
 
 					m_curves.m_curves.push_back(curve);
-
 					break;
 				}
 			}

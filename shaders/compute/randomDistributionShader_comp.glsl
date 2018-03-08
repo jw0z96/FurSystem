@@ -14,6 +14,7 @@ struct Face
 struct Curve
 {
 	vec4 position[5];
+	float length;
 };
 
 layout (std430, binding = 0) buffer facesBuffer

@@ -6,6 +6,7 @@ layout(line_strip, max_vertices = 5) out;
 struct Curve
 {
 	vec4 position[5];
+	float length;
 };
 
 layout (std430, binding = 0) buffer curvesBuffer

@@ -65,8 +65,10 @@ void ComputeShaderManager::createCurvesSSBO(unsigned int &buffer, Curves _curves
 		{
 			curvesData.push_back(glm::vec4(curve.vertices[i], 0.0));
 		}
+		// push back the length
+		curvesData.push_back(glm::vec4(curve.length, 0.0, 0.0, 0.0));
 	}
-	// use glBufferData to allocate all 5*count vec3 or infer from curves object
+	// use glBufferData to allocate all 6 * count vec3 or infer from curves object
 	glBufferData(GL_SHADER_STORAGE_BUFFER, curvesData.size() * sizeof(glm::vec4(0.0)), &curvesData[0], GL_DYNAMIC_COPY);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
@@ -182,7 +184,7 @@ void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned i
 	glGenBuffers(1, &curvesSSBO);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, curvesSSBO);
 	std::vector<glm::vec4> curvesData;
-	for (unsigned int i = 0; i < (curveCount * 5); ++i)
+	for (unsigned int i = 0; i < (curveCount * 6); ++i) // 6 = 5 verts + 1 for length
 		curvesData.push_back(glm::vec4(0.0));
 	glBufferData(GL_SHADER_STORAGE_BUFFER, curveCount * 5 * sizeof(glm::vec4), &curvesData[0], GL_DYNAMIC_COPY);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
