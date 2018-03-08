@@ -33,12 +33,14 @@ public:
     QCheckBox *modeCheckBox;
     QLabel *lengthLabel;
     QDoubleSpinBox *lengthSpinBox;
+    QLabel *variationLabel;
+    QDoubleSpinBox *variationSpinBox;
 
     void setupUi(QWidget *RandomDistributorModelWidget)
     {
         if (RandomDistributorModelWidget->objectName().isEmpty())
             RandomDistributorModelWidget->setObjectName(QStringLiteral("RandomDistributorModelWidget"));
-        RandomDistributorModelWidget->resize(145, 88);
+        RandomDistributorModelWidget->resize(152, 114);
         formLayout = new QFormLayout(RandomDistributorModelWidget);
         formLayout->setObjectName(QStringLiteral("formLayout"));
         countLabel = new QLabel(RandomDistributorModelWidget);
@@ -57,13 +59,13 @@ public:
         modeLabel = new QLabel(RandomDistributorModelWidget);
         modeLabel->setObjectName(QStringLiteral("modeLabel"));
 
-        formLayout->setWidget(2, QFormLayout::LabelRole, modeLabel);
+        formLayout->setWidget(3, QFormLayout::LabelRole, modeLabel);
 
         modeCheckBox = new QCheckBox(RandomDistributorModelWidget);
         modeCheckBox->setObjectName(QStringLiteral("modeCheckBox"));
         modeCheckBox->setChecked(true);
 
-        formLayout->setWidget(2, QFormLayout::FieldRole, modeCheckBox);
+        formLayout->setWidget(3, QFormLayout::FieldRole, modeCheckBox);
 
         lengthLabel = new QLabel(RandomDistributorModelWidget);
         lengthLabel->setObjectName(QStringLiteral("lengthLabel"));
@@ -78,6 +80,20 @@ public:
 
         formLayout->setWidget(1, QFormLayout::FieldRole, lengthSpinBox);
 
+        variationLabel = new QLabel(RandomDistributorModelWidget);
+        variationLabel->setObjectName(QStringLiteral("variationLabel"));
+
+        formLayout->setWidget(2, QFormLayout::LabelRole, variationLabel);
+
+        variationSpinBox = new QDoubleSpinBox(RandomDistributorModelWidget);
+        variationSpinBox->setObjectName(QStringLiteral("variationSpinBox"));
+        variationSpinBox->setMinimum(0);
+        variationSpinBox->setMaximum(1);
+        variationSpinBox->setSingleStep(0.1);
+        variationSpinBox->setValue(0);
+
+        formLayout->setWidget(2, QFormLayout::FieldRole, variationSpinBox);
+
 
         retranslateUi(RandomDistributorModelWidget);
 
@@ -91,6 +107,7 @@ public:
         modeLabel->setText(QApplication::translate("RandomDistributorModelWidget", "Mode", Q_NULLPTR));
         modeCheckBox->setText(QApplication::translate("RandomDistributorModelWidget", "GPU", Q_NULLPTR));
         lengthLabel->setText(QApplication::translate("RandomDistributorModelWidget", "Length", Q_NULLPTR));
+        variationLabel->setText(QApplication::translate("RandomDistributorModelWidget", "Variation", Q_NULLPTR));
     } // retranslateUi
 
 };

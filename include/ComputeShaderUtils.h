@@ -15,7 +15,7 @@ unsigned int getIndicesFromCurveSSBO(unsigned int _ssbo)
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, _ssbo);
 	glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &SSBOSize);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-	return (SSBOSize / (sizeof(glm::vec4) * 5));
+	return (SSBOSize / (sizeof(glm::vec4) * 6));
 }
 
 #endif // COMPUTESHADERUTILS_H

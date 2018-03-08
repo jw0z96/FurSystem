@@ -31,6 +31,7 @@ uniform float u_meshArea;
 uniform uint u_curveCount;
 uniform uint u_faceCount;
 uniform float u_length;
+uniform float u_variation;
 uniform uint u_seed;
 
 // ----------------------------------------------------------------------------
@@ -62,6 +63,7 @@ void main()
 		{
 			float baryA = rand(vec2(computeIndex, float(u_seed + 20)));
 			float baryB = rand(vec2(computeIndex, float(u_seed + 10)));
+			float randLength = u_length * mix((1.0 - u_variation), 1.0, rand(vec2(computeIndex, float(u_seed + 30))));
 
 			if ((baryA + baryB) > 1.0)
 			{
@@ -84,9 +86,10 @@ void main()
 
 			for (int j = 0; j < 5; ++j)
 			{
-				vec3 cv = randPos + ((float(j) / 5.0) * randNorm * u_length);
+				vec3 cv = randPos + ((float(j) / 5.0) * randNorm * randLength);
 				curves[computeIndex].position[j] = vec4(cv, 0.0);
 			}
+			curves[computeIndex].length = randLength;
 
 			return;
 		}

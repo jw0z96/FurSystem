@@ -174,7 +174,7 @@ void ComputeShaderManager::copyCurvesSSBO(unsigned int src, unsigned int &dst)
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned int &curvesSSBO, unsigned int curveCount, unsigned int faceCount, float meshArea, float length)
+void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned int &curvesSSBO, unsigned int curveCount, unsigned int faceCount, float meshArea, float length, float variation)
 {
 	// if the SSBO exists, delete it (we need to resize it anyway)
 	if (curvesSSBO)
@@ -186,7 +186,7 @@ void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned i
 	std::vector<glm::vec4> curvesData;
 	for (unsigned int i = 0; i < (curveCount * 6); ++i) // 6 = 5 verts + 1 for length
 		curvesData.push_back(glm::vec4(0.0));
-	glBufferData(GL_SHADER_STORAGE_BUFFER, curveCount * 5 * sizeof(glm::vec4), &curvesData[0], GL_DYNAMIC_COPY);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, curveCount * 6 * sizeof(glm::vec4), &curvesData[0], GL_DYNAMIC_COPY);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
 	// use shader & send uniforms
@@ -195,6 +195,7 @@ void ComputeShaderManager::randomDistribution(unsigned int &meshSSBO, unsigned i
 	glUniform1ui(glGetUniformLocation(randomDistributionShader.getID(), "u_curveCount"), curveCount);
 	glUniform1ui(glGetUniformLocation(randomDistributionShader.getID(), "u_faceCount"), faceCount);
 	glUniform1f(glGetUniformLocation(randomDistributionShader.getID(), "u_length"), length);
+	glUniform1f(glGetUniformLocation(randomDistributionShader.getID(), "u_variation"), variation);
 	glUniform1ui(glGetUniformLocation(randomDistributionShader.getID(), "u_seed"), curvesSSBO);
 
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, meshSSBO);

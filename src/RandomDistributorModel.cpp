@@ -16,6 +16,7 @@ RandomDistributorModel::RandomDistributorModel() :
 	connect(m_ui->countSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateDistribution()));
 	connect(m_ui->modeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(updateDistribution()));
 	connect(m_ui->lengthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(updateDistribution()));
+	connect(m_ui->variationSpinBox, SIGNAL(valueChanged(double)), this, SLOT(updateDistribution()));
 
 	m_curves = Curves();
 	m_meshSSBOID = 0;
@@ -45,14 +46,15 @@ void RandomDistributorModel::distribute()
 {
 	if (m_ui->modeCheckBox->isChecked()) // GPU mode checked
 	{
-		// this function needs to create / resize m_curvesSSBOID
+		// this function needs to create & resize m_curvesSSBOID
 		ComputeShaderManager::getInstance()->randomDistribution(
 			m_meshSSBOID,
 			m_curvesSSBOID,
 			m_ui->countSpinBox->value(),
 			m_mesh.m_faces.size(),
 			m_totalMeshArea,
-			m_ui->lengthSpinBox->value()
+			m_ui->lengthSpinBox->value(),
+			m_ui->variationSpinBox->value()
 			);
 	}
 	else
