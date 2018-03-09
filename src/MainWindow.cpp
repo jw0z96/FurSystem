@@ -6,6 +6,7 @@
 #include "BasicDistributorModel.h"
 #include "RandomDistributorModel.h"
 #include "BendCurveOperatorModel.h"
+#include "NoiseCurveOperatorModel.h"
 #include "ClumpCurveOperatorModel.h"
 #include "ComputeShaderManager.h"
 #include "RenderableManager.h"
@@ -25,6 +26,7 @@ static std::shared_ptr<DataModelRegistry> registerDataModels()
 	ret->registerModel<BasicDistributorModel>("Distributors");
 	ret->registerModel<RandomDistributorModel>("Distributors");
 	ret->registerModel<BendCurveOperatorModel>("Curve Operators");
+	ret->registerModel<NoiseCurveOperatorModel>("Curve Operators");
 	ret->registerModel<ClumpCurveOperatorModel>("Curve Operators");
 	return ret;
 }

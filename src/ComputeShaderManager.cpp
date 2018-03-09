@@ -16,6 +16,7 @@ ComputeShaderManager::ComputeShaderManager()
 {
 	randomDistributionShader = Shader("shaders/compute/randomDistributionShader_comp.glsl");
 	bendCurvesShader = Shader("shaders/compute/bendCurvesShader_comp.glsl");
+	noiseCurvesShader = Shader("shaders/compute/noiseCurvesShader_comp.glsl");
 	clumpCurvesShader = Shader("shaders/compute/clumpCurvesShader_comp.glsl");
 }
 
@@ -33,6 +34,7 @@ void ComputeShaderManager::cleanUpAll()
 	// delete compute shaders
 	randomDistributionShader.cleanUp();
 	bendCurvesShader.cleanUp();
+	noiseCurvesShader.cleanUp();
 	clumpCurvesShader.cleanUp();
 }
 
@@ -43,6 +45,7 @@ void ComputeShaderManager::recompileShaders()
 	cleanUpAll();
 	randomDistributionShader = Shader("shaders/compute/randomDistributionShader_comp.glsl");
 	bendCurvesShader = Shader("shaders/compute/bendCurvesShader_comp.glsl");
+	noiseCurvesShader = Shader("shaders/compute/noiseCurvesShader_comp.glsl");
 	clumpCurvesShader = Shader("shaders/compute/clumpCurvesShader_comp.glsl");
 }
 
@@ -218,6 +221,22 @@ void ComputeShaderManager::bendCurvesOperator(unsigned int curvesSSBO, glm::vec3
 	glUniform1f(glGetUniformLocation(bendCurvesShader.getID(), "u_intensity"), intensity);
 	glUniform1ui(glGetUniformLocation(bendCurvesShader.getID(), "u_curveCount"), curveCount);
 	glUniform3fv(glGetUniformLocation(bendCurvesShader.getID(), "u_direction"), 1, glm::value_ptr(direction));
+
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, curvesSSBO);
+
+	glDispatchCompute((int(curveCount) / 128) + 1, 1, 1);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void ComputeShaderManager::noiseCurvesOperator(unsigned int curvesSSBO, float intensity)
+{
+	unsigned int curveCount = getIndicesFromCurveSSBO(curvesSSBO);
+
+	// use shader & send uniforms
+	noiseCurvesShader.use();
+	glUniform1f(glGetUniformLocation(noiseCurvesShader.getID(), "u_intensity"), intensity);
+	glUniform1ui(glGetUniformLocation(noiseCurvesShader.getID(), "u_curveCount"), curveCount);
 
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, curvesSSBO);
 

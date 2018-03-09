@@ -99,8 +99,8 @@ Curve resampleCurve(Curve curve)
 		// 		break;
 		// 	}
 		// }
-		// vec3 newDiff = 0.25 * originalLength * normalize(curve.position[i].xyz - newCurve.position[i - 1].xyz);
-		vec3 newDiff = 0.2 * originalLength * normalize(curve.position[i].xyz - newCurve.position[i - 1].xyz); // why is it 0.2??
+		vec3 newDiff = 0.25 * originalLength * normalize(curve.position[i].xyz - newCurve.position[i - 1].xyz);
+		// vec3 newDiff = 0.2 * originalLength * normalize(curve.position[i].xyz - newCurve.position[i - 1].xyz); // why is it 0.2??
 		newCurve.position[i].xyz = newCurve.position[i - 1].xyz + newDiff;
 	}
 	newCurve.length = originalLength;

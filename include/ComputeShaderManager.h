@@ -59,6 +59,10 @@ class ComputeShaderManager
 		//----------------------------------------------------------------------------------------------------------------------
 		void bendCurvesOperator(unsigned int curvesSSBO, glm::vec3 direction, float intensity);
 		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief noise curves in a compute shader
+		//----------------------------------------------------------------------------------------------------------------------
+		void noiseCurvesOperator(unsigned int curvesSSBO, float intensity);
+		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief clump curves in a compute shader
 		//----------------------------------------------------------------------------------------------------------------------
 		void clumpCurvesOperator(unsigned int curvesSSBO, unsigned int clumpCurvesSSBO, float envelope, bool preserveLength);
@@ -67,7 +71,7 @@ class ComputeShaderManager
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief our compute shaders
 		//----------------------------------------------------------------------------------------------------------------------
-		Shader randomDistributionShader, bendCurvesShader, clumpCurvesShader;
+		Shader randomDistributionShader, bendCurvesShader, noiseCurvesShader, clumpCurvesShader;
 };
 
 #endif // COMPUTESHADERMANAGER_H

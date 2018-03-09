@@ -86,7 +86,7 @@ void main()
 
 			for (int j = 0; j < 5; ++j)
 			{
-				vec3 cv = randPos + ((float(j) / 5.0) * randNorm * randLength);
+				vec3 cv = randPos + ((float(j) / 4.0) * randNorm * randLength);
 				curves[computeIndex].position[j] = vec4(cv, 0.0);
 			}
 			curves[computeIndex].length = randLength;
