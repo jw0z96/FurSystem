@@ -84,7 +84,11 @@ For this project I developed a procedural fur system, with the aim of exploring 
 Introduction Text.
 
 \subsection{Existing Solutions} \label{sec:existing}
-Existing Solutions. (Xgen, houdini)
+Whilst many larger companies opt to develop their own software for handling fur, such as MPC's Furtility \cite{furtility}, there are a number of commercially available solutions that are also widely used in production. The most popular of these is XGen, originally developed by Walt Disney Animation Studios, which has been included in Autodesk's Maya since 2014. XGen uses a 'Collection' and 'Description' paradigm; Descriptions store user controlled parameters which affect fur primitives (curves for example) on a select area of a mesh, and Collections act as a container for these Descriptions. There are two primary methods offered for distributing primitives on a mesh, Guide Curves can be used to manually control the placement and shape of primitives by placing 'Guides' on the mesh surface, whereas 'Groomable Splines' randomly distirbutes splines over the mesh surface which can be manipulated in real time using viewport manipulators that mimic the brushing and styling of fur. In both modes, 'modifiers' can be added to the modifier stack to further adjust the visual outcome, adding features such as clumping, noise, and coiling. Attributes within these modifiers can be further controlled using expressions or texture maps.
+
+Another commercially available solution is Peregrine*Labs' Yeti \cite{yeti}, which is also offered as a plugin within Autodesk's Maya. Yeti offers a more procedural approach, giving the user a node graph interface in which to construct the desired look from individual components. For example, the most simple usage requires the user to first create a 'scatter' node to distribute points on the mesh surface, and then combine it with a 'grow' node to extrude curves from these points. Whilst at first this may seem unintuitive when compared to XGen, it offers greater flexibility and avoids the pitfalls associated with a destructive workflow.
+
+Offerering even even more flexibility, recent versions of SideFX's Houdini include hair and fur operator nodes, which create predefined node networks for the generation of hair and fur. These networks use standard Houdini nodes internally, so experienced Houdini users are intuitively able to create the visual outcome they desire, using tools they already know. However, it may be quite unintuitive for asset artists (those who would be using the tool, Groom artists?), who are not used to Houdini's heavily procedural workflow.
 
 \section{Implementation} \label{sec:implementation}
 Method Text.
@@ -117,7 +121,7 @@ write about distributing https://stackoverflow.com/questions/9294316/distribute-
 write about GPU
 
 \subsection{User Testing} \label{sec:usertesting}
-Near the end of the development I was able to get friend and fellow student Alin Bolcas to test the system and provide feedback from an artist's point of view; Alin is an experienced modelling and look development artist who uses a variety of different software packages to create his work, so getting his feedback on the usability of my tool proved extremely useful.
+Near the end of the development I was able to convince friend and fellow student Alin Bolcas to test the system and provide feedback from an artist's point of view; Alin is an experienced modelling and look development artist who uses a variety of different software packages to create his work, so getting his feedback on the usability of my tool proved extremely useful.
 
 His first comments were in regards to how the node graph handles rendering of meshes and curves; he found it quite unintuitive to manually create rendering nodes for each new curves object that needed to be drawn. He suggested that a node for the combination of curves should be added, which would consolidate multiple curve objects into a single output for simplified rendering.
 

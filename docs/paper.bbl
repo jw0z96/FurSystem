@@ -1,5 +1,17 @@
 \begin{thebibliography}{\protect\citename{Pinaev }2017}
 
+\bibitem[\protect\citename{a }2017a]{furtility}
+{\sc a}, 2017.
+\newblock b.
+\newblock \url{https://github.com/paceholder/nodeeditor}.
+\newblock Accessed 25 Jan 2018.
+
+\bibitem[\protect\citename{a }2017b]{yeti}
+{\sc a}, 2017.
+\newblock b.
+\newblock \url{https://github.com/paceholder/nodeeditor}.
+\newblock Accessed 25 Jan 2018.
+
 \bibitem[\protect\citename{Pinaev }2017]{Pinaev2017}
 {\sc Pinaev, D.}, 2017.
 \newblock Qt5 node editor.
