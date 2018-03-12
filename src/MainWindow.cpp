@@ -62,6 +62,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	m_splitter->setSizes(QList<int>({INT_MAX, INT_MAX})); // set size of both splits to max so we fill 50/50
 	// add splitter to layout
 	m_ui->mainWindowGridLayout->addWidget(m_splitter, 0, 0, 1, 1);
+	// create menubar actions
+	auto saveAction = m_ui->menubar->addAction("Save..");
+	auto loadAction = m_ui->menubar->addAction("Load..");
+	// connect signals
+	QObject::connect(saveAction, &QAction::triggered, m_nodes, &FlowScene::save);
+	QObject::connect(loadAction, &QAction::triggered, m_nodes, &FlowScene::load);
 }
 
 MainWindow::~MainWindow()
