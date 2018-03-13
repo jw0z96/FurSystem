@@ -108,7 +108,8 @@ void main()
 	vec3 position = mix(posA, posB, fract(a));
 
 	vec3 viewDirection = normalize(camPos - position);
-	vec3 lightVector = normalize((vec4(1.0) * MVP).xyz); // vec4(1.0) is the light direction
+	vec3 lightDirection = normalize(vec3(1.0, 1.0, 0.0)); // vec4(1.0) is the light direction
+	vec3 lightVector = normalize((vec4(lightDirection, 1.0) * MVP).xyz); // vec4(1.0) is the light direction
 	vec3 halfVector = normalize(viewDirection + lightVector);
 
 	float metallic = u_metallic;
@@ -129,7 +130,7 @@ void main()
 	vec3 kD = vec3(1.0) - kS;
 	kD *= 1.0 - metallic;
 
-	vec3 Lo = (kD * albedo / PI + specular) * a * 4.0;
+	vec3 Lo = (kD * albedo / PI + specular) * 4.0; // * a
 
 	fragColor = vec4(acesFilm(Lo), 1.0);
 }

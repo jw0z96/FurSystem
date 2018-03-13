@@ -1,0 +1,162 @@
+{
+    "connections": [
+        {
+            "in_id": "{b18a333d-6698-4eef-abc2-a7d94b044124}",
+            "in_index": 0,
+            "out_id": "{36e19bac-0ced-4cb9-8f6b-eb1fab684d3f}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{36e19bac-0ced-4cb9-8f6b-eb1fab684d3f}",
+            "in_index": 0,
+            "out_id": "{5c7ab8a6-3c8d-4f59-ab0e-b749c65f449f}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{a6d9848f-8f3a-4b2a-acf8-08c067b24522}",
+            "in_index": 0,
+            "out_id": "{2b693d77-b42c-458f-8153-4a1bdcd872a9}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{2b693d77-b42c-458f-8153-4a1bdcd872a9}",
+            "in_index": 0,
+            "out_id": "{9d94a3a9-a3b1-4602-8ff1-447cedbd3ca5}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{9d94a3a9-a3b1-4602-8ff1-447cedbd3ca5}",
+            "in_index": 1,
+            "out_id": "{b18a333d-6698-4eef-abc2-a7d94b044124}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{9d94a3a9-a3b1-4602-8ff1-447cedbd3ca5}",
+            "in_index": 0,
+            "out_id": "{a4006d78-1174-4497-9a79-1738e0108069}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{5c7ab8a6-3c8d-4f59-ab0e-b749c65f449f}",
+            "in_index": 0,
+            "out_id": "{8c1a1cf7-baa1-455f-a6d6-98bf1dab6609}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{ac1a0957-5923-4f55-b4fe-a514041cec96}",
+            "in_index": 0,
+            "out_id": "{6e6102ce-0d5a-4e4d-a5a8-62501e13a94d}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{a4006d78-1174-4497-9a79-1738e0108069}",
+            "in_index": 0,
+            "out_id": "{8c1a1cf7-baa1-455f-a6d6-98bf1dab6609}",
+            "out_index": 0
+        }
+    ],
+    "nodes": [
+        {
+            "id": "{b18a333d-6698-4eef-abc2-a7d94b044124}",
+            "model": {
+                "name": "Noise Curves"
+            },
+            "position": {
+                "x": 70,
+                "y": 918
+            }
+        },
+        {
+            "id": "{9d94a3a9-a3b1-4602-8ff1-447cedbd3ca5}",
+            "model": {
+                "name": "Clump Curves"
+            },
+            "position": {
+                "x": 283,
+                "y": 737
+            }
+        },
+        {
+            "id": "{2b693d77-b42c-458f-8153-4a1bdcd872a9}",
+            "model": {
+                "name": "Noise Curves"
+            },
+            "position": {
+                "x": 691,
+                "y": 722
+            }
+        },
+        {
+            "id": "{a6d9848f-8f3a-4b2a-acf8-08c067b24522}",
+            "model": {
+                "name": "Curves Renderer"
+            },
+            "position": {
+                "x": 985,
+                "y": 743
+            }
+        },
+        {
+            "id": "{6e6102ce-0d5a-4e4d-a5a8-62501e13a94d}",
+            "model": {
+                "label": "/home/i7463769/dev/FurSystem/meshes/charJames_bust.obj",
+                "name": "Obj Mesh Loader"
+            },
+            "position": {
+                "x": -130,
+                "y": 8
+            }
+        },
+        {
+            "id": "{ac1a0957-5923-4f55-b4fe-a514041cec96}",
+            "model": {
+                "name": "Mesh Renderer"
+            },
+            "position": {
+                "x": 307,
+                "y": 59
+            }
+        },
+        {
+            "id": "{5c7ab8a6-3c8d-4f59-ab0e-b749c65f449f}",
+            "model": {
+                "name": "Random Distributor"
+            },
+            "position": {
+                "x": -494,
+                "y": 729
+            }
+        },
+        {
+            "id": "{8c1a1cf7-baa1-455f-a6d6-98bf1dab6609}",
+            "model": {
+                "label": "/home/i7463769/dev/FurSystem/meshes/charJames_scalp.obj",
+                "name": "Obj Mesh Loader"
+            },
+            "position": {
+                "x": -219,
+                "y": 321
+            }
+        },
+        {
+            "id": "{36e19bac-0ced-4cb9-8f6b-eb1fab684d3f}",
+            "model": {
+                "name": "Bend Curves"
+            },
+            "position": {
+                "x": -176,
+                "y": 803
+            }
+        },
+        {
+            "id": "{a4006d78-1174-4497-9a79-1738e0108069}",
+            "model": {
+                "name": "Random Distributor"
+            },
+            "position": {
+                "x": -272,
+                "y": 472
+            }
+        }
+    ]
+}

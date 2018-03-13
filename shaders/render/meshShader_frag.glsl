@@ -87,7 +87,8 @@ void main()
 	vec3 position = WorldPos;
 
 	vec3 viewDirection = normalize(camPos - WorldPos);
-	vec3 lightVector = normalize((vec4(1.0) * MVP).xyz); // vec4(1.0) is the light direction
+	vec3 lightDirection = normalize(vec3(1.0, 1.0, 0.0)); // vec4(1.0) is the light direction
+	vec3 lightVector = normalize((vec4(lightDirection, 1.0) * MVP).xyz); // vec4(1.0) is the light direction
 	vec3 halfVector = normalize(viewDirection + lightVector);
 
 	float metallic = u_metallic;
