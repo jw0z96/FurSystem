@@ -19,6 +19,7 @@ RenderableManager::RenderableManager()
 {
 	meshShader = Shader("shaders/render/meshShader_vert.glsl", "shaders/render/meshShader_frag.glsl");
 	curvesShader = Shader("shaders/render/curvesShader_vert.glsl", "shaders/render/curvesShader_frag.glsl", "shaders/render/curvesShader_geo.glsl");
+	curvesRibbonShader = Shader("shaders/render/curvesShader_vert.glsl", "shaders/render/curvesShader_frag.glsl", "shaders/render/curvesRibbonShader_geo.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -34,6 +35,7 @@ void RenderableManager::cleanUpAll()
 {
 	meshShader.cleanUp();
 	curvesShader.cleanUp();
+	curvesRibbonShader.cleanUp();
 
 	for (auto renderable : m_renderables)
 	{
@@ -47,8 +49,10 @@ void RenderableManager::recompileShaders()
 {
 	meshShader.cleanUp();
 	curvesShader.cleanUp();
+	curvesRibbonShader.cleanUp();
 	meshShader = Shader("shaders/render/meshShader_vert.glsl", "shaders/render/meshShader_frag.glsl");
 	curvesShader = Shader("shaders/render/curvesShader_vert.glsl", "shaders/render/curvesShader_frag.glsl", "shaders/render/curvesShader_geo.glsl");
+	curvesRibbonShader = Shader("shaders/render/curvesShader_vert.glsl", "shaders/render/curvesShader_frag.glsl", "shaders/render/curvesRibbonShader_geo.glsl");
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -125,11 +129,13 @@ void RenderableManager::drawRenderables()
 
 				case CURVES:
 					// std::cout<<"CURVES draw call\n";
-					curvesShader.use();
-					loadMatricesToShader(curvesShader.getID());
+					// curvesShader.use();
+					curvesRibbonShader.use();
+					// loadMatricesToShader(curvesShader.getID());
+					loadMatricesToShader(curvesRibbonShader.getID());
 					// auto r = std::static_pointer_cast<CurvesRenderable>(renderable);
 					// col = std::static_pointer_cast<CurvesRenderable>(renderable)->getColour();
-					glUniform3fv(glGetUniformLocation(curvesShader.getID(), "u_colour"), 1, glm::value_ptr(std::static_pointer_cast<CurvesRenderable>(renderable)->getColour()));
+					glUniform3fv(glGetUniformLocation(curvesRibbonShader.getID(), "u_colour"), 1, glm::value_ptr(std::static_pointer_cast<CurvesRenderable>(renderable)->getColour()));
 					// glUniform1ui(glGetUniformLocation(curvesShader.getID(), "u_numIndices"), std::static_pointer_cast<CurvesRenderable>(renderable)->getIndices());
 					renderable->draw();
 					break;
