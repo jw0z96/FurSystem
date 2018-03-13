@@ -106,9 +106,7 @@ void main()
 	vec3 position = mix(posA, posB, fract(a));
 
 	vec3 viewDirection = normalize(camPos - position);
-	vec3 rightVec = normalize(cross(viewDirection, vec3(0.0, 1.0, 0.0)));
-	vec3 lightPos = position + 5.0 *(vec3(0.0, 1.0, 0.0) - rightVec);
-	vec3 lightVector = normalize(lightPos - position);
+	vec3 lightVector = normalize((vec4(1.0) * MVP).xyz); // vec4(1.0) is the light direction
 	vec3 halfVector = normalize(viewDirection + lightVector);
 
 	// float metallic = abs(sin(curveID));
