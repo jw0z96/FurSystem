@@ -133,6 +133,8 @@ void Viewport::keyPressEvent(QKeyEvent *_event)
 		case Qt::Key_S : glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); break;
 		// show full screen
 		case Qt::Key_F : showFullScreen(); break;
+		// center camera
+		case Qt::Key_C : m_cam.resetPos(); break;
 		// show windowed
 		case Qt::Key_N : showNormal(); break;
 		default : break;

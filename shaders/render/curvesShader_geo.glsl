@@ -22,10 +22,11 @@ uniform vec3 camPos;
 uniform vec3 colour;
 
 smooth out float vertIndex;
+flat out uint curveID;
 
 void main()
 {
-	uint curveID = gl_PrimitiveIDIn;
+	curveID = gl_PrimitiveIDIn;
 
 	for (int i = 0; i < 5; ++i)
 	{

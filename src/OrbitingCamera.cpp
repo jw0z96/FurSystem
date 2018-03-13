@@ -76,3 +76,8 @@ void OrbitingCamera::calculateOrbitPos() noexcept
 	m_eye.y = m_radius * sin(m_phi);
 	m_eye.z = m_radius * cos(m_theta) * cos(m_phi);
 }
+
+void OrbitingCamera::resetPos() noexcept
+{
+	m_look = glm::vec3(0.0);
+}

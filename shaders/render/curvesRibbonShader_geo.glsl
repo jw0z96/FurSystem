@@ -23,10 +23,11 @@ uniform vec3 colour;
 uniform float u_width;
 
 smooth out float vertIndex;
+flat out uint curveID;
 
 void main()
 {
-	uint curveID = gl_PrimitiveIDIn;
+	curveID = gl_PrimitiveIDIn;
 
 	for (int i = 0; i < 5; ++i)
 	{

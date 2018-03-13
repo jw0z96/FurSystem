@@ -110,13 +110,9 @@ void CurvesRendererModel::setVisibility()
 void CurvesRendererModel::setRenderType()
 {
 	if (m_ui->ribbonsCheckBox->isChecked())
-	{
 		m_curvesRenderable->setRibbons();
-	}
 	else
-	{
 		m_curvesRenderable->setLines();
-	}
 	RenderableManager::getInstance()->updateViewport();
 }
 
