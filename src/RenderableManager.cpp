@@ -124,6 +124,8 @@ void RenderableManager::drawRenderables()
 					loadMatricesToShader(meshShader.getID());
 					col = std::static_pointer_cast<MeshRenderable>(renderable)->getColour();
 					glUniform3fv(glGetUniformLocation(meshShader.getID(), "u_colour"), 1, glm::value_ptr(col));
+					glUniform1f(glGetUniformLocation(meshShader.getID(), "u_roughness"), std::static_pointer_cast<MeshRenderable>(renderable)->getRoughness());
+					glUniform1f(glGetUniformLocation(meshShader.getID(), "u_metallic"), std::static_pointer_cast<MeshRenderable>(renderable)->getMetallic());
 					renderable->draw();
 					break;
 
@@ -133,6 +135,8 @@ void RenderableManager::drawRenderables()
 					// auto r = std::static_pointer_cast<CurvesRenderable>(renderable);
 					// col = std::static_pointer_cast<CurvesRenderable>(renderable)->getColour();
 					glUniform3fv(glGetUniformLocation(curvesShader.getID(), "u_colour"), 1, glm::value_ptr(std::static_pointer_cast<CurvesRenderable>(renderable)->getColour()));
+					glUniform1f(glGetUniformLocation(curvesShader.getID(), "u_roughness"), std::static_pointer_cast<CurvesRenderable>(renderable)->getRoughness());
+					glUniform1f(glGetUniformLocation(curvesShader.getID(), "u_metallic"), std::static_pointer_cast<CurvesRenderable>(renderable)->getMetallic());
 					renderable->draw();
 					break;
 
@@ -141,6 +145,8 @@ void RenderableManager::drawRenderables()
 					loadMatricesToShader(curvesRibbonShader.getID());
 					glUniform3fv(glGetUniformLocation(curvesRibbonShader.getID(), "u_colour"), 1, glm::value_ptr(std::static_pointer_cast<CurvesRenderable>(renderable)->getColour()));
 					glUniform1f(glGetUniformLocation(curvesRibbonShader.getID(), "u_width"), std::static_pointer_cast<CurvesRenderable>(renderable)->getWidth());
+					glUniform1f(glGetUniformLocation(curvesRibbonShader.getID(), "u_roughness"), std::static_pointer_cast<CurvesRenderable>(renderable)->getRoughness());
+					glUniform1f(glGetUniformLocation(curvesRibbonShader.getID(), "u_metallic"), std::static_pointer_cast<CurvesRenderable>(renderable)->getMetallic());
 					renderable->draw();
 					break;
 

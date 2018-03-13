@@ -8,6 +8,8 @@ MeshRenderable::MeshRenderable()
 	m_indices = 0;
 	m_mesh = Mesh();
 	m_colour = glm::vec3(1.0, 0.0, 0.0);
+	m_roughness = 0.5;
+	m_metallic = 0.5;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -107,4 +109,18 @@ void MeshRenderable::setMesh(Mesh const &_mesh)
 void MeshRenderable::setColour(glm::vec3 const &_col)
 {
 	m_colour = _col;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void MeshRenderable::setMetallic(float const &_metallic)
+{
+	m_metallic = _metallic;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void MeshRenderable::setRoughness(float const &_roughness)
+{
+	m_roughness = _roughness;
 }

@@ -12,6 +12,8 @@ CurvesRenderable::CurvesRenderable()
 	m_colour = glm::vec3(1.0, 0.0, 0.0);
 	m_indices = 0;
 	m_ribbonWidth = 0.005;
+	m_roughness = 0.5;
+	m_metallic = 0.5;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -118,4 +120,18 @@ void CurvesRenderable::setCurves(Curves const &_curves)
 void CurvesRenderable::setColour(glm::vec3 const &_col)
 {
 	m_colour = _col;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void CurvesRenderable::setMetallic(float const &_metallic)
+{
+	m_metallic = _metallic;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void CurvesRenderable::setRoughness(float const &_roughness)
+{
+	m_roughness = _roughness;
 }

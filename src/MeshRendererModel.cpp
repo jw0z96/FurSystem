@@ -17,6 +17,8 @@ MeshRendererModel::MeshRendererModel() :
 	connect(m_ui->redAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
 	connect(m_ui->greenAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
 	connect(m_ui->blueAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
+	connect(m_ui->roughnessDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setMetallicRoughness()));
+	connect(m_ui->metallicDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setMetallicRoughness()));
 	connect(m_ui->visibilityCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setVisibility()));
 	m_meshRenderable = std::make_shared<MeshRenderable>();
 }
@@ -100,5 +102,12 @@ void MeshRendererModel::setColour()
 void MeshRendererModel::setVisibility()
 {
 	m_meshRenderable->setVisibility(m_ui->visibilityCheckBox->isChecked());
+	RenderableManager::getInstance()->updateViewport();
+}
+
+void MeshRendererModel::setMetallicRoughness()
+{
+	m_meshRenderable->setRoughness(m_ui->roughnessDoubleSpinBox->value());
+	m_meshRenderable->setMetallic(m_ui->metallicDoubleSpinBox->value());
 	RenderableManager::getInstance()->updateViewport();
 }

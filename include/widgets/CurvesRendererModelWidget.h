@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'CurvesRendererModelWidget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.2
+** Created by: Qt User Interface Compiler version 5.9.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -38,12 +38,16 @@ public:
     QCheckBox *ribbonsCheckBox;
     QLabel *widthLabel;
     QDoubleSpinBox *widthDoubleSpinBox;
+    QLabel *roughnessLabel;
+    QLabel *metallicLabel;
+    QDoubleSpinBox *roughnessDoubleSpinBox;
+    QDoubleSpinBox *metallicDoubleSpinBox;
 
     void setupUi(QWidget *CurvesRendererModelWidget)
     {
         if (CurvesRendererModelWidget->objectName().isEmpty())
             CurvesRendererModelWidget->setObjectName(QStringLiteral("CurvesRendererModelWidget"));
-        CurvesRendererModelWidget->resize(136, 153);
+        CurvesRendererModelWidget->resize(152, 258);
         formLayout = new QFormLayout(CurvesRendererModelWidget);
         formLayout->setObjectName(QStringLiteral("formLayout"));
         redAmountLabel = new QLabel(CurvesRendererModelWidget);
@@ -86,29 +90,29 @@ public:
         visibilityLabel = new QLabel(CurvesRendererModelWidget);
         visibilityLabel->setObjectName(QStringLiteral("visibilityLabel"));
 
-        formLayout->setWidget(3, QFormLayout::LabelRole, visibilityLabel);
+        formLayout->setWidget(5, QFormLayout::LabelRole, visibilityLabel);
 
         visibilityCheckBox = new QCheckBox(CurvesRendererModelWidget);
         visibilityCheckBox->setObjectName(QStringLiteral("visibilityCheckBox"));
         visibilityCheckBox->setChecked(true);
 
-        formLayout->setWidget(3, QFormLayout::FieldRole, visibilityCheckBox);
+        formLayout->setWidget(5, QFormLayout::FieldRole, visibilityCheckBox);
 
         ribbonsLabel = new QLabel(CurvesRendererModelWidget);
         ribbonsLabel->setObjectName(QStringLiteral("ribbonsLabel"));
 
-        formLayout->setWidget(4, QFormLayout::LabelRole, ribbonsLabel);
+        formLayout->setWidget(6, QFormLayout::LabelRole, ribbonsLabel);
 
         ribbonsCheckBox = new QCheckBox(CurvesRendererModelWidget);
         ribbonsCheckBox->setObjectName(QStringLiteral("ribbonsCheckBox"));
         ribbonsCheckBox->setChecked(true);
 
-        formLayout->setWidget(4, QFormLayout::FieldRole, ribbonsCheckBox);
+        formLayout->setWidget(6, QFormLayout::FieldRole, ribbonsCheckBox);
 
         widthLabel = new QLabel(CurvesRendererModelWidget);
         widthLabel->setObjectName(QStringLiteral("widthLabel"));
 
-        formLayout->setWidget(5, QFormLayout::LabelRole, widthLabel);
+        formLayout->setWidget(7, QFormLayout::LabelRole, widthLabel);
 
         widthDoubleSpinBox = new QDoubleSpinBox(CurvesRendererModelWidget);
         widthDoubleSpinBox->setObjectName(QStringLiteral("widthDoubleSpinBox"));
@@ -117,7 +121,33 @@ public:
         widthDoubleSpinBox->setSingleStep(0.001);
         widthDoubleSpinBox->setValue(0.005);
 
-        formLayout->setWidget(5, QFormLayout::FieldRole, widthDoubleSpinBox);
+        formLayout->setWidget(7, QFormLayout::FieldRole, widthDoubleSpinBox);
+
+        roughnessLabel = new QLabel(CurvesRendererModelWidget);
+        roughnessLabel->setObjectName(QStringLiteral("roughnessLabel"));
+
+        formLayout->setWidget(3, QFormLayout::LabelRole, roughnessLabel);
+
+        metallicLabel = new QLabel(CurvesRendererModelWidget);
+        metallicLabel->setObjectName(QStringLiteral("metallicLabel"));
+
+        formLayout->setWidget(4, QFormLayout::LabelRole, metallicLabel);
+
+        roughnessDoubleSpinBox = new QDoubleSpinBox(CurvesRendererModelWidget);
+        roughnessDoubleSpinBox->setObjectName(QStringLiteral("roughnessDoubleSpinBox"));
+        roughnessDoubleSpinBox->setMaximum(1);
+        roughnessDoubleSpinBox->setSingleStep(0.1);
+        roughnessDoubleSpinBox->setValue(0.5);
+
+        formLayout->setWidget(3, QFormLayout::FieldRole, roughnessDoubleSpinBox);
+
+        metallicDoubleSpinBox = new QDoubleSpinBox(CurvesRendererModelWidget);
+        metallicDoubleSpinBox->setObjectName(QStringLiteral("metallicDoubleSpinBox"));
+        metallicDoubleSpinBox->setMaximum(1);
+        metallicDoubleSpinBox->setSingleStep(0.1);
+        metallicDoubleSpinBox->setValue(0.5);
+
+        formLayout->setWidget(4, QFormLayout::FieldRole, metallicDoubleSpinBox);
 
 
         retranslateUi(CurvesRendererModelWidget);
@@ -136,6 +166,8 @@ public:
         ribbonsLabel->setText(QApplication::translate("CurvesRendererModelWidget", "Ribbons", Q_NULLPTR));
         ribbonsCheckBox->setText(QString());
         widthLabel->setText(QApplication::translate("CurvesRendererModelWidget", "Width", Q_NULLPTR));
+        roughnessLabel->setText(QApplication::translate("CurvesRendererModelWidget", "Roughness", Q_NULLPTR));
+        metallicLabel->setText(QApplication::translate("CurvesRendererModelWidget", "Metalness", Q_NULLPTR));
     } // retranslateUi
 
 };

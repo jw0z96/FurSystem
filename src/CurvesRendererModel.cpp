@@ -18,8 +18,10 @@ CurvesRendererModel::CurvesRendererModel() :
 	connect(m_ui->greenAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
 	connect(m_ui->blueAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
 	connect(m_ui->widthDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth()));
-	connect(m_ui->visibilityCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setVisibility()));
+	connect(m_ui->roughnessDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setMetallicRoughness()));
+	connect(m_ui->metallicDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setMetallicRoughness()));
 	connect(m_ui->ribbonsCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setRenderType()));
+	connect(m_ui->visibilityCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setVisibility()));
 	m_curvesRenderable = std::make_shared<CurvesRenderable>();
 }
 
@@ -119,5 +121,12 @@ void CurvesRendererModel::setRenderType()
 void CurvesRendererModel::setWidth()
 {
 	m_curvesRenderable->setWidth(m_ui->widthDoubleSpinBox->value());
+	RenderableManager::getInstance()->updateViewport();
+}
+
+void CurvesRendererModel::setMetallicRoughness()
+{
+	m_curvesRenderable->setRoughness(m_ui->roughnessDoubleSpinBox->value());
+	m_curvesRenderable->setMetallic(m_ui->metallicDoubleSpinBox->value());
 	RenderableManager::getInstance()->updateViewport();
 }

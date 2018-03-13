@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MeshRendererModelWidget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.2
+** Created by: Qt User Interface Compiler version 5.9.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -34,12 +34,16 @@ public:
     QDoubleSpinBox *blueAmountDoubleSpinBox;
     QLabel *visibilityLabel;
     QCheckBox *visibilityCheckBox;
+    QLabel *roughnessLabel;
+    QLabel *metallicLabel;
+    QDoubleSpinBox *roughnessDoubleSpinBox;
+    QDoubleSpinBox *metallicDoubleSpinBox;
 
     void setupUi(QWidget *MeshRendererModelWidget)
     {
         if (MeshRendererModelWidget->objectName().isEmpty())
             MeshRendererModelWidget->setObjectName(QStringLiteral("MeshRendererModelWidget"));
-        MeshRendererModelWidget->resize(129, 108);
+        MeshRendererModelWidget->resize(145, 201);
         formLayout = new QFormLayout(MeshRendererModelWidget);
         formLayout->setObjectName(QStringLiteral("formLayout"));
         redAmountLabel = new QLabel(MeshRendererModelWidget);
@@ -82,13 +86,39 @@ public:
         visibilityLabel = new QLabel(MeshRendererModelWidget);
         visibilityLabel->setObjectName(QStringLiteral("visibilityLabel"));
 
-        formLayout->setWidget(3, QFormLayout::LabelRole, visibilityLabel);
+        formLayout->setWidget(5, QFormLayout::LabelRole, visibilityLabel);
 
         visibilityCheckBox = new QCheckBox(MeshRendererModelWidget);
         visibilityCheckBox->setObjectName(QStringLiteral("visibilityCheckBox"));
         visibilityCheckBox->setChecked(true);
 
-        formLayout->setWidget(3, QFormLayout::FieldRole, visibilityCheckBox);
+        formLayout->setWidget(5, QFormLayout::FieldRole, visibilityCheckBox);
+
+        roughnessLabel = new QLabel(MeshRendererModelWidget);
+        roughnessLabel->setObjectName(QStringLiteral("roughnessLabel"));
+
+        formLayout->setWidget(3, QFormLayout::LabelRole, roughnessLabel);
+
+        metallicLabel = new QLabel(MeshRendererModelWidget);
+        metallicLabel->setObjectName(QStringLiteral("metallicLabel"));
+
+        formLayout->setWidget(4, QFormLayout::LabelRole, metallicLabel);
+
+        roughnessDoubleSpinBox = new QDoubleSpinBox(MeshRendererModelWidget);
+        roughnessDoubleSpinBox->setObjectName(QStringLiteral("roughnessDoubleSpinBox"));
+        roughnessDoubleSpinBox->setMaximum(1);
+        roughnessDoubleSpinBox->setSingleStep(0.1);
+        roughnessDoubleSpinBox->setValue(0.5);
+
+        formLayout->setWidget(3, QFormLayout::FieldRole, roughnessDoubleSpinBox);
+
+        metallicDoubleSpinBox = new QDoubleSpinBox(MeshRendererModelWidget);
+        metallicDoubleSpinBox->setObjectName(QStringLiteral("metallicDoubleSpinBox"));
+        metallicDoubleSpinBox->setMaximum(1);
+        metallicDoubleSpinBox->setSingleStep(0.1);
+        metallicDoubleSpinBox->setValue(0.5);
+
+        formLayout->setWidget(4, QFormLayout::FieldRole, metallicDoubleSpinBox);
 
 
         retranslateUi(MeshRendererModelWidget);
@@ -104,6 +134,8 @@ public:
         blueAmountLabel->setText(QApplication::translate("MeshRendererModelWidget", "Blue", Q_NULLPTR));
         visibilityLabel->setText(QApplication::translate("MeshRendererModelWidget", "Visibility", Q_NULLPTR));
         visibilityCheckBox->setText(QString());
+        roughnessLabel->setText(QApplication::translate("MeshRendererModelWidget", "Roughness", Q_NULLPTR));
+        metallicLabel->setText(QApplication::translate("MeshRendererModelWidget", "Metalness", Q_NULLPTR));
     } // retranslateUi
 
 };

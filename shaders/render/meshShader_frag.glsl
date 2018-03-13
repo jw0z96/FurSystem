@@ -9,6 +9,8 @@ uniform mat4 MVP;
 uniform mat3 normalMatrix; // This is the inverse transpose of the mv matrix
 uniform vec3 camPos;
 uniform vec3 u_colour;
+uniform float u_roughness;
+uniform float u_metallic;
 
 smooth in vec3 WorldPos;
 smooth in vec3 Normal;
@@ -88,10 +90,8 @@ void main()
 	vec3 lightVector = normalize((vec4(1.0) * MVP).xyz); // vec4(1.0) is the light direction
 	vec3 halfVector = normalize(viewDirection + lightVector);
 
-	// float metallic = abs(sin(curveID));
-	float metallic = 0.3;
-	// float roughness = abs(cos(curveID));
-	float roughness = 0.3;
+	float metallic = u_metallic;
+	float roughness = u_roughness;
 	vec3 albedo = u_colour;
 	vec3 F0 = vec3(0.01);
 	F0 = mix(F0, albedo, metallic);
