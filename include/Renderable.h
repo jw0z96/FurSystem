@@ -3,10 +3,11 @@
 
 #include <iostream>
 
-enum renderableType
+enum RenderableType
 {
 	DEFAULT,
-	CURVES,
+	CURVES_LINES,
+	CURVES_RIBBONS,
 	MESH
 };
 
@@ -28,7 +29,7 @@ class Renderable
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief get the type of this renderable
 		//----------------------------------------------------------------------------------------------------------------------
-		virtual renderableType getType() const {return DEFAULT;}
+		virtual RenderableType getType() const {return DEFAULT;}
 		//----------------------------------------------------------------------------------------------------------------------
 		/// @brief draw this renderable
 		//----------------------------------------------------------------------------------------------------------------------

@@ -8,7 +8,7 @@
 
 CurvesRendererModel::CurvesRendererModel() :
 	m_embedded(new QWidget()),
-	m_ui(new Ui::MeshRendererModelWidget())
+	m_ui(new Ui::CurvesRendererModelWidget())
 {
 	// setup ui
 	m_ui->setupUi(m_embedded);
@@ -17,7 +17,9 @@ CurvesRendererModel::CurvesRendererModel() :
 	connect(m_ui->redAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
 	connect(m_ui->greenAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
 	connect(m_ui->blueAmountDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setColour()));
+	connect(m_ui->widthDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth()));
 	connect(m_ui->visibilityCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setVisibility()));
+	connect(m_ui->ribbonsCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setRenderType()));
 	m_curvesRenderable = std::make_shared<CurvesRenderable>();
 }
 
@@ -102,5 +104,24 @@ void CurvesRendererModel::setColour()
 void CurvesRendererModel::setVisibility()
 {
 	m_curvesRenderable->setVisibility(m_ui->visibilityCheckBox->isChecked());
+	RenderableManager::getInstance()->updateViewport();
+}
+
+void CurvesRendererModel::setRenderType()
+{
+	if (m_ui->ribbonsCheckBox->isChecked())
+	{
+		m_curvesRenderable->setRibbons();
+	}
+	else
+	{
+		m_curvesRenderable->setLines();
+	}
+	RenderableManager::getInstance()->updateViewport();
+}
+
+void CurvesRendererModel::setWidth()
+{
+	m_curvesRenderable->setWidth(m_ui->widthDoubleSpinBox->value());
 	RenderableManager::getInstance()->updateViewport();
 }

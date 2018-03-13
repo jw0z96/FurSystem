@@ -5,11 +5,13 @@
 CurvesRenderable::CurvesRenderable()
 {
 	std::cout<<"CurvesRenderable()\n";
+	m_curveRenderType = CURVES_RIBBONS;
 	m_emptyVAO = 0;
 	m_SSBO = 0;
 	m_curves = Curves();
 	m_colour = glm::vec3(1.0, 0.0, 0.0);
 	m_indices = 0;
+	m_ribbonWidth = 0.005;
 }
 
 //----------------------------------------------------------------------------------------------------------------------

@@ -127,16 +127,20 @@ void RenderableManager::drawRenderables()
 					renderable->draw();
 					break;
 
-				case CURVES:
-					// std::cout<<"CURVES draw call\n";
-					// curvesShader.use();
-					curvesRibbonShader.use();
-					// loadMatricesToShader(curvesShader.getID());
-					loadMatricesToShader(curvesRibbonShader.getID());
+				case CURVES_LINES:
+					curvesShader.use();
+					loadMatricesToShader(curvesShader.getID());
 					// auto r = std::static_pointer_cast<CurvesRenderable>(renderable);
 					// col = std::static_pointer_cast<CurvesRenderable>(renderable)->getColour();
+					glUniform3fv(glGetUniformLocation(curvesShader.getID(), "u_colour"), 1, glm::value_ptr(std::static_pointer_cast<CurvesRenderable>(renderable)->getColour()));
+					renderable->draw();
+					break;
+
+				case CURVES_RIBBONS:
+					curvesRibbonShader.use();
+					loadMatricesToShader(curvesRibbonShader.getID());
 					glUniform3fv(glGetUniformLocation(curvesRibbonShader.getID(), "u_colour"), 1, glm::value_ptr(std::static_pointer_cast<CurvesRenderable>(renderable)->getColour()));
-					// glUniform1ui(glGetUniformLocation(curvesShader.getID(), "u_numIndices"), std::static_pointer_cast<CurvesRenderable>(renderable)->getIndices());
+					glUniform1f(glGetUniformLocation(curvesRibbonShader.getID(), "u_width"), std::static_pointer_cast<CurvesRenderable>(renderable)->getWidth());
 					renderable->draw();
 					break;
 

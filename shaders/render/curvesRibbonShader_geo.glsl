@@ -20,6 +20,7 @@ uniform mat4 MVP;
 uniform mat3 normalMatrix; // This is the inverse transpose of the mv matrix
 uniform vec3 camPos;
 uniform vec3 colour;
+uniform float u_width;
 
 smooth out float vertIndex;
 
@@ -45,7 +46,7 @@ void main()
 			nextPos = curves[curveID].position[i + 1].xyz;
 		}
 		vec3 widthVec = cross((camPos - pos), (nextPos - pos));
-		widthVec = normalize(widthVec) * 0.005 * widthFactor;
+		widthVec = normalize(widthVec) * u_width * 0.5 * widthFactor;
 		gl_Position = MVP * vec4((pos + widthVec), 1.0);
 		EmitVertex();
 		gl_Position = MVP * vec4((pos - widthVec), 1.0);

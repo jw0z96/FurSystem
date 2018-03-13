@@ -17,8 +17,7 @@ smooth in float vertIndex;
 
 void main()
 {
-	float a = float(vertIndex) / 5.0;
+	float a = float(vertIndex) / 4.0;
 	fragColor = vec4(u_colour * a, 1.0);
-	// fragColor = vec4(u_colour, 1.0);
 	// fragColor = vec4(u_colour, 1.0);
 }

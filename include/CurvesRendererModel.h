@@ -3,7 +3,7 @@
 
 #include "CurvesRenderable.h"
 
-#include "widgets/MeshRendererModelWidget.h"
+#include "widgets/CurvesRendererModelWidget.h"
 
 #include <iostream>
 
@@ -65,6 +65,14 @@ class CurvesRendererModel : public NodeDataModel
 		/// @brief set the visibility of our renderable
 		//----------------------------------------------------------------------------------------------------------------------
 		void setVisibility();
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief set the render type of our renderable
+		//----------------------------------------------------------------------------------------------------------------------
+		void setRenderType();
+		//----------------------------------------------------------------------------------------------------------------------
+		/// @brief set the ribbon width of our renderable
+		//----------------------------------------------------------------------------------------------------------------------
+		void setWidth();
 
 	protected:
 		//----------------------------------------------------------------------------------------------------------------------
@@ -85,7 +93,7 @@ class CurvesRendererModel : public NodeDataModel
 		/// @brief m_embedded, m_ui our qt ui widget and contents from the ui file
 		//----------------------------------------------------------------------------------------------------------------------
 		QWidget* m_embedded;
-		Ui::MeshRendererModelWidget* m_ui;
+		Ui::CurvesRendererModelWidget* m_ui;
 };
 
 #endif // CURVESRENDERERMODEL_H
