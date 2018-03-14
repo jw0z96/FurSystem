@@ -77,21 +77,41 @@
 \maketitle
 
 \begin{abstract}
-For this project I developed a procedural fur system, with the aim of exploring the feasibility of offloading computation onto the GPU within artist tools. The final artefact is an application which serves to interface with the fur system API that I have developed. This report primarily documents the implementation of the API, as well as my findings.
+For this project I developed a procedural fur system, with the aim of exploring the feasibility of offloading computation onto the GPU within artist tools. The final artefact is an application which serves to interface with the fur system API which I have developed. This report primarily documents the implementation of the API, as well as my findings.
 \end{abstract}
 
 \section{Introduction} \label{sec:introduction}
 Introduction Text.
 
 \subsection{Existing Solutions} \label{sec:existing}
-Whilst many larger companies opt to develop their own software for handling fur, such as MPC's Furtility \cite{furtility}, there are a number of commercially available solutions that are also widely used in production. The most popular of these is XGen, originally developed by Walt Disney Animation Studios, which has been included in Autodesk's Maya since 2014. XGen uses a 'Collection' and 'Description' paradigm; Descriptions store user controlled parameters which affect fur primitives (curves for example) on a select area of a mesh, and Collections act as a container for these Descriptions. There are two primary methods offered for distributing primitives on a mesh, Guide Curves can be used to manually control the placement and shape of primitives by placing 'Guides' on the mesh surface, whereas 'Groomable Splines' randomly distirbutes splines over the mesh surface which can be manipulated in real time using viewport manipulators that mimic the brushing and styling of fur. In both modes, 'modifiers' can be added to the modifier stack to further adjust the visual outcome, adding features such as clumping, noise, and coiling. Attributes within these modifiers can be further controlled using expressions or texture maps.
+Whilst many larger companies opt to develop their own software for handling fur, such as MPC's Furtility \cite{furtility}, there are a number of commercially available solutions that are also widely used in production.
+
+The most popular of these is XGen, originally developed by Walt Disney Animation Studios, which has been included in Autodesk's Maya since 2014. XGen uses a 'Collection' and 'Description' paradigm; Descriptions store user controlled parameters which affect fur primitives (curves for example) on a select area of a mesh, and Collections act as a container for these Descriptions. There are two primary methods offered for distributing primitives on a mesh, Guide Curves can be used to manually control the placement and shape of primitives by placing 'Guides' on the mesh surface, whereas 'Groomable Splines' randomly distirbutes splines over the mesh surface which can be manipulated in real time using viewport manipulators that mimic the brushing and styling of fur. In both modes, 'modifiers' can be added to the modifier stack to further adjust the visual outcome, adding features such as clumping, noise, and coiling. Attributes within these modifiers can be further controlled using expressions or texture maps.
 
 Another commercially available solution is Peregrine*Labs' Yeti \cite{yeti}, which is also offered as a plugin within Autodesk's Maya. Yeti offers a more procedural approach, giving the user a node graph interface in which to construct the desired look from individual components. For example, the most simple usage requires the user to first create a 'scatter' node to distribute points on the mesh surface, and then combine it with a 'grow' node to extrude curves from these points. Whilst at first this may seem unintuitive when compared to XGen, it offers greater flexibility and avoids the pitfalls associated with a destructive workflow.
 
 Offerering even even more flexibility, recent versions of SideFX's Houdini include hair and fur operator nodes, which create predefined node networks for the generation of hair and fur. These networks use standard Houdini nodes internally, so experienced Houdini users are intuitively able to create the visual outcome they desire, using tools they already know. However, it may be quite unintuitive for asset artists (those who would be using the tool, Groom artists?), who are not used to Houdini's heavily procedural workflow.
 
+\subsection{GPU Acceleration} \label{sec:existingGPU}
+Whilst it is not clear to what extent each of these solutions make use of GPU acceleration, they all perform fast enough to allow the user to manipulate them interactively. I therefore decided to monitor the CPU and GPU usage using \verb|htop| and \verb|nvidia-smi| respectively, before and after adding XGen content to a simple maya scene, to determine where the majority of data was being computed.
+
+After applying the default XGen description onto a simple sphere with 760 triangles, there was no noticeable increase in both GPU utilisation and GPU memory usage. Increasing the density of the primitives from 1.0 to 10000.0 saw an increase of VRAM usage of roughly 350MiB, which I would attribute to storing the primitives in a buffer on the GPU, but there was no discernable increase in GPU utilisation. Increasing the density further to 10,000 saw a noticable spike in CPU usage, hitting 100 percent across two threads, leading me to believe that the primitive distribution computation is being done on the CPU.
+
+However, when applying modifiers to the XGen description I noticed a small increase of roughly 2MiB in VRAM usage for the first modifier, yet no further increases for modifiers added after that. As this increase is quite small I would attribute it to storing the modifier attributes on the GPU, though I still noticed spikes in CPU usage when recalculating the XGen description once the modifier was added, which makes it inconclusive as to whether XGen uses any kind of GPU acceleration.
+
+% on maya load: CPU up to 8 percent when moving mouse GPU very low but 40 percent when moving viewport 42MiB
+% before xgen on sphere 36mib
+% xgen on sphere density 1.0 36mib GPU
+% xgen on sphere density 100.0 40mib GPU
+% xgen CPU spiked up to 100 on a single thread when changing density
+% xgen on sphere density 1000.0 56mib GPU
+% xgen noise on sphere density 1000.0 63mib GPU, CPU spiked but only to 20%
+% xgen on sphere density to 10,000 caused spike on 2 threads
+
 \section{Implementation} \label{sec:implementation}
-Method Text.
+From my research it was clear that there is an apparent lack of standalone software for authoring fur; it makes sense that existing fur software are developed as software plugins, allowing the tool to make use of their host DCCs existing functionality.
+
+However, by developing the system as a simple API one could make it DCC agnostic, which is why I chose to develop my system as a pairing of a simple API with a standalone tool which interfaces with it. By developing a simple API it could allow for future implementations as plugins within DCCs, providing the data exchange formats are compatible with the host DCC.
 
 \subsection{Resources} \label{sec:resources}
 I decided to develop the API side of the fur system using C++, primarly as it most commonly used when developing computationally heavy artist tools, but also because it is the language I am most comfortable using. I opted to use OpenGL over other APIs (CUDA, OpenCL) for offloading of computation onto the GPU, simply because my final artefact is a tool with a graphical interface, and OpenGL is capable of handling both arbitary computation using compute shaders and rendering of geometry simultaneously.
@@ -114,11 +134,15 @@ Whilst the list of components specified above provide the required functionality
 
 \subsection{Development} \label{sec:development}
 
-write about obj loading
-
-write about distributing https://stackoverflow.com/questions/9294316/distribute-points-on-mesh-according-to-density
+write about distributing https://stackoverflow.com/questions/9294316/
+distribute-points-on-mesh-according-to-density
 
 write about GPU
+
+\subsubsection{Mesh Loading} \label{sec:objLoading}
+The first problem I tackled was that of loading mesh geometry into the system, and storing it in a Shader Storage Buffer Object (SSBO) for later use in a compute shader. I opted to implement a Wavefront OBJ loader as they are (deceptively) simple to parse, consisting of a list of vertex positions, vertex normals, vertex texture coordinates, and faces defined as a list of indices.
+
+The most common way of storing OBJ data in OpenGL buffers, as described in \cite{objLoading}, is to use a \verb|GL_ARRAY_BUFFER| object to store the vertex data and a \verb|GL_ELEMENT_ARRAY_BUFFER| to store the indices of the \verb|GL_ARRAY_BUFFER| that make up each face. However for ease of use in compute shaders I decided instead to store each face in a \verb|GL_SHADER_STORAGE_BUFFER|, where each face consists of three sets of positions, normals, and texture coordinates. Whilst this is less efficient, I found that the overhead in GPU memory usage was negligible, and that this method allowed for much simpler usage in a compute shader.
 
 \subsection{User Testing} \label{sec:usertesting}
 Near the end of the development I was able to convince friend and fellow student Alin Bolcas to test the system and provide feedback from an artist's point of view; Alin is an experienced modelling and look development artist who uses a variety of different software packages to create his work, so getting his feedback on the usability of my tool proved extremely useful.

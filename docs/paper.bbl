@@ -12,6 +12,13 @@
 \newblock \url{https://github.com/paceholder/nodeeditor}.
 \newblock Accessed 25 Jan 2018.
 
+\bibitem[\protect\citename{a }2017c]{objLoading}
+{\sc a}, 2017.
+\newblock b.
+\newblock
+  \url{https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Load_OBJ}.
+\newblock Accessed 25 Jan 2018.
+
 \bibitem[\protect\citename{Pinaev }2017]{Pinaev2017}
 {\sc Pinaev, D.}, 2017.
 \newblock Qt5 node editor.
