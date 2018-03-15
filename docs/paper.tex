@@ -134,15 +134,39 @@ Whilst the list of components specified above provide the required functionality
 
 \subsection{Development} \label{sec:development}
 
-write about distributing https://stackoverflow.com/questions/9294316/
-distribute-points-on-mesh-according-to-density
+In this section I will explain the development of each of the major components, not necessarily in chronological order, but in the order regarding to how their data is passed through the system.
 
-write about GPU
+% write about distributing https://stackoverflow.com/questions/9294316/
+% distribute-points-on-mesh-according-to-density
+
+% write about GPU
 
 \subsubsection{Mesh Loading} \label{sec:objLoading}
-The first problem I tackled was that of loading mesh geometry into the system, and storing it in a Shader Storage Buffer Object (SSBO) for later use in a compute shader. I opted to implement a Wavefront OBJ loader as they are (deceptively) simple to parse, consisting of a list of vertex positions, vertex normals, vertex texture coordinates, and faces defined as a list of indices.
+% The first problem I tackled was that of loading mesh geometry into the system, and storing it in a Shader Storage Buffer Object (SSBO) for later use in a compute shader. I opted to implement a Wavefront OBJ loader as they are (deceptively) simple to parse, consisting of a list of vertex positions, vertex normals, vertex texture coordinates, and faces defined as a list of indices. I created an OBJ loader node using the NodeEditor library, which parses
+
+The first problem I tackled was that of loading mesh geometry into the system, in such a way that would allow for later computation on both the GPU and CPU. I opted to implement a Wavefront OBJ loader as they are (deceptively) simple to parse, consisting of a list of vertex positions, vertex normals, vertex texture coordinates, and faces as defined by a list of indices. This data structure formed the basis of my 'Mesh' class. Using the NodeEditor library I then created a node which loads OBJ files, and outputs the 'Mesh' object through it's output data port.
+
+\subsubsection{Curve Distributors} \label{sec:distributors}
+
+In order to generate curves for the system to manipulate, it was necessary to create a node that handles the distribution of curves onto the surface of a mesh. This node needs to take 'Mesh' object data as input, and output 'Curves' object data. A 'Curves' object was implemented which consists an array of 'Curve' objects, which in turn consist of an array 5 vertex positions that construct the curve. Distributor nodes would also need to alternate between performing the distribution process on the CPU or on the GPU, which would in turn affect whether the node outputs a 'Curves' object, or an ID for where the curves data is stored on the GPU.
+
+With these parameters in mind I decided to implement an abstract distributor node class, which contains a virtual function for performing the distribution, and handles the callbacks for when input data is changed and the distribution needs to be updated. This makes the system somewhat extensible, allowing for different distribution patterns to be implemented with ease. The node's data type was also extented to be able to store either 'Curves' objects from the CPU, or an ID for an OpenGL buffer object, with an enumerated value to identify which of these is currently in use. This not only allows the distributor to alternate between CPU and GPU computation arbitrarily, but also allows nodes recieving this data to process it accordingly.
+
+
+
 
 The most common way of storing OBJ data in OpenGL buffers, as described in \cite{objLoading}, is to use a \verb|GL_ARRAY_BUFFER| object to store the vertex data and a \verb|GL_ELEMENT_ARRAY_BUFFER| to store the indices of the \verb|GL_ARRAY_BUFFER| that make up each face. However for ease of use in compute shaders I decided instead to store each face in a \verb|GL_SHADER_STORAGE_BUFFER|, where each face consists of three sets of positions, normals, and texture coordinates. Whilst this is less efficient, I found that the overhead in GPU memory usage was negligible, and that this method allowed for much simpler usage in a compute shader.
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{User Testing} \label{sec:usertesting}
 Near the end of the development I was able to convince friend and fellow student Alin Bolcas to test the system and provide feedback from an artist's point of view; Alin is an experienced modelling and look development artist who uses a variety of different software packages to create his work, so getting his feedback on the usability of my tool proved extremely useful.
