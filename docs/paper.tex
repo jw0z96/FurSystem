@@ -183,14 +183,14 @@ struct Face
 	vec4 uv[3];
 };
 
-struct Curve
-{
-	vec4 position[5];
-};
-
 layout (std430, binding = 0) buffer facesBuffer
 {
 	Face faces[];
+};
+
+struct Curve
+{
+	vec4 position[5];
 };
 
 layout (std430, binding = 1) buffer curvesBuffer
@@ -201,7 +201,7 @@ layout (std430, binding = 1) buffer curvesBuffer
 
 \subsubsection{Curve Operators} \label{sec:operators}
 
-Once curve primitives have been generated, they need to be passed onto curve operators, which perform most of the work towards creating an appealing visual output. I decided to create an abstract curve operator node, much like I had with the distributor node, which contains a virtual function for performing the curve manipulation.
+Once curve primitives have been generated, they need to be passed onto curve operators, which perform most of the work towards creating an appealing visual output. I decided to create an abstract curve operator node, much like I had with the distributor node, which contains a virtual function for performing the curve manipulation. This allows for multiple different curve operators to be integrated into the system with ease, however for the scope of this assignment I chose only to implement curve operators to provide bending, application of noise, and clumping functionality.
 
 \subsection{User Testing} \label{sec:usertesting}
 Near the end of the development I was able to convince friend and fellow student Alin Bolcas to test the system and provide feedback from an artist's point of view; Alin is an experienced modelling and look development artist who uses a variety of different software packages to create his work, so getting his feedback on the usability of my tool proved extremely useful.
@@ -245,7 +245,7 @@ Mesh Triangle Count & Primitive Count & CPU Time (ms) & GPU Time (ms)\\
  - & 1,000,000 & 17218 - 17259 & 82 - 112\\
 \hline
 \end{tabular}
-\caption{\label{figure:distributionPerformance} Performance metrics showing time taken to distribute varying numbers of primitives, on meshes of varying triangle counts. The system used had an Intel Core i7-6700 CPU, and an NVIDIA GTX1080 GPU.}
+\caption{\label{figure:distributionPerformance} Performance metrics showing time taken to distribute varying numbers of primitives, on meshes of varying triangle counts. An Intel Core i7-6700 CPU and an NVIDIA GTX1080 GPU were used for testing.}
 \end{center}
 \end{figure}
 
@@ -268,6 +268,10 @@ Mesh Triangle Count & GPU Time (ms)\\
 \end{figure}
 
 \section{Conclusion} \label{sec:conclusion}
+
+\section{Future Work} \label{sec:futurework}
+
+Unfortunately my system lacks the ability to export curves data, making it virtually unusable within a production pipeline in its current state.
 
 \bibliographystyle{acmsiggraph}
 \bibliography{references}
