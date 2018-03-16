@@ -39,7 +39,7 @@ float DistributionGGX(vec3 N, vec3 H, float roughness)
 {
 	float a = roughness*roughness;
 	float a2 = a*a;
-	float NdotH = max(dot(N, H), 0.0);
+	float NdotH = 1.0 - abs(dot(N, H));
 	float NdotH2 = NdotH*NdotH;
 
 	float nom   = a2;
@@ -66,8 +66,8 @@ float GeometrySchlickGGX(float NdotV, float roughness)
 
 float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness)
 {
-	float NdotV = max(dot(N, V), 0.0);
-	float NdotL = max(dot(N, L), 0.0);
+	float NdotV = 1.0 - abs(dot(N, V));
+	float NdotL = 1.0 - abs(dot(N, L));
 	float ggx2 = GeometrySchlickGGX(NdotV, roughness);
 	float ggx1 = GeometrySchlickGGX(NdotL, roughness);
 
@@ -121,10 +121,11 @@ void main()
 	// Cook-Torrance BRDF
 	float NDF = DistributionGGX(normal, halfVector, roughness);
 	float G = GeometrySmith(normal, viewDirection, lightVector, roughness);
-	vec3 F = fresnelSchlick(max(dot(halfVector, viewDirection), 0.0), F0);
+	vec3 F = fresnelSchlick((1.0 - abs(dot(halfVector, viewDirection))), F0);
 	vec3 nominator = NDF * G * F;
-	float denominator = 4 * max(dot(normal, viewDirection), 0.0) * max(dot(normal, lightVector), 0.0) + 0.001; // 0.001 to prevent divide by zero.
+	float denominator = 4 * (1.0 - abs(dot(normal, viewDirection))) * (1.0 - abs(dot(normal, lightVector))) + 0.001; // 0.001 to prevent divide by zero.
 	vec3 specular = nominator / denominator;
+
 	// kS is equal to Fresnel
 	vec3 kS = F;
 	vec3 kD = vec3(1.0) - kS;
