@@ -22,11 +22,13 @@
 \@LN@col{1}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
 \newlabel{sec:introduction}{{1}{1}{Introduction}{section.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Existing Solutions}{1}{subsection.1.1}}
-\newlabel{sec:existing}{{1.1}{1}{Existing Solutions}{subsection.1.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Related Work}{1}{subsection.1.1}}
+\newlabel{sec:related}{{1.1}{1}{Related Work}{subsection.1.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Existing Solutions}{1}{subsection.1.2}}
+\newlabel{sec:existing}{{1.2}{1}{Existing Solutions}{subsection.1.2}{}}
 \@LN@col{2}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}GPU Acceleration}{1}{subsection.1.2}}
-\newlabel{sec:existingGPU}{{1.2}{1}{GPU Acceleration}{subsection.1.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}GPU Acceleration}{1}{subsection.1.3}}
+\newlabel{sec:existingGPU}{{1.3}{1}{GPU Acceleration}{subsection.1.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Implementation}{1}{section.2}}
 \newlabel{sec:implementation}{{2}{1}{Implementation}{section.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Resources}{1}{subsection.2.1}}
@@ -44,21 +46,32 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Curve Distributors}{2}{subsubsection.2.3.2}}
 \newlabel{sec:distributors}{{2.3.2}{2}{Curve Distributors}{subsubsection.2.3.2}{}}
 \@LN@col{2}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}User Testing}{2}{subsection.2.4}}
-\newlabel{sec:usertesting}{{2.4}{2}{User Testing}{subsection.2.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}Compute Shaders}{2}{subsubsection.2.3.3}}
+\newlabel{sec:compute shaders}{{2.3.3}{2}{Compute Shaders}{subsubsection.2.3.3}{}}
+\newlabel{lst:buffers}{{1}{2}{Extract from the Distributor compute shader, showing how the Mesh and Curves buffers are accessed}{lstlisting.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Extract from the Distributor compute shader, showing how the Mesh and Curves buffers are accessed.}{2}{lstlisting.1}}
 \bibstyle{acmsiggraph}
 \bibdata{references}
 \bibcite{furtility}{\citename {a }2017a}
 \bibcite{yeti}{\citename {a }2017b}
 \bibcite{objLoading}{\citename {a }2017c}
-\bibcite{dartThrowing}{\citename {Cline }2009a}
-\bibcite{parallelPoisson}{\citename {Cline }2009b}
+\bibcite{parallelPoisson}{\citename {Bowers et\nobreakspace  {}al\unhbox \voidb@x \hbox {.} }2010}
+\bibcite{dartThrowing}{\citename {Cline et\nobreakspace  {}al\unhbox \voidb@x \hbox {.} }2009}
 \bibcite{Pinaev2017}{\citename {Pinaev }2017}
 \@LN@col{1}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.4}Curve Operators}{3}{subsubsection.2.3.4}}
+\newlabel{sec:operators}{{2.3.4}{3}{Curve Operators}{subsubsection.2.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}User Testing}{3}{subsection.2.4}}
+\newlabel{sec:usertesting}{{2.4}{3}{User Testing}{subsection.2.4}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Results}{3}{section.3}}
 \newlabel{sec:results}{{3}{3}{Results}{section.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Performance}{3}{subsection.3.1}}
 \newlabel{sec:performance}{{3.1}{3}{Performance}{subsection.3.1}{}}
+\@LN@col{2}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces  Performance metrics showing time taken to distribute varying numbers of primitives, on meshes of varying triangle counts. The system used had an Intel Core i7-6700 CPU, and an NVIDIA GTX1080 GPU.\relax }}{3}{figure.caption.2}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{figure:distributionPerformance}{{1}{3}{Performance metrics showing time taken to distribute varying numbers of primitives, on meshes of varying triangle counts. The system used had an Intel Core i7-6700 CPU, and an NVIDIA GTX1080 GPU.\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  Performance metrics showing the time taken to perform a full graph evaluation on a complex setup, as seen in INSERT PIC, for meshes of varying triangle counts.\relax }}{3}{figure.caption.3}}
+\newlabel{figure:fullPerformance}{{2}{3}{Performance metrics showing the time taken to perform a full graph evaluation on a complex setup, as seen in INSERT PIC, for meshes of varying triangle counts.\relax }{figure.caption.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion}{3}{section.4}}
 \newlabel{sec:conclusion}{{4}{3}{Conclusion}{section.4}{}}
-\@LN@col{2}

@@ -158,26 +158,48 @@ There are many different methods one could use to distribute points on an abritr
 
 Unfortunately, parallelizing dart thowing methods is not trivial, making them unsuitable for my desired usage of OpenGL compute shaders. Whilst sampling methods suitable for parallel processing do exist, such as those described in \textit{Parallel Poisson Disk Sampling with Spectrum Analysis on Surfaces} \cite{parallelPoisson}, I instead opted to implement a naive random samling method as it was much easier to parallelize.
 
-\begin{enumerate}
-\item Generate a uniform random number in the range [0.0 - 1.0].
-\end{enumerate}
+% \begin{enumerate}
+% \item Generate a uniform random number in the range [0.0 - 1.0].
+% \end{enumerate}
 
+% \begin{algorithm}
+% \begin{algorithmic}[1]
+% \Procedure{Naive Random Distributionr}{}
+% \For{k to k}
+% \EndFor
+% \EndProcedure
+% \end{algorithmic}
+% \end{algorithm}
 
+\subsubsection{Compute Shaders} \label{sec:compute shaders}
 
+In order to get this distribution process running on the GPU, I needed to allocate and store data for both the Mesh and Curves in OpenGL buffers, for later use in a compute shader. The most common way of storing OBJ data in OpenGL buffers, as described in \cite{objLoading}, is to use a \verb|GL_ARRAY_BUFFER| object to store the vertex data and a \verb|GL_ELEMENT_ARRAY_BUFFER| to store the indices of the \verb|GL_ARRAY_BUFFER| that make up each face. However for ease of use in compute shaders I decided instead to store each face in a \verb|GL_SHADER_STORAGE_BUFFER|, where each face consists of three sets of positions, normals, and texture coordinates. Whilst this is less efficient, I found that the overhead in GPU memory usage was negligible, and that this method allowed for much simpler usage in a compute shader. Allocating a buffer for the Curves data was much simpler as it consisted of an array of 'Curve' structs, each consisting of 5 vertices. Listing~\ref{lst:buffers} shows how these buffers were accessed from within the compute shaders; note how all of the \texttt{vec3} values have been padded to \texttt{vec4}, as the \texttt{std430} layout qualifier requires an alignment of 16 bytes.
 
+\begin{lstlisting}[language=GLSL, label={lst:buffers}, caption={Extract from the Distributor compute shader, showing how the Mesh and Curves buffers are accessed.}]
+struct Face
+{
+	vec4 position[3];
+	vec4 normal[3];
+	vec4 uv[3];
+};
 
+struct Curve
+{
+	vec4 position[5];
+};
 
-The most common way of storing OBJ data in OpenGL buffers, as described in \cite{objLoading}, is to use a \verb|GL_ARRAY_BUFFER| object to store the vertex data and a \verb|GL_ELEMENT_ARRAY_BUFFER| to store the indices of the \verb|GL_ARRAY_BUFFER| that make up each face. However for ease of use in compute shaders I decided instead to store each face in a \verb|GL_SHADER_STORAGE_BUFFER|, where each face consists of three sets of positions, normals, and texture coordinates. Whilst this is less efficient, I found that the overhead in GPU memory usage was negligible, and that this method allowed for much simpler usage in a compute shader.
+layout (std430, binding = 0) buffer facesBuffer
+{
+	Face faces[];
+};
 
+layout (std430, binding = 1) buffer curvesBuffer
+{
+	Curve curves[];
+};
+\end{lstlisting}
 
-
-
-
-
-
-
-
-
+\subsubsection{Curve Operators} \label{sec:operators}
 
 
 \subsection{User Testing} \label{sec:usertesting}
@@ -195,6 +217,48 @@ Results Text.
 \subsection{Performance} \label{sec:performance}
 
 insert stats comparing CPU/GPU compute
+
+\begin{figure}[htbp]\centering
+\begin{center}
+\begin{tabular}{||c||c|c|c||}
+\hline
+Mesh Triangle Count & Primitive Count & CPU Time (ms) & GPU Time (ms)\\
+\hline
+\hline
+16 (Triangle Strip) & 10,000 & 2 - 5 & 1 - 2\\
+\hline
+ - & 100,000 & 18 - 41 & 8 - 24\\
+\hline
+ - & 1,000,000 & 120 - 150 & 77 - 110\\
+\hline
+4968 (Stanford Bunny) & 10,000 & 173 - 211 & 1 - 2\\
+\hline
+ - & 100,000 & 1718 - 1756 & 12 - 30\\
+\hline
+ - & 1,000,000 & 17218 - 17259 & 82 - 112\\
+\hline
+\end{tabular}
+\caption{\label{figure:distributionPerformance} Performance metrics showing time taken to distribute varying numbers of primitives, on meshes of varying triangle counts. The system used had an Intel Core i7-6700 CPU, and an NVIDIA GTX1080 GPU.}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\begin{center}
+\begin{tabular}{||c|c||}
+\hline
+Mesh Triangle Count & GPU Time (ms)\\
+\hline
+\hline
+16 (Triangle Strip) & 18 - 20\\
+\hline
+4968 (Stanford Bunny) & 33 - 45\\
+\hline
+14067 (Utah Teapot) & 76 - 92\\
+\hline
+\end{tabular}
+\caption{\label{figure:fullPerformance} Performance metrics showing the time taken to perform a full graph evaluation on a complex setup, as seen in INSERT PIC, for meshes of varying triangle counts.}
+\end{center}
+\end{figure}
 
 \section{Conclusion} \label{sec:conclusion}
 

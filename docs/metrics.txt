@@ -18,10 +18,10 @@ bunny mesh:
 
 full graph evaulation test_0007 - see screenshot:
 
-bunny mesh: 33 - 45 ms
+	bunny mesh: 33 - 45 ms
 
-teapot mesh: 76 - 92 ms
+	teapot mesh: 76 - 92 ms
 
-triangle test mesh: 18 - 20 ms
+	triangle test mesh: 18 - 20 ms
 
 

@@ -1,4 +1,4 @@
-\begin{thebibliography}{\protect\citename{Pinaev }2017}
+\begin{thebibliography}{\protect\citename{Bowers et~al\mbox{.} }2010}
 
 \bibitem[\protect\citename{a }2017a]{furtility}
 {\sc a}, 2017.
@@ -19,18 +19,17 @@
   \url{https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Load_OBJ}.
 \newblock Accessed 25 Jan 2018.
 
-\bibitem[\protect\citename{Cline }2009a]{dartThrowing}
-{\sc Cline, D.}, 2009.
-\newblock Dart throwing on surfaces.
-\newblock
-  \url{https://www.cg.tuwien.ac.at/research/publications/2009/cline-09-poisson/cline-09-poisson-paper.pdf}.
-\newblock Accessed 25 Jan 2018.
-
-\bibitem[\protect\citename{Cline }2009b]{parallelPoisson}
-{\sc Cline, D.}, 2009.
+\bibitem[\protect\citename{Bowers et~al\mbox{.} }2010]{parallelPoisson}
+{\sc Bowers, J., Wang, R., Wei, L.-Y., and Maletz, D.}
+\newblock 2010.
 \newblock Parallel poisson disk sampling with spectrum analysis on surfaces.
-\newblock \url{http://www.liyiwei.org/papers/sample-siga10/paper.pdf}.
-\newblock Accessed 25 Jan 2018.
+\newblock {\em ACM Trans. Graph. 29}, 6 (Dec.), 166:1--166:10.
+
+\bibitem[\protect\citename{Cline et~al\mbox{.} }2009]{dartThrowing}
+{\sc Cline, D., Jeschke, S., White, K., Razdan, A., and Wonka, P.}
+\newblock 2009.
+\newblock Dart throwing on surfaces.
+\newblock 1217 -- 1226.
 
 \bibitem[\protect\citename{Pinaev }2017]{Pinaev2017}
 {\sc Pinaev, D.}, 2017.
