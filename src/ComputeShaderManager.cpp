@@ -273,3 +273,19 @@ void ComputeShaderManager::clumpCurvesOperator(unsigned int curvesSSBO, unsigned
 	glUniform1ui(glGetUniformLocation(clumpCurvesShader.getID(), "u_mode"), 1);
 	glDispatchCompute((int(curveCount) / 128) + 1, 1, 1);
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void ComputeShaderManager::startTimer()
+{
+	m_timer = std::chrono::system_clock::now();
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+void ComputeShaderManager::endTimer()
+{
+	auto endTimer = std::chrono::system_clock::now();
+	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(endTimer - m_timer);
+	std::cout << "timer measured " << elapsed.count() << "ms\n";
+}

@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "RenderableManager.h"
+#include "ComputeShaderManager.h"
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -112,6 +113,8 @@ void Viewport::paintGL()
 	RenderableManager::getInstance()->constructRenderables();
 	loadMatricesToRenderManager();
 	RenderableManager::getInstance()->drawRenderables();
+
+	ComputeShaderManager::getInstance()->endTimer();
 }
 
 //----------------------------------------------------------------------------------------------------------------------

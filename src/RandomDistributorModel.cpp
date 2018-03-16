@@ -5,6 +5,7 @@
 #include "CurvesData.h"
 
 #include <random>
+// #include <chrono>
 
 RandomDistributorModel::RandomDistributorModel() :
 	m_embedded(new QWidget()),
@@ -44,6 +45,9 @@ void RandomDistributorModel::meshChanged()
 
 void RandomDistributorModel::distribute()
 {
+// 	auto startDistributionTimer = std::chrono::system_clock::now();
+// 	auto endDistributionTimer = startDistributionTimer;
+
 	if (m_ui->modeCheckBox->isChecked()) // GPU mode checked
 	{
 		// this function needs to create & resize m_curvesSSBOID
@@ -56,6 +60,8 @@ void RandomDistributorModel::distribute()
 			m_ui->lengthSpinBox->value(),
 			m_ui->variationSpinBox->value()
 			);
+
+		// endDistributionTimer = std::chrono::system_clock::now();
 	}
 	else
 	{
@@ -89,6 +95,7 @@ void RandomDistributorModel::distribute()
 				{
 					float baryA = distribution(generator);
 					float baryB = distribution(generator);
+					float randLength = m_ui->lengthSpinBox->value() * glm::mix((1.0 - m_ui->variationSpinBox->value()), 1.0, distribution(generator));
 
 					if ((baryA + baryB) > 1.0)
 					{
@@ -109,16 +116,21 @@ void RandomDistributorModel::distribute()
 
 					for (int j = 0; j < 5; ++j)
 					{
-						curve.vertices[j] = randPos + ((float(j) / 5.0f) * randNorm * float(m_ui->lengthSpinBox->value()));
+						curve.vertices[j] = randPos + ((float(j) / 5.0f) * randNorm * randLength);
 					}
-					curve.length = m_ui->lengthSpinBox->value();
+					curve.length = randLength;
 
 					m_curves.m_curves.push_back(curve);
 					break;
 				}
 			}
 		}
+
+		// endDistributionTimer = std::chrono::system_clock::now();
 	}
+
+	// auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(endDistributionTimer - startDistributionTimer);
+	// std::cout << "distribution of "<<m_ui->countSpinBox->value()<<" took: " << elapsed.count() << "ms\n";
 }
 
 float RandomDistributorModel::calculateMeshArea() const

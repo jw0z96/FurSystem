@@ -11,6 +11,7 @@
 #include <sstream>
 #include <boost/algorithm/string/predicate.hpp>
 
+#include "ComputeShaderManager.h"
 
 ObjMeshModel::ObjMeshModel() :
 	m_label(new QLabel("Double click to load obj"))
@@ -58,6 +59,8 @@ bool ObjMeshModel::eventFilter(QObject *object, QEvent *event)
 				nullptr, tr("Load Obj"),
 				QDir::currentPath() + "/meshes",
 				tr("Mesh Files (*.obj)"));
+
+			ComputeShaderManager::getInstance()->startTimer();
 
 			m_label->setText(fileName);
 

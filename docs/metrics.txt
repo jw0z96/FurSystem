@@ -1,0 +1,27 @@
+distributor:
+
+triangle test mesh:
+
+	10000 points: 1 -2ms on GPU, 2 - 5ms on CPU
+
+	100000 points: 8 - 24ms on GPU, 18 - 41ms on CPU
+
+	1000000 points: 77 - 110ms on GPU, 120 - 150ms on CPU
+
+bunny mesh:
+
+	10000 points: 1 - 2 ms on GPU, 173 - 211 ms on CPU
+
+	100000 points: 12 - 30 ms on GPU, 1718 - 1756 ms on CPU
+
+	1000000 points: 82 - 112 ms on GPU, 17218ms - 17259 ms on CPU
+
+full graph evaulation test_0007 - see screenshot:
+
+bunny mesh: 33 - 45 ms
+
+teapot mesh: 76 - 92 ms
+
+triangle test mesh: 18 - 20 ms
+
+
