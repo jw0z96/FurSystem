@@ -19,6 +19,19 @@
   \url{https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Load_OBJ}.
 \newblock Accessed 25 Jan 2018.
 
+\bibitem[\protect\citename{Cline }2009a]{dartThrowing}
+{\sc Cline, D.}, 2009.
+\newblock Dart throwing on surfaces.
+\newblock
+  \url{https://www.cg.tuwien.ac.at/research/publications/2009/cline-09-poisson/cline-09-poisson-paper.pdf}.
+\newblock Accessed 25 Jan 2018.
+
+\bibitem[\protect\citename{Cline }2009b]{parallelPoisson}
+{\sc Cline, D.}, 2009.
+\newblock Parallel poisson disk sampling with spectrum analysis on surfaces.
+\newblock \url{http://www.liyiwei.org/papers/sample-siga10/paper.pdf}.
+\newblock Accessed 25 Jan 2018.
+
 \bibitem[\protect\citename{Pinaev }2017]{Pinaev2017}
 {\sc Pinaev, D.}, 2017.
 \newblock Qt5 node editor.

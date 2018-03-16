@@ -152,6 +152,16 @@ In order to generate curves for the system to manipulate, it was necessary to cr
 
 With these parameters in mind I decided to implement an abstract distributor node class, which contains a virtual function for performing the distribution, and handles the callbacks for when input data is changed and the distribution needs to be updated. This makes the system somewhat extensible, allowing for different distribution patterns to be implemented with ease. The node's data type was also extented to be able to store either 'Curves' objects from the CPU, or an ID for an OpenGL buffer object, with an enumerated value to identify which of these is currently in use. This not only allows the distributor to alternate between CPU and GPU computation arbitrarily, but also allows nodes recieving this data to process it accordingly.
 
+There are many different methods one could use to distribute points on an abritrary mesh, however for replicating creature fur it is desirable to choose a method that distributes primitives at random positions across the surface, yet roughly evenly spaced from neighboring primitives. A popular method used to achieve this kind of distribution is referred to as 'Dart Throwing', which relies on checking the distance to neighboring samples after a new sample has been generated, and discarding the sample if the samples are too close. Whilst these kinds of methods produce good results, they can be inefficient as in certain situations many samples may be generated and rejected, before a sample is accepted. An optimisation for this is described in \textit{Dart Throwing on Surfaces} \cite{dartThrowing}, which relies on removing areas of the mesh that are already covered by a sample, by means of triangle subdivision.
+
+Unfortunately, parallelizing dart thowing methods is not trivial, making them unsuitable for my desired usage of OpenGL compute shaders. Whilst sampling methods suitable for parallel processing do exist, such as those described in \textit{Parallel Poisson Disk Sampling with Spectrum Analysis on Surfaces} \cite{parallelPoisson}, I instead opted to implement a naive random samling method as it was much easier to parallelize.
+
+\begin{enumerate}
+\item Generate a uniform random number in the range [0.0 - 1.0].
+\end{enumerate}
+
+
+
 
 
 
