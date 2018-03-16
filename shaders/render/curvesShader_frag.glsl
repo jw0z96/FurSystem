@@ -121,7 +121,8 @@ void main()
 	// Cook-Torrance BRDF
 	float NDF = DistributionGGX(normal, halfVector, roughness);
 	float G = GeometrySmith(normal, viewDirection, lightVector, roughness);
-	vec3 F = fresnelSchlick((1.0 - abs(dot(halfVector, viewDirection))), F0);
+	// vec3 F = fresnelSchlick((1.0 - abs(dot(halfVector, viewDirection))), F0);
+	vec3 F = fresnelSchlick((max(dot(halfVector, viewDirection), 0.0)), F0);
 	vec3 nominator = NDF * G * F;
 	float denominator = 4 * (1.0 - abs(dot(normal, viewDirection))) * (1.0 - abs(dot(normal, lightVector))) + 0.001; // 0.001 to prevent divide by zero.
 	vec3 specular = nominator / denominator;
