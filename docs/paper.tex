@@ -88,11 +88,11 @@ nvidia hairworks
 \subsection{Existing Solutions} \label{sec:existing}
 Whilst many larger companies opt to develop their own software for handling fur, such as MPC's Furtility \cite{furtility}, there are a number of commercially available solutions that are also widely used in production.
 
-The most popular of these is XGen, originally developed by Walt Disney Animation Studios, which has been included in Autodesk's Maya since 2014. XGen uses a 'Collection' and 'Description' paradigm; Descriptions store user controlled parameters which affect fur primitives (curves for example) on a select area of a mesh, and Collections act as a container for these Descriptions. There are two primary methods offered for distributing primitives on a mesh, Guide Curves can be used to manually control the placement and shape of primitives by placing 'Guides' on the mesh surface, whereas 'Groomable Splines' randomly distirbutes splines over the mesh surface which can be manipulated in real time using viewport manipulators that mimic the brushing and styling of fur. In both modes, 'modifiers' can be added to the modifier stack to further adjust the visual outcome, adding features such as clumping, noise, and coiling. Attributes within these modifiers can be further controlled using expressions or texture maps.
+The most popular of these is XGen, originally developed by Walt Disney Animation Studios \cite{xgen}, which has been included in Autodesk's Maya since 2014. XGen uses a 'Collection' and 'Description' paradigm; Descriptions store user controlled parameters which affect fur primitives (curves for example) on a select area of a mesh, and Collections act as a container for these Descriptions. There are two primary methods offered for distributing primitives on a mesh, Guide Curves can be used to manually control the placement and shape of primitives by placing 'Guides' on the mesh surface, whereas 'Groomable Splines' randomly distirbutes splines over the mesh surface which can be manipulated in real time using viewport manipulators that mimic the brushing and styling of fur. In both modes, 'modifiers' can be added to the modifier stack to further adjust the visual outcome, adding features such as clumping, noise, and coiling. Attributes within these modifiers can be further controlled using expressions or texture maps.
 
 Another commercially available solution is Peregrine*Labs' Yeti \cite{yeti}, which is also offered as a plugin within Autodesk's Maya. Yeti offers a more procedural approach, giving the user a node graph interface in which to construct the desired look from individual components. For example, the most simple usage requires the user to first create a 'scatter' node to distribute points on the mesh surface, and then combine it with a 'grow' node to extrude curves from these points. Whilst at first this may seem unintuitive when compared to XGen, it offers greater flexibility and avoids the pitfalls associated with a destructive workflow.
 
-Offerering even even more flexibility, recent versions of SideFX's Houdini include hair and fur operator nodes, which create predefined node networks for the generation of hair and fur. These networks use standard Houdini nodes internally, so experienced Houdini users are intuitively able to create the visual outcome they desire, using tools they already know. However, it may be quite unintuitive for asset artists (those who would be using the tool, Groom artists?), who are not used to Houdini's heavily procedural workflow.
+Offerering even more flexibility, recent versions of SideFX's Houdini include hair and fur operator nodes, which create predefined node networks for the generation of hair and fur. These networks use standard Houdini nodes internally, so experienced Houdini users are intuitively able to create the visual outcome they desire, using tools they already know. However, it may be quite unintuitive for asset artists (those who would be using the tool, Groom artists?), who are not used to Houdini's heavily procedural workflow.
 
 \subsection{GPU Acceleration} \label{sec:existingGPU}
 Whilst it is not clear to what extent each of these solutions make use of GPU acceleration, they all perform fast enough to allow the user to manipulate them interactively. I therefore decided to monitor the CPU and GPU usage using \verb|htop| and \verb|nvidia-smi| respectively, before and after adding XGen content to a simple maya scene, to determine where the majority of data was being computed.
@@ -128,7 +128,7 @@ From looking at existing fur systems I was able determine that my simplified fur
 \begin{itemize}
 	\item Geometry Loaders - These are responsible for loading user specified geometry. Example Geometry Loaders could allow for the parsing of Wavefront OBJ files.
 	\item Distributors - These are responsible for the distribution of curves onto user specified geometry. User controllable parameters could include density (curve count), distribution pattern (random, uniform), and curve length. These parameters could potentially be controlled by texture inputs.
-	\item Operators - These are responsible for manipulation of the curves to achieve the desired look. Example operators could provide bending, clumping, or randomisation of input curves.
+	\item Operators - These are responsible for manipulation of the curves to achieve the desired look. Example operators could provide bending, clumping, or randomisation of input curves. These should behave much like the 'Modifiers' in XGen.
 	\item Renderers - These are responsible for the rendering of curves into the application viewport. Example renderers could provide mesh, cuves as lines, or curves as ribbons rendering functionality. User controllable parameters could provide controls for the shading model in use, as well as control of the base and tip widths when rendering curve ribbons for example.
 \end{itemize}
 
@@ -201,6 +201,7 @@ layout (std430, binding = 1) buffer curvesBuffer
 
 \subsubsection{Curve Operators} \label{sec:operators}
 
+Once curve primitives have been generated, they need to be passed onto curve operators, which perform most of the work towards creating an appealing visual output. I decided to create an abstract curve operator node, much like I had with the distributor node, which contains a virtual function for performing the curve manipulation.
 
 \subsection{User Testing} \label{sec:usertesting}
 Near the end of the development I was able to convince friend and fellow student Alin Bolcas to test the system and provide feedback from an artist's point of view; Alin is an experienced modelling and look development artist who uses a variety of different software packages to create his work, so getting his feedback on the usability of my tool proved extremely useful.
@@ -212,6 +213,12 @@ He noted that the lack of a node that applies noise to curves proved problematic
 His final comments were in regards to the user interface, suggesting that I make controls similar to their counterparts in existing software wherever possible. Changing the camera controls to match those in Maya was suggested as it would provide a familiar user experience when manipulating the viewport. The ability to create new nodes by pressing the tab key as opposed to right click was also suggested, as this is the standard in node editors, such as those in Maya and Nuke.
 
 \section{Results} \label{sec:results}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=1.0\linewidth]{images/test_0007}
+\caption{\label{figure:screenshot} An example of the visual output that the system is capable of producing.}
+\end{figure}
+
 Results Text.
 
 \subsection{Performance} \label{sec:performance}
@@ -256,7 +263,7 @@ Mesh Triangle Count & GPU Time (ms)\\
 14067 (Utah Teapot) & 76 - 92\\
 \hline
 \end{tabular}
-\caption{\label{figure:fullPerformance} Performance metrics showing the time taken to perform a full graph evaluation on a complex setup, as seen in INSERT PIC, for meshes of varying triangle counts.}
+\caption{\label{figure:fullPerformance} Performance metrics showing the time taken to perform a full graph evaluation on a complex setup, as seen in Figure~\ref{figure:screenshot}, for meshes of varying triangle counts.}
 \end{center}
 \end{figure}
 
