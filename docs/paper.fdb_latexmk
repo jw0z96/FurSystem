@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex paper"] 1521242851 "paper.aux" "paper.bbl" "paper" 1521242852
+["bibtex paper"] 1521327191 "paper.aux" "paper.bbl" "paper" 1521327191
   "./acmsiggraph.bst" 1474296809 23357 eedf7aa63e6f1eb845ecfa55cfd9d383 ""
-  "paper.aux" 1521242852 5861 64faea9fbee7d3a00d3fc4d56945efc1 ""
-  "references.bib" 1521242805 5214 4b94a99f26ff4f65d9521bb4efc06ae8 ""
+  "paper.aux" 1521327191 6202 151d7084406ca2a9e083322d4c7fbade ""
+  "references.bib" 1521327187 5553 b78ed13772ad19eb319caf68d7bbe3db ""
   (generated)
-  "paper.blg"
   "paper.bbl"
-["pdflatex"] 1521242851 "paper.tex" "paper.pdf" "paper" 1521242852
+  "paper.blg"
+["pdflatex"] 1521327191 "paper.tex" "paper.pdf" "paper" 1521327191
   "/home/jw0z/.cache/texlive/texmf-var/web2c/pdftex/pdflatex.fmt" 1510180580 719143 88d356959a00881ccb18a2c476271507 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1463015741 1888031 5317a64a246c13fa560847c387843238 ""
@@ -113,11 +113,11 @@
   "images/test_0007.png" 1521235002 815210 3787b73b88e70fd68247e1d36c343e60 ""
   "lineno.sty" 1474296809 151736 f1e4ea1a3da2e056656e97ed78d62374 ""
   "lipsum.sty" 1474296809 103491 f3a8d28ba533bcdb24167b15de14ff22 ""
-  "paper.aux" 1521242852 5861 64faea9fbee7d3a00d3fc4d56945efc1 ""
-  "paper.bbl" 1521242851 1717 9c1ba2bb7ead66a94f686d99f179909e "bibtex paper"
-  "paper.tex" 1521242593 21300 cbabe1f82801803a6b602c2e3cf56727 ""
+  "paper.aux" 1521327191 6202 151d7084406ca2a9e083322d4c7fbade ""
+  "paper.bbl" 1521327191 1717 9c1ba2bb7ead66a94f686d99f179909e "bibtex paper"
+  "paper.tex" 1521326753 22897 80cffd4c99b114b54a42774ff4cc1379 ""
   "rmlst.sty" 1474296809 1694 ff842d461cee624f8b73af44ce065702 ""
   (generated)
-  "paper.log"
-  "paper.aux"
   "paper.pdf"
+  "paper.aux"
+  "paper.log"

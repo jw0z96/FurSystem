@@ -203,6 +203,38 @@ layout (std430, binding = 1) buffer curvesBuffer
 
 Once curve primitives have been generated, they need to be passed onto curve operators, which perform most of the work towards creating an appealing visual output. I decided to create an abstract curve operator node, much like I had with the distributor node, which contains a virtual function for performing the curve manipulation. This allows for multiple different curve operators to be integrated into the system with ease, however for the scope of this assignment I chose only to implement curve operators to provide bending, application of noise, and clumping functionality.
 
+\subsubsection{Rendering} \label{sec:rendering}
+
+By default, 'Mesh' and 'Curves' objects present in the node graph are not rendered in the viewport. For example, the user may want to distribute curves from hidden 'scalp' geometry, or use a set of hidden curves as clumping attractors. Therefore it was necessary to implement a pair of rendering nodes that would take a 'Mesh' or 'Curves' object as an input, and provide shading controls for rendering them in the viewport.
+
+Whilst rendering and shading triangulated meshes is relatively straightforward, as described in \cite{objLoading}, there are multiple different approaches one could use to render curves. The technique I chose to implement relies on drawing an empty VAO multiple times, and using \texttt{gl\_PrimitiveIDIn} from within a geometry shader to determine which curve from the bound \texttt{GL\_SHADER\_STORAGE\_BUFFER} should be drawn. Figure~\ref\{} shows how this was achieved.
+
+\begin{lstlisting}[language=GLSL, label={lst:buffers}, caption={Extract from the Distributor compute shader, showing how the Mesh and Curves buffers are accessed.}]
+struct Face
+{
+	vec4 position[3];
+	vec4 normal[3];
+	vec4 uv[3];
+};
+
+layout (std430, binding = 0) buffer facesBuffer
+{
+	Face faces[];
+};
+
+struct Curve
+{
+	vec4 position[5];
+};
+
+layout (std430, binding = 1) buffer curvesBuffer
+{
+	Curve curves[];
+};
+\end{lstlisting}
+
+% I opted to make use of OpenGL's geometry shaders, drawing an empty VAO multiple times, and using \texttt{gl\_PrimitiveIDIn} from within a geometry shader to determine which curve from the bound \texttt{GL\_SHADER\_STORAGE\_BUFFER} should be drawn.
+
 \subsection{User Testing} \label{sec:usertesting}
 Near the end of the development I was able to convince friend and fellow student Alin Bolcas to test the system and provide feedback from an artist's point of view; Alin is an experienced modelling and look development artist who uses a variety of different software packages to create his work, so getting his feedback on the usability of my tool proved extremely useful.
 

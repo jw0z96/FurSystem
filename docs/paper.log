@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.11.8)  16 MAR 2018 23:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.11.8)  17 MAR 2018 22:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**paper
+**paper.tex
 (./paper.tex
 LaTeX2e <2016/03/31>
 Babel <3.9r> and hyphenation patterns for 3 language(s) loaded.
@@ -524,14 +524,19 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 LaTeX Font Info:    Font shape `OT1/pcr/bx/n' in size <8> not available
 (Font)              Font shape `OT1/pcr/b/n' tried instead on input line 179.
  [2]
-<images/test_0007.png, id=51, 1899.095pt x 1014.79124pt>
+Underfull \hbox (badness 1043) in paragraph at lines 210--211
+\OT1/ptm/m/n/9 mul-ti-ple times, and us-ing \OT1/pcr/m/n/9 gl[]PrimitiveIDIn \O
+T1/ptm/m/n/9 from within
+ []
+
+<images/test_0007.png, id=52, 1899.095pt x 1014.79124pt>
 File: images/test_0007.png Graphic file (type png)
 
 <use images/test_0007.png>
-Package pdftex.def Info: images/test_0007.png used on input line 218.
+Package pdftex.def Info: images/test_0007.png used on input line 226.
 (pdftex.def)             Requested size: 240.94499pt x 128.73769pt.
 
-Overfull \hbox (68.67963pt too wide) in paragraph at lines 230--248
+Overfull \hbox (68.67963pt too wide) in paragraph at lines 238--256
  [] 
  []
 
@@ -541,7 +546,7 @@ Underfull \hbox (badness 4120) in paragraph at lines 4--8
 github . com / paceholder /
  []
 
-
+[3 <./images/test_0007.png>]
 Underfull \hbox (badness 4120) in paragraph at lines 10--15
 []\OT1/ptm/m/sc/9 a\OT1/ptm/m/n/9 , 2017.  b.  [][]$\OT1/pcr/m/n/9 https : / / 
 en . wikibooks . org / wiki /
@@ -552,25 +557,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--15
 \OT1/pcr/m/n/9 OpenGL _ Programming / Modern _ OpenGL _ Tutorial _
  []
 
-[3 <./images/test_0007.png>])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 279.
+)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 287.
  [4
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 279.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 287.
  (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 279.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 279.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 279.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 287.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 287.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 287.
  ) 
 Here is how much of TeX's memory you used:
- 10099 strings out of 494946
- 149087 string characters out of 6180981
- 392075 words of memory out of 5000000
- 13193 multiletter control sequences out of 15000+600000
+ 10102 strings out of 494946
+ 149139 string characters out of 6180981
+ 391121 words of memory out of 5000000
+ 13195 multiletter control sequences out of 15000+600000
  29822 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 43i,13n,42p,1235b,2003s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,13n,42p,1239b,2003s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/f
@@ -580,10 +585,10 @@ er/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (4 pages, 900103 bytes).
+Output written on paper.pdf (4 pages, 901144 bytes).
 PDF statistics:
- 148 PDF objects out of 1000 (max. 8388607)
- 128 compressed objects within 2 object streams
- 56 named destinations out of 1000 (max. 500000)
+ 150 PDF objects out of 1000 (max. 8388607)
+ 130 compressed objects within 2 object streams
+ 57 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
