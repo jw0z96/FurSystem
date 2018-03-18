@@ -1,17 +1,5 @@
-\begin{thebibliography}{\protect\citename{Thompson et~al\mbox{.} }2003}
-
-\bibitem[\protect\citename{a }2017a]{yeti}
-{\sc a}, 2017.
-\newblock b.
-\newblock \url{https://github.com/paceholder/nodeeditor}.
-\newblock Accessed 25 Jan 2018.
-
-\bibitem[\protect\citename{a }2017b]{objLoading}
-{\sc a}, 2017.
-\newblock b.
-\newblock
-  \url{https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Load_OBJ}.
-\newblock Accessed 25 Jan 2018.
+\begin{thebibliography}{\protect\citename{{Sony Pictures Imageworks and
+  Industrial Light and Magic} }2011}
 
 \bibitem[\protect\citename{Bowers et~al\mbox{.} }2010]{parallelPoisson}
 {\sc Bowers, J., Wang, R., Wei, L.-Y., and Maletz, D.}
@@ -32,11 +20,37 @@
 \newblock In {\em ACM SIGGRAPH 2010 Talks}, ACM, New York, NY, USA, SIGGRAPH
   '10, 51:1--51:1.
 
+\bibitem[\protect\citename{Krs et~al\mbox{.} }2017]{skippy}
+{\sc Krs, V., Yumer, E., Carr, N., Benes, B., and M\v{e}ch, R.}
+\newblock 2017.
+\newblock Skippy: Single view 3d curve interactive modeling.
+\newblock {\em ACM Trans. Graph. 36}, 4 (July), 128:1--128:12.
+
+\bibitem[\protect\citename{Marschner et~al\mbox{.} }2003]{Marschner}
+{\sc Marschner, S.~R., Jensen, H.~W., Cammarano, M., Worley, S., and Hanrahan,
+  P.}
+\newblock 2003.
+\newblock Light scattering from human hair fibers.
+\newblock {\em ACM Trans. Graph. 22}, 3 (July), 780--791.
+
+\bibitem[\protect\citename{{Peregrine*labs} }2012]{yeti}
+{\sc {Peregrine*labs}}, 2012.
+\newblock Yeti procedural fur toolset.
+\newblock \url{https://github.com/paceholder/nodeeditor}.
+\newblock Accessed 25 Jan 2018.
+
 \bibitem[\protect\citename{Pinaev }2017]{Pinaev2017}
 {\sc Pinaev, D.}, 2017.
 \newblock Qt5 node editor.
 \newblock \url{https://github.com/paceholder/nodeeditor}.
 \newblock Accessed 25 Jan 2018.
+
+\bibitem[\protect\citename{{Sony Pictures Imageworks and Industrial Light and
+  Magic} }2011]{alembic}
+{\sc {Sony Pictures Imageworks and Industrial Light and Magic}}, 2011.
+\newblock Alembic format description.
+\newblock \url{http://www.alembic.io/}.
+\newblock Accessed 11 Oct 2017.
 
 \bibitem[\protect\citename{Thompson et~al\mbox{.} }2003]{xgen}
 {\sc Thompson, II, T.~V., Petti, E.~J., and Tappan, C.}
@@ -50,5 +64,13 @@
 \newblock Pbr lighting.
 \newblock \url{https://learnopengl.com/#!PBR/Lighting}.
 \newblock Accessed 11 Oct 2017.
+
+\bibitem[\protect\citename{{Wikibooks Community} }2011]{objLoading}
+{\sc {Wikibooks Community}}, 2011.
+\newblock Opengl programming/modern opengl tutorial load obj.
+\newblock
+  \url{https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Load_OBJ},
+  Aug.
+\newblock Accessed 25 Jan 2018.
 
 \end{thebibliography}

@@ -6,45 +6,45 @@ Database file #1: references.bib
 Warning--empty journal in dartThrowing
 Warning--empty organization in furtility
 Warning--empty organization in xgen
-You've used 8 entries,
+You've used 11 entries,
             2748 wiz_defined-function locations,
-            648 strings with 5420 characters,
-and the built_in function-call counts, 3042 in all, are:
-= -- 307
-> -- 120
+            671 strings with 6006 characters,
+and the built_in function-call counts, 4340 in all, are:
+= -- 439
+> -- 185
 < -- 0
-+ -- 38
-- -- 42
-* -- 232
-:= -- 507
-add.period$ -- 32
-call.type$ -- 8
-change.case$ -- 50
-chr.to.int$ -- 7
-cite$ -- 11
-duplicate$ -- 105
-empty$ -- 253
-format.name$ -- 46
-if$ -- 626
-int.to.chr$ -- 2
++ -- 59
+- -- 65
+* -- 351
+:= -- 721
+add.period$ -- 44
+call.type$ -- 11
+change.case$ -- 73
+chr.to.int$ -- 11
+cite$ -- 14
+duplicate$ -- 140
+empty$ -- 347
+format.name$ -- 71
+if$ -- 887
+int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 4
-newline$ -- 51
-num.names$ -- 24
-pop$ -- 61
+missing$ -- 6
+newline$ -- 69
+num.names$ -- 33
+pop$ -- 81
 preamble$ -- 1
-purify$ -- 42
+purify$ -- 62
 quote$ -- 0
-skip$ -- 69
+skip$ -- 94
 stack$ -- 0
-substring$ -- 157
-swap$ -- 23
+substring$ -- 237
+swap$ -- 32
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 64
+type$ -- 88
 warning$ -- 3
-while$ -- 28
-width$ -- 10
-write$ -- 119
+while$ -- 39
+width$ -- 14
+write$ -- 162
 (There were 3 warnings)

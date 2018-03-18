@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex paper"] 1521393397 "paper.aux" "paper.bbl" "paper" 1521393412
+["bibtex paper"] 1521411029 "paper.aux" "paper.bbl" "paper" 1521411030
   "./acmsiggraph.bst" 1474296809 23357 eedf7aa63e6f1eb845ecfa55cfd9d383 ""
-  "paper.aux" 1521393412 7869 b1f5a7eefbde10c4f97e420bbba6f6ea ""
-  "references.bib" 1521386383 5728 b054704b1c92a115ab740c7df34c391b ""
+  "paper.aux" 1521411030 8848 13edf15fe3fcc48e0a246f45cd26f492 ""
+  "references.bib" 1521409618 6116 4cfe6bdc868533c970bdd05656457dfc ""
   (generated)
   "paper.blg"
   "paper.bbl"
-["pdflatex"] 1521393411 "paper.tex" "paper.pdf" "paper" 1521393412
+["pdflatex"] 1521411030 "paper.tex" "paper.pdf" "paper" 1521411030
   "/home/jw0z/.cache/texlive/texmf-var/web2c/pdftex/pdflatex.fmt" 1510180580 719143 88d356959a00881ccb18a2c476271507 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1463015741 1888031 5317a64a246c13fa560847c387843238 ""
@@ -118,13 +118,15 @@
   "algpseudocode.sty" 1474296809 3457 d9077efe6b74c5a094199256af8d7d9a ""
   "glsllst.sty" 1474296809 3326 9b6bc4eee8771897b9e3b95fc3767d4b ""
   "images/bunny.png" 1521393203 573174 4f8f38c2c0906f4caa1de405c1d64a4c ""
+  "images/nodes.png" 1521393690 177065 14e2c09cf62785599626215f82065667 ""
   "images/rick.png" 1521392938 272336 864abf8d8c63fffdd322954cca393bab ""
-  "images/test_0007.png" 1521235002 815210 3787b73b88e70fd68247e1d36c343e60 ""
+  "images/triangleMesh.png" 1521410677 7309 624a8cd4dfa06e73de1af0169b1694ec ""
+  "images/triangleStripDistribution.png" 1521410751 50106 5b2a4c7ef0209ee381c4761b349a0ac1 ""
   "lineno.sty" 1474296809 151736 f1e4ea1a3da2e056656e97ed78d62374 ""
   "lipsum.sty" 1474296809 103491 f3a8d28ba533bcdb24167b15de14ff22 ""
-  "paper.aux" 1521393412 7869 b1f5a7eefbde10c4f97e420bbba6f6ea ""
-  "paper.bbl" 1521393397 1906 dd2ec55cb88f8e7ae4ceb3731c524edc "bibtex paper"
-  "paper.tex" 1521393410 25594 06f1eedb3d0ca05378c5d158e5112bc0 ""
+  "paper.aux" 1521411030 8848 13edf15fe3fcc48e0a246f45cd26f492 ""
+  "paper.bbl" 1521411030 2923 5f41b9af1ee963541d809e46e46fdbda "bibtex paper"
+  "paper.tex" 1521411021 28832 3fdf92addac64f4de20ec39ed1dfc5aa ""
   "rmlst.sty" 1474296809 1694 ff842d461cee624f8b73af44ce065702 ""
   (generated)
   "paper.log"
