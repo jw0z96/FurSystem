@@ -1,11 +1,22 @@
 \begin{thebibliography}{\protect\citename{{Sony Pictures Imageworks and
   Industrial Light and Magic} }2011}
 
+\bibitem[\protect\citename{{AMD} }2014]{tressfx}
+{\sc {AMD}}, 2014.
+\newblock Tressfx hair, real-time hair physics system.
+\newblock \url{https://www.amd.com/en/technologies/tressfx}.
+\newblock Accessed 18 Mar 2018.
+
 \bibitem[\protect\citename{Bowers et~al\mbox{.} }2010]{parallelPoisson}
 {\sc Bowers, J., Wang, R., Wei, L.-Y., and Maletz, D.}
 \newblock 2010.
 \newblock Parallel poisson disk sampling with spectrum analysis on surfaces.
 \newblock {\em ACM Trans. Graph. 29}, 6 (Dec.), 166:1--166:10.
+
+\bibitem[\protect\citename{{CD Projekt RED} }2015]{witcher}
+{\sc {CD Projekt RED}}, 2015.
+\newblock The witcher 3: Wild hunt.
+\newblock Accessed 18 Mar 2018.
 
 \bibitem[\protect\citename{Cline et~al\mbox{.} }2009]{dartThrowing}
 {\sc Cline, D., Jeschke, S., White, K., Razdan, A., and Wonka, P.}
@@ -32,6 +43,12 @@
 \newblock 2003.
 \newblock Light scattering from human hair fibers.
 \newblock {\em ACM Trans. Graph. 22}, 3 (July), 780--791.
+
+\bibitem[\protect\citename{{NVIDIA} }2014]{hairworks}
+{\sc {NVIDIA}}, 2014.
+\newblock Hairworks api.
+\newblock \url{https://developer.nvidia.com/hairworks}.
+\newblock Accessed 18 Mar 2018.
 
 \bibitem[\protect\citename{{Peregrine*labs} }2012]{yeti}
 {\sc {Peregrine*labs}}, 2012.

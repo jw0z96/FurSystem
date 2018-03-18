@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.11.8)  18 MAR 2018 22:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.11.8)  18 MAR 2018 23:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -496,101 +496,115 @@ LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
 (Font)              scaled to size 11.03998pt on input line 79.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 85.
+(Font)              scaled to size 9.19998pt on input line 86.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <10> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 85.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 86.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 9.19998pt on input line 85.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 98.
+(Font)              scaled to size 9.19998pt on input line 86.
 
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [1{/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}
+<images/hairworks.jpg, id=9, 1204.5pt x 677.53125pt>
+File: images/hairworks.jpg Graphic file (type jpg)
+
+<use images/hairworks.jpg>
+Package pdftex.def Info: images/hairworks.jpg used on input line 99.
+(pdftex.def)             Requested size: 240.94499pt x 135.52452pt.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 100.
+ [1{/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}
 
 
-]
+ <./images/hairworks.jpg>]
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 129.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 134.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 8.27998pt on input line 146.
+(Font)              scaled to size 8.27998pt on input line 151.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <9> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 146.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 151.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 8.27998pt on input line 146.
+(Font)              scaled to size 8.27998pt on input line 151.
 
-<images/triangleStripDistribution.png, id=32, 726.715pt x 606.265pt>
+<images/triangleStripDistribution.png, id=40, 726.715pt x 606.265pt>
 File: images/triangleStripDistribution.png Graphic file (type png)
 
 <use images/triangleStripDistribution.png>
 Package pdftex.def Info: images/triangleStripDistribution.png used on input lin
-e 163.
+e 168.
 (pdftex.def)             Requested size: 118.06436pt x 98.49376pt.
 
-<images/triangleMesh.png, id=33, 444.66125pt x 402.50375pt>
+<images/triangleMesh.png, id=41, 444.66125pt x 402.50375pt>
 File: images/triangleMesh.png Graphic file (type png)
 
 <use images/triangleMesh.png>
-Package pdftex.def Info: images/triangleMesh.png used on input line 165.
+Package pdftex.def Info: images/triangleMesh.png used on input line 170.
 (pdftex.def)             Requested size: 108.4245pt x 98.14444pt.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 166.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 189.
 
-Underfull \hbox (badness 1152) in paragraph at lines 184--185
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+Underfull \hbox (badness 1152) in paragraph at lines 189--190
 \OT1/ptm/m/n/9 most com-mon way of stor-ing OBJ data in OpenGL buffers,
  []
 
 
-Underfull \hbox (badness 2073) in paragraph at lines 184--185
+Underfull \hbox (badness 2073) in paragraph at lines 189--190
 \OT1/ptm/m/n/9 as de-scribed in [[][]Wik-i-books Com-mu-nity 2011[][]], is to u
 se a
  []
 
 
-Underfull \hbox (badness 2189) in paragraph at lines 184--185
+Underfull \hbox (badness 2189) in paragraph at lines 189--190
 []\OT1/pcr/m/n/9 GL_ARRAY_BUFFER \OT1/ptm/m/n/9 ob-ject to store the ver-tex da
 ta and a
  []
 
 
-Underfull \hbox (badness 2521) in paragraph at lines 184--185
+Underfull \hbox (badness 2521) in paragraph at lines 189--190
 []\OT1/pcr/m/n/9 GL_ELEMENT_ARRAY_BUFFER \OT1/ptm/m/n/9 to store the in-dices o
 f the
  []
 
 [2 <./images/triangleStripDistribution.png> <./images/triangleMesh.png>]
-<images/rick.png, id=59, 759.83875pt x 890.32625pt>
+<images/rick.png, id=63, 759.83875pt x 890.32625pt>
 File: images/rick.png Graphic file (type png)
  <use images/rick.png>
-Package pdftex.def Info: images/rick.png used on input line 215.
+Package pdftex.def Info: images/rick.png used on input line 220.
 (pdftex.def)             Requested size: 108.4245pt x 127.03583pt.
 
-<images/bunny.png, id=60, 857.2025pt x 806.01125pt>
+<images/bunny.png, id=64, 857.2025pt x 806.01125pt>
 File: images/bunny.png Graphic file (type png)
  <use images/bunny.png>
-Package pdftex.def Info: images/bunny.png used on input line 217.
+Package pdftex.def Info: images/bunny.png used on input line 222.
 (pdftex.def)             Requested size: 108.4245pt x 101.94412pt.
 
-<images/nodes.png, id=61, 1645.14626pt x 739.76375pt>
+<images/nodes.png, id=65, 1645.14626pt x 739.76375pt>
 File: images/nodes.png Graphic file (type png)
  <use images/nodes.png>
-Package pdftex.def Info: images/nodes.png used on input line 222.
+Package pdftex.def Info: images/nodes.png used on input line 227.
 (pdftex.def)             Requested size: 240.94499pt x 108.34099pt.
 
 [3 <./images/rick.png> <./images/bunny.png>]
-Overfull \hbox (68.67963pt too wide) in paragraph at lines 234--252
+Overfull \hbox (43.05753pt too wide) in paragraph at lines 239--257
  [] 
  []
 
 [4 <./images/nodes.png>] (./paper.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 69--75
+Underfull \hbox (badness 2229) in paragraph at lines 5--9
+\OT1/pcr/m/n/9 / / www . amd . com / en / technologies / tressfx$[][]\OT1/ptm/m
+/n/9 .  Ac-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--92
 \OT1/pcr/m/n/9 org / wiki / OpenGL _ Programming / Modern _ OpenGL _
  []
 
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 314.
+nput line 319.
 LaTeX Font Info:    Font shape `OT1/pcr/bx/n' in size <8> not available
-(Font)              Font shape `OT1/pcr/b/n' tried instead on input line 315.
+(Font)              Font shape `OT1/pcr/b/n' tried instead on input line 320.
  (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
@@ -601,47 +615,47 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 )
 LaTeX Font Info:    Font shape `OT1/pcr/m/it' in size <9> not available
-(Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 338.
+(Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 343.
 
-Underfull \hbox (badness 2662) in paragraph at lines 338--338
+Underfull \hbox (badness 2662) in paragraph at lines 343--343
 []\OT1/ptm/b/n/9 Listing 2: |\OT1/ptm/m/it/9 Ex-tract from the C++ ap-pli-ca-ti
 on code show-
  []
 
 
-Underfull \hbox (badness 5260) in paragraph at lines 338--338
+Underfull \hbox (badness 5260) in paragraph at lines 343--343
 \OT1/ptm/m/it/9 ing how Curves are ren-dered pro-ce-du-rally. \OT1/pcr/m/sl/9 e
 mptyVAO
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 338--338
+Underfull \hbox (badness 10000) in paragraph at lines 343--343
 \OT1/ptm/m/it/9 is an empty Ver-tex Ar-ray Ob-ject, \OT1/pcr/m/sl/9 curvesSSBO 
 \OT1/ptm/m/it/9 is a
  []
 
 
-Underfull \hbox (badness 6758) in paragraph at lines 338--338
+Underfull \hbox (badness 6758) in paragraph at lines 343--343
 \OT1/pcr/m/sl/9 GL[]SHADER[]STORAGE[]BUFFER \OT1/ptm/m/it/9 con-tain-ing ver-te
 x data for
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 372.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 377.
 [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 372.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 377.
  (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 372.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 372.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 372.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 377.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 377.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 377.
  ) 
 Here is how much of TeX's memory you used:
- 10360 strings out of 494946
- 152987 string characters out of 6180981
- 439137 words of memory out of 5000000
- 13402 multiletter control sequences out of 15000+600000
+ 10372 strings out of 494946
+ 153176 string characters out of 6180981
+ 441041 words of memory out of 5000000
+ 13409 multiletter control sequences out of 15000+600000
  30439 words of font info for 64 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 43i,13n,60p,1239b,1291s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,13n,60p,1295b,1291s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/f
@@ -654,10 +668,10 @@ texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/u
 tmri8a.pfb>
-Output written on paper.pdf (5 pages, 1348291 bytes).
+Output written on paper.pdf (5 pages, 1987073 bytes).
 PDF statistics:
- 231 PDF objects out of 1000 (max. 8388607)
- 202 compressed objects within 3 object streams
- 94 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 243 PDF objects out of 1000 (max. 8388607)
+ 212 compressed objects within 3 object streams
+ 97 named destinations out of 1000 (max. 500000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
