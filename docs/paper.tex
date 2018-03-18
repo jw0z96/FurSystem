@@ -175,30 +175,6 @@ Unfortunately, parallelizing dart thowing methods is not trivial, making them un
 
 In order to get this distribution process running on the GPU, I needed to allocate and store data for both the Mesh and Curves in OpenGL buffers, for later use in a compute shader. The most common way of storing OBJ data in OpenGL buffers, as described in \cite{objLoading}, is to use a \verb|GL_ARRAY_BUFFER| object to store the vertex data and a \verb|GL_ELEMENT_ARRAY_BUFFER| to store the indices of the \verb|GL_ARRAY_BUFFER| that make up each face. However for ease of use in compute shaders I decided instead to store each face in a \verb|GL_SHADER_STORAGE_BUFFER|, where each face consists of three sets of positions, normals, and texture coordinates. Whilst this is less efficient, I found that the overhead in GPU memory usage was negligible, and that this method allowed for much simpler usage in a compute shader. Allocating a buffer for the Curves data was much simpler as it consisted of an array of 'Curve' structs, each consisting of 5 vertices. Listing~\ref{lst:buffers} shows how these buffers were accessed from within the compute shaders; note how all of the \texttt{vec3} values have been padded to \texttt{vec4}, as the \texttt{std430} layout qualifier requires an alignment of 16 bytes.
 
-\begin{lstlisting}[language=GLSL, label={lst:buffers}, caption={Extract from the Distributor compute shader, showing how the Mesh and Curves buffers are accessed.}]
-struct Face
-{
-	vec4 position[3];
-	vec4 normal[3];
-	vec4 uv[3];
-};
-
-layout (std430, binding = 0) buffer facesBuffer
-{
-	Face faces[];
-};
-
-struct Curve
-{
-	vec4 position[5];
-};
-
-layout (std430, binding = 1) buffer curvesBuffer
-{
-	Curve curves[];
-};
-\end{lstlisting}
-
 \subsubsection{Curve Operators} \label{sec:operators}
 
 Once curve primitives have been generated, they need to be passed onto curve operators, which perform most of the work towards creating an appealing visual output. I decided to create an abstract curve operator node, much like I had with the distributor node, which contains a virtual function for performing the curve manipulation. This allows for multiple different curve operators to be integrated into the system with ease, however for the scope of this assignment I chose only to implement curve operators to provide bending, application of noise, and clumping functionality.
@@ -207,31 +183,7 @@ Once curve primitives have been generated, they need to be passed onto curve ope
 
 By default, 'Mesh' and 'Curves' objects present in the node graph are not rendered in the viewport. For example, the user may want to distribute curves from hidden 'scalp' geometry, or use a set of hidden curves as clumping attractors. Therefore it was necessary to implement a pair of rendering nodes that would take a 'Mesh' or 'Curves' object as an input, and provide shading controls for rendering them in the viewport.
 
-Whilst rendering and shading triangulated meshes is relatively straightforward, as described in \cite{objLoading}, there are multiple different approaches one could use to render curves. The technique I chose to implement relies on drawing an empty VAO multiple times, and using \texttt{gl\_PrimitiveIDIn} from within a geometry shader to determine which curve from the bound \texttt{GL\_SHADER\_STORAGE\_BUFFER} should be drawn. Figure~\ref\{} shows how this was achieved.
-
-\begin{lstlisting}[language=GLSL, label={lst:buffers}, caption={Extract from the Distributor compute shader, showing how the Mesh and Curves buffers are accessed.}]
-struct Face
-{
-	vec4 position[3];
-	vec4 normal[3];
-	vec4 uv[3];
-};
-
-layout (std430, binding = 0) buffer facesBuffer
-{
-	Face faces[];
-};
-
-struct Curve
-{
-	vec4 position[5];
-};
-
-layout (std430, binding = 1) buffer curvesBuffer
-{
-	Curve curves[];
-};
-\end{lstlisting}
+Whilst rendering and shading triangulated meshes is relatively straightforward, as described in \cite{objLoading}, there are multiple different approaches one could use to render curves. The technique I chose to implement relies on drawing an empty VAO multiple times, and using \texttt{gl\_PrimitiveIDIn} from within a geometry shader to determine which curve from the bound \texttt{GL\_SHADER\_STORAGE\_BUFFER} should be drawn. Listings~\ref{lst:rendercpp} and ~\ref{lst:renderglsl} shows how this was achieved.
 
 % I opted to make use of OpenGL's geometry shaders, drawing an empty VAO multiple times, and using \texttt{gl\_PrimitiveIDIn} from within a geometry shader to determine which curve from the bound \texttt{GL\_SHADER\_STORAGE\_BUFFER} should be drawn.
 
@@ -307,5 +259,66 @@ Unfortunately my system lacks the ability to export curves data, making it virtu
 
 \bibliographystyle{acmsiggraph}
 \bibliography{references}
+
+\newpage
+\appendix
+
+\begin{lstlisting}[language=GLSL, label={lst:buffers}, caption={Extract from the Distributor compute shader, showing how the Mesh and Curves buffers are accessed.}]
+struct Face
+{
+	vec4 position[3];
+	vec4 normal[3];
+	vec4 uv[3];
+};
+
+layout (std430, binding = 0) buffer facesBuffer
+{
+	Face faces[];
+};
+
+struct Curve
+{
+	vec4 position[5];
+};
+
+layout (std430, binding = 1) buffer curvesBuffer
+{
+	Curve curves[];
+};
+\end{lstlisting}
+
+\begin{lstlisting}[language=C++, label={lst:rendercpp}, caption={Extract from the C++ application code showing how Curves are rendered procedurally. \texttt{emptyVAO} is an empty Vertex Array Object, \texttt{curvesSSBO} is a \texttt{GL\_SHADER\_STORAGE\_BUFFER} containing vertex data for multiple curves, and \texttt{indices} is the number of curves in the buffer.}]
+glBindVertexArray(emptyVAO);
+glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, curvesSSBO);
+glDrawArrays(GL_POINTS, 0, indices);
+\end{lstlisting}
+
+\begin{lstlisting}[language=GLSL, label={lst:renderglsl}, caption={Extract from the curves rendering geometry shader, showing how vertex positions were processed from data stored in a bound \texttt{GL\_SHADER\_STORAGE\_BUFFER}.}]
+#version 430 core
+layout(points) in;
+layout(line_strip, max_vertices = 5) out;
+
+struct Curve
+{
+	vec4 position[5];
+};
+
+layout (std430, binding = 0) buffer curvesBuffer
+{
+	Curve curves[];
+};
+
+uniform mat4 MVP;
+
+void main()
+{
+	for (int i = 0; i < 5; ++i)
+	{
+		gl_Position = MVP * vec4(curves[gl_PrimitiveIDIn].position[i].xyz, 1.0);
+		EmitVertex();
+	}
+	EndPrimitive();
+}
+\end{lstlisting}
 
 \end{document}
