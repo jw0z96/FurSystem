@@ -45,4 +45,10 @@
 \newblock In {\em ACM SIGGRAPH 2003 Sketches \&Amp; Applications}, ACM, New
   York, NY, USA, SIGGRAPH '03, 1--1.
 
+\bibitem[\protect\citename{Vries }2016]{learnPBR}
+{\sc Vries, J.~D.}, 2016.
+\newblock Pbr lighting.
+\newblock \url{https://learnopengl.com/#!PBR/Lighting}.
+\newblock Accessed 11 Oct 2017.
+
 \end{thebibliography}

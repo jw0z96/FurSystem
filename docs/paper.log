@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.5.5)  18 MAR 2018 00:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.11.8)  18 MAR 2018 17:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -526,20 +526,46 @@ Underfull \hbox (badness 1043) in paragraph at lines 186--187
 T1/ptm/m/n/9 from within
  []
 
-<images/test_0007.png, id=53, 1899.095pt x 1014.79124pt>
+<images/rick.png, id=55, 759.83875pt x 890.32625pt>
+File: images/rick.png Graphic file (type png)
+ <use images/rick.png>
+Package pdftex.def Info: images/rick.png used on input line 207.
+(pdftex.def)             Requested size: 108.4245pt x 127.03583pt.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 207.
+
+<images/bunny.png, id=56, 857.2025pt x 806.01125pt>
+File: images/bunny.png Graphic file (type png)
+ <use images/bunny.png>
+Package pdftex.def Info: images/bunny.png used on input line 209.
+(pdftex.def)             Requested size: 108.4245pt x 101.94412pt.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 210.
+
+<images/test_0007.png, id=57, 1899.095pt x 1014.79124pt>
 File: images/test_0007.png Graphic file (type png)
 
 <use images/test_0007.png>
-Package pdftex.def Info: images/test_0007.png used on input line 202.
+Package pdftex.def Info: images/test_0007.png used on input line 214.
 (pdftex.def)             Requested size: 240.94499pt x 128.73769pt.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 203.
 
-Overfull \hbox (68.67963pt too wide) in paragraph at lines 214--232
+Overfull \hbox (68.67963pt too wide) in paragraph at lines 226--244
  [] 
  []
 
-(./paper.bbl
+
+LaTeX Warning: Reference `figure:screenshot' on page 3 undefined on input line 
+262.
+
+
+LaTeX Warning: Reference `figure:screenshot' on page 3 undefined on input line 
+262.
+
+
+Underfull \vbox (badness 6708) has occurred while \output is active []
+
+ [3 <./images/rick.png> <./images/bunny.png> <./images/test_0007.png>] (./paper
+.bbl
 Underfull \hbox (badness 4120) in paragraph at lines 4--8
 []\OT1/ptm/m/sc/9 a\OT1/ptm/m/n/9 , 2017.  b.  [][]$\OT1/pcr/m/n/9 https : / / 
 github . com / paceholder /
@@ -556,13 +582,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--15
 \OT1/pcr/m/n/9 OpenGL _ Programming / Modern _ OpenGL _ Tutorial _
  []
 
-[3 <./images/test_0007.png>])
+)
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 266.
+nput line 278.
 LaTeX Font Info:    Font shape `OT1/pcr/bx/n' in size <8> not available
-(Font)              Font shape `OT1/pcr/b/n' tried instead on input line 267.
-
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+(Font)              Font shape `OT1/pcr/b/n' tried instead on input line 279.
+ (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -572,45 +597,49 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 )
 LaTeX Font Info:    Font shape `OT1/pcr/m/it' in size <9> not available
-(Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 290.
+(Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 302.
 
-Underfull \hbox (badness 2662) in paragraph at lines 290--290
+Underfull \hbox (badness 2662) in paragraph at lines 302--302
 []\OT1/ptm/b/n/9 Listing 2: |\OT1/ptm/m/it/9 Ex-tract from the C++ ap-pli-ca-ti
 on code show-
  []
 
 
-Underfull \hbox (badness 5260) in paragraph at lines 290--290
+Underfull \hbox (badness 5260) in paragraph at lines 302--302
 \OT1/ptm/m/it/9 ing how Curves are ren-dered pro-ce-du-rally. \OT1/pcr/m/sl/9 e
 mptyVAO
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 290--290
+Underfull \hbox (badness 10000) in paragraph at lines 302--302
 \OT1/ptm/m/it/9 is an empty Ver-tex Ar-ray Ob-ject, \OT1/pcr/m/sl/9 curvesSSBO 
 \OT1/ptm/m/it/9 is a
  []
 
 
-Underfull \hbox (badness 6758) in paragraph at lines 290--290
+Underfull \hbox (badness 6758) in paragraph at lines 302--302
 \OT1/pcr/m/sl/9 GL[]SHADER[]STORAGE[]BUFFER \OT1/ptm/m/it/9 con-tain-ing ver-te
 x data for
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 324.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 336.
 [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 324.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 336.
  (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 324.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 324.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 324.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 336.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 336.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 336.
  ) 
 Here is how much of TeX's memory you used:
- 10327 strings out of 494946
- 152333 string characters out of 6180982
- 433909 words of memory out of 5000000
- 13380 multiletter control sequences out of 15000+600000
- 30439 words of font info for 64 fonts, out of 8000000 for 9000
+ 10351 strings out of 494946
+ 152738 string characters out of 6180981
+ 446000 words of memory out of 5000000
+ 13397 multiletter control sequences out of 15000+600000
+ 32613 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  43i,13n,60p,1239b,1291s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -625,10 +654,10 @@ texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/u
 tmri8a.pfb>
-Output written on paper.pdf (4 pages, 931357 bytes).
+Output written on paper.pdf (4 pages, 1909763 bytes).
 PDF statistics:
- 200 PDF objects out of 1000 (max. 8388607)
- 177 compressed objects within 2 object streams
- 87 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 209 PDF objects out of 1000 (max. 8388607)
+ 185 compressed objects within 2 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

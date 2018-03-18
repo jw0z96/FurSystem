@@ -82,19 +82,19 @@ For this project I developed a procedural fur system, with the aim of exploring 
 
 \section{Introduction} \label{sec:introduction}
 Introduction Text.
-\subsection{Related Work} \label{sec:related}
+\subsection{Related work} \label{sec:related}
 nvidia hairworks
 
-\subsection{Existing Solutions} \label{sec:existing}
-Whilst many larger companies opt to develop their own software for handling fur, such as MPC's Furtility \cite{furtility}, there are a number of commercially available solutions that are also widely used in production.
+\subsection{Existing solutions} \label{sec:existing}
+Whilst many larger companies opt to develop their own software for handling fur, such as MPC's Furtility~\cite{furtility}, there are a number of commercially available solutions that are also widely used in production.
 
-The most popular of these is XGen, originally developed by Walt Disney Animation Studios \cite{xgen}, which has been included in Autodesk's Maya since 2014. XGen uses a 'Collection' and 'Description' paradigm; Descriptions store user controlled parameters which affect fur primitives (curves for example) on a select area of a mesh, and Collections act as a container for these Descriptions. There are two primary methods offered for distributing primitives on a mesh, Guide Curves can be used to manually control the placement and shape of primitives by placing 'Guides' on the mesh surface, whereas 'Groomable Splines' randomly distirbutes splines over the mesh surface which can be manipulated in real time using viewport manipulators that mimic the brushing and styling of fur. In both modes, 'modifiers' can be added to the modifier stack to further adjust the visual outcome, adding features such as clumping, noise, and coiling. Attributes within these modifiers can be further controlled using expressions or texture maps.
+The most popular of these is XGen, originally developed by Walt Disney Animation Studios~\cite{xgen}, which has been included in Autodesk's Maya since 2014. XGen uses a 'Collection' and 'Description' paradigm; Descriptions store user controlled parameters which affect fur primitives (curves for example) on a select area of a mesh, and Collections act as a container for these Descriptions. There are two primary methods offered for distributing primitives on a mesh, Guide Curves can be used to manually control the placement and shape of primitives by placing 'Guides' on the mesh surface, whereas 'Groomable Splines' randomly distirbutes splines over the mesh surface which can be manipulated in real time using viewport manipulators that mimic the brushing and styling of fur. In both modes, 'modifiers' can be added to the modifier stack to further adjust the visual outcome, adding features such as clumping, noise, and coiling. Attributes within these modifiers can be further controlled using expressions or texture maps.
 
-Another commercially available solution is Peregrine*Labs' Yeti \cite{yeti}, which is also offered as a plugin within Autodesk's Maya. Yeti offers a more procedural approach, giving the user a node graph interface in which to construct the desired look from individual components. For example, the most simple usage requires the user to first create a 'scatter' node to distribute points on the mesh surface, and then combine it with a 'grow' node to extrude curves from these points. Whilst at first this may seem unintuitive when compared to XGen, it offers greater flexibility and avoids the pitfalls associated with a destructive workflow.
+Another commercially available solution is Peregrine*Labs' Yeti~\cite{yeti}, which is also offered as a plugin within Autodesk's Maya. Yeti offers a more procedural approach, giving the user a node graph interface in which to construct the desired look from individual components. For example, the most simple usage requires the user to first create a 'scatter' node to distribute points on the mesh surface, and then combine it with a 'grow' node to extrude curves from these points. Whilst at first this may seem unintuitive when compared to XGen, it offers greater flexibility and avoids the pitfalls associated with a destructive workflow.
 
 Offerering even more flexibility, recent versions of SideFX's Houdini include hair and fur operator nodes, which create predefined node networks for the generation of hair and fur. These networks use standard Houdini nodes internally, so experienced Houdini users are intuitively able to create the visual outcome they desire, using tools they already know. However, it may be quite unintuitive for asset artists (those who would be using the tool, Groom artists?), who are not used to Houdini's heavily procedural workflow.
 
-\subsection{GPU Acceleration} \label{sec:existingGPU}
+\subsection{GPU acceleration} \label{sec:existingGPU}
 Whilst it is not clear to what extent each of these solutions make use of GPU acceleration, they all perform fast enough to allow the user to manipulate them interactively. I therefore decided to monitor the CPU and GPU usage using \verb|htop| and \verb|nvidia-smi| respectively, before and after adding XGen content to a simple maya scene, to determine where the majority of data was being computed.
 
 After applying the default XGen description onto a simple sphere with 760 triangles, there was no noticeable increase in both GPU utilisation and GPU memory usage. Increasing the density of the primitives from 1.0 to 10000.0 saw an increase of VRAM usage of roughly 350MiB, which I would attribute to storing the primitives in a buffer on the GPU, but there was no discernable increase in GPU utilisation. Increasing the density further to 10,000 saw a noticable spike in CPU usage, hitting 100 percent across two threads, leading me to believe that the primitive distribution computation is being done on the CPU.
@@ -120,7 +120,7 @@ I decided to develop the API side of the fur system using C++, primarly as it mo
 
 To handle the user interface I used the Qt framework within C++. Qt is commonly used for artist tools within visual effects as it is cross-platform, and applications can be configured to run within other applications that make use of it, such as Autodesk Maya.
 
-I wanted to include a node-graph style interface within my application, as it is commonly used within existing artist tools (Autodesk Maya, Unreal Engine), and would encourage modularity within my API. Qt does not natively provide this kind of interface, so I made use of NodeEditor \cite{Pinaev2017}, an existing Qt-based library that provides this functionality.
+I wanted to include a node-graph style interface within my application, as it is commonly used within existing artist tools (Autodesk Maya, Unreal Engine), and would encourage modularity within my API. Qt does not natively provide this kind of interface, so I made use of NodeEditor~\cite{Pinaev2017}, an existing Qt-based library that provides this functionality.
 
 \subsection{Design} \label{sec:design}
 From looking at existing fur systems I was able determine that my simplified fur system would need to consist of the following components:
@@ -143,20 +143,20 @@ In this section I will explain the development of each of the major components, 
 
 % write about GPU
 
-\subsubsection{Mesh Loading} \label{sec:objLoading}
+\subsubsection{Mesh loading} \label{sec:objLoading}
 % The first problem I tackled was that of loading mesh geometry into the system, and storing it in a Shader Storage Buffer Object (SSBO) for later use in a compute shader. I opted to implement a Wavefront OBJ loader as they are (deceptively) simple to parse, consisting of a list of vertex positions, vertex normals, vertex texture coordinates, and faces defined as a list of indices. I created an OBJ loader node using the NodeEditor library, which parses
 
 The first problem I tackled was that of loading mesh geometry into the system, in such a way that would allow for later computation on both the GPU and CPU. I opted to implement a Wavefront OBJ loader as they are (deceptively) simple to parse, consisting of a list of vertex positions, vertex normals, vertex texture coordinates, and faces as defined by a list of indices. This data structure formed the basis of my 'Mesh' class. Using the NodeEditor library I then created a node which loads OBJ files, and outputs the 'Mesh' object through it's output data port.
 
-\subsubsection{Curve Distributors} \label{sec:distributors}
+\subsubsection{Curve distributors} \label{sec:distributors}
 
 In order to generate curves for the system to manipulate, it was necessary to create a node that handles the distribution of curves onto the surface of a mesh. This node needs to take 'Mesh' object data as input, and output 'Curves' object data. A 'Curves' object was implemented which consists an array of 'Curve' objects, which in turn consist of an array 5 vertex positions that construct the curve. Distributor nodes would also need to alternate between performing the distribution process on the CPU or on the GPU, which would in turn affect whether the node outputs a 'Curves' object, or an ID for where the curves data is stored on the GPU.
 
 With these parameters in mind I decided to implement an abstract distributor node class, which contains a virtual function for performing the distribution, and handles the callbacks for when input data is changed and the distribution needs to be updated. This makes the system somewhat extensible, allowing for different distribution patterns to be implemented with ease. The node's data type was also extented to be able to store either 'Curves' objects from the CPU, or an ID for an OpenGL buffer object, with an enumerated value to identify which of these is currently in use. This not only allows the distributor to alternate between CPU and GPU computation arbitrarily, but also allows nodes recieving this data to process it accordingly.
 
-There are many different methods one could use to distribute points on an abritrary mesh, however for replicating creature fur it is desirable to choose a method that distributes primitives at random positions across the surface, yet roughly evenly spaced from neighboring primitives. A popular method used to achieve this kind of distribution is referred to as 'Dart Throwing', which relies on checking the distance to neighboring samples after a new sample has been generated, and discarding the sample if the samples are too close. Whilst these kinds of methods produce good results, they can be inefficient as in certain situations many samples may be generated and rejected, before a sample is accepted. An optimisation for this is described in \textit{Dart Throwing on Surfaces} \cite{dartThrowing}, which relies on removing areas of the mesh that are already covered by a sample, by means of triangle subdivision.
+There are many different methods one could use to distribute points on an abritrary mesh, however for replicating creature fur it is desirable to choose a method that distributes primitives at random positions across the surface, yet roughly evenly spaced from neighboring primitives. A popular method used to achieve this kind of distribution is referred to as 'Dart Throwing', which relies on checking the distance to neighboring samples after a new sample has been generated, and discarding the sample if the samples are too close. Whilst these kinds of methods produce good results, they can be inefficient as in certain situations many samples may be generated and rejected, before a sample is accepted. An optimisation for this is described in \textit{Dart Throwing on Surfaces}~\cite{dartThrowing}, which relies on removing areas of the mesh that are already covered by a sample, by means of triangle subdivision.
 
-Unfortunately, parallelizing dart thowing methods is not trivial, making them unsuitable for my desired usage of OpenGL compute shaders. Whilst sampling methods suitable for parallel processing do exist, such as those described in \textit{Parallel Poisson Disk Sampling with Spectrum Analysis on Surfaces} \cite{parallelPoisson}, I instead opted to implement a naive random samling method as it was much easier to parallelize.
+Unfortunately, parallelizing dart thowing methods is not trivial, making them unsuitable for my desired usage of OpenGL compute shaders. Whilst sampling methods suitable for parallel processing do exist, such as those described in \textit{Parallel Poisson Disk Sampling with Spectrum Analysis on Surfaces}~\cite{parallelPoisson}, I instead opted to implement a naive random sampling method as it was much easier to parallelize.
 
 % \begin{enumerate}
 % \item Generate a uniform random number in the range [0.0 - 1.0].
@@ -171,11 +171,11 @@ Unfortunately, parallelizing dart thowing methods is not trivial, making them un
 % \end{algorithmic}
 % \end{algorithm}
 
-\subsubsection{Compute Shaders} \label{sec:compute shaders}
+\subsubsection{Compute shaders} \label{sec:compute shaders}
 
-In order to get this distribution process running on the GPU, I needed to allocate and store data for both the Mesh and Curves in OpenGL buffers, for later use in a compute shader. The most common way of storing OBJ data in OpenGL buffers, as described in \cite{objLoading}, is to use a \verb|GL_ARRAY_BUFFER| object to store the vertex data and a \verb|GL_ELEMENT_ARRAY_BUFFER| to store the indices of the \verb|GL_ARRAY_BUFFER| that make up each face. However for ease of use in compute shaders I decided instead to store each face in a \verb|GL_SHADER_STORAGE_BUFFER|, where each face consists of three sets of positions, normals, and texture coordinates. Whilst this is less efficient, I found that the overhead in GPU memory usage was negligible, and that this method allowed for much simpler usage in a compute shader. Allocating a buffer for the Curves data was much simpler as it consisted of an array of 'Curve' structs, each consisting of 5 vertices. Listing~\ref{lst:buffers} shows how these buffers were accessed from within the compute shaders; note how all of the \texttt{vec3} values have been padded to \texttt{vec4}, as the \texttt{std430} layout qualifier requires an alignment of 16 bytes.
+In order to get this distribution process running on the GPU, I needed to allocate and store data for both the Mesh and Curves in OpenGL buffers, for later use in a compute shader. The most common way of storing OBJ data in OpenGL buffers, as described in~\cite{objLoading}, is to use a \verb|GL_ARRAY_BUFFER| object to store the vertex data and a \verb|GL_ELEMENT_ARRAY_BUFFER| to store the indices of the \verb|GL_ARRAY_BUFFER| that make up each face. However for ease of use in compute shaders I decided instead to store each face in a \verb|GL_SHADER_STORAGE_BUFFER|, where each face consists of three sets of positions, normals, and texture coordinates. Whilst this is less efficient, I found that the overhead in GPU memory usage was negligible, and that this method allowed for much simpler usage in a compute shader. Allocating a buffer for the Curves data was much simpler as it consisted of an array of 'Curve' structs, each consisting of 5 vertices. Listing~\ref{lst:buffers} shows how these buffers were accessed from within the compute shaders; note how all of the \texttt{vec3} values have been padded to \texttt{vec4}, as the \texttt{std430} layout qualifier requires an alignment of 16 bytes.
 
-\subsubsection{Curve Operators} \label{sec:operators}
+\subsubsection{Curve operators} \label{sec:operators}
 
 Once curve primitives have been generated, they need to be passed onto curve operators, which perform most of the work towards creating an appealing visual output. I decided to create an abstract curve operator node, much like I had with the distributor node, which contains a virtual function for performing the curve manipulation. This allows for multiple different curve operators to be integrated into the system with ease, however for the scope of this assignment I chose only to implement curve operators to provide bending, application of noise, and clumping functionality.
 
@@ -183,11 +183,13 @@ Once curve primitives have been generated, they need to be passed onto curve ope
 
 By default, 'Mesh' and 'Curves' objects present in the node graph are not rendered in the viewport. For example, the user may want to distribute curves from hidden 'scalp' geometry, or use a set of hidden curves as clumping attractors. Therefore it was necessary to implement a pair of rendering nodes that would take a 'Mesh' or 'Curves' object as an input, and provide shading controls for rendering them in the viewport.
 
-Whilst rendering and shading triangulated meshes is relatively straightforward, as described in \cite{objLoading}, there are multiple different approaches one could use to render curves. The technique I chose to implement relies on drawing an empty VAO multiple times, and using \texttt{gl\_PrimitiveIDIn} from within a geometry shader to determine which curve from the bound \texttt{GL\_SHADER\_STORAGE\_BUFFER} should be drawn. Listings~\ref{lst:rendercpp} and ~\ref{lst:renderglsl} shows how this was achieved.
+Whilst rendering and shading triangulated meshes is relatively straightforward, as described in~\cite{objLoading}, there are multiple different approaches one could use to render curves. The technique I chose to implement relies on drawing an empty VAO multiple times, and using \texttt{gl\_PrimitiveIDIn} from within a geometry shader to determine which curve from the bound \texttt{GL\_SHADER\_STORAGE\_BUFFER} should be drawn. Listings~\ref{lst:rendercpp} and ~\ref{lst:renderglsl} shows how this was achieved. The use geometry shaders also allowed me to alternate between drawing the curves using line primitives, or to draw the curves as forward facing triangle strips. % which I refer to as 'ribbons'.
+
+For shading of the meshes I opted to implement a physically based shading model, as decribed in~\cite{learnPBR}, however some alterations were necessary as my method of rendering curves does not provide usable surface normal information. Instead, the normalized direction in which the curve is leading from one vertex to the next, was substituted as the surface normal. Then, all of the dot product terms in the shading calculations which use the surface normal, were inversed. The result roughly approximates the shading qualities of thin cylinders by assuming that all vectors that are perpendicular to the direction of the curve are valid surface normals. Whilst this technique provides visually pleasing results, it is inaccurate and does not account for properties such as self-shadowing, or light scattering.
 
 % I opted to make use of OpenGL's geometry shaders, drawing an empty VAO multiple times, and using \texttt{gl\_PrimitiveIDIn} from within a geometry shader to determine which curve from the bound \texttt{GL\_SHADER\_STORAGE\_BUFFER} should be drawn.
 
-\subsection{User Testing} \label{sec:usertesting}
+\subsection{User testing} \label{sec:usertesting}
 Near the end of the development I was able to convince friend and fellow student Alin Bolcas to test the system and provide feedback from an artist's point of view; Alin is an experienced modelling and look development artist who uses a variety of different software packages to create his work, so getting his feedback on the usability of my tool proved extremely useful.
 
 His first comments were in regards to how the node graph handles rendering of meshes and curves; he found it quite unintuitive to manually create rendering nodes for each new curves object that needed to be drawn. He suggested that a node for the combination of curves should be added, which would consolidate multiple curve objects into a single output for simplified rendering.
@@ -198,9 +200,19 @@ His final comments were in regards to the user interface, suggesting that I make
 
 \section{Results} \label{sec:results}
 
+After I had implemented some of the features Alin requested, I decided that the system was in a satisfactory state for the purposes of this assignment. The following figure~\ref{figure:screenshots} shows some memes
+
+\begin{figure}[htbp]
+\centering
+\subfloat[]{\includegraphics[width=0.45\linewidth]{images/rick}}
+\hfill
+\subfloat[]{\includegraphics[width=0.45\linewidth]{images/bunny}}
+\caption{\label{figure:screenshots} literal memes}
+\end{figure}
+
 \begin{figure}[htbp]\centering
 \includegraphics[width=1.0\linewidth]{images/test_0007}
-\caption{\label{figure:screenshot} An example of the visual output that the system is capable of producing.}
+\caption{\label{figure:screenshot1} An example of the visual output that the system is capable of producing.}
 \end{figure}
 
 Results Text.
@@ -253,7 +265,7 @@ Mesh Triangle Count & GPU Time (ms)\\
 
 \section{Conclusion} \label{sec:conclusion}
 
-\section{Future Work} \label{sec:futurework}
+\subsection{Future Work} \label{sec:futurework}
 
 Unfortunately my system lacks the ability to export curves data, making it virtually unusable within a production pipeline in its current state.
 
