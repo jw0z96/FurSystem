@@ -20,23 +20,41 @@ NoiseCurveOperatorModel::~NoiseCurveOperatorModel()
 	// delete m_spinbox;
 }
 
+QJsonObject NoiseCurveOperatorModel::save() const
+{
+	QJsonObject modelJson = NodeDataModel::save();
+
+	modelJson["value"] = m_spinbox->value();
+
+	return modelJson;
+}
+
+void NoiseCurveOperatorModel::restore(QJsonObject const &p)
+{
+	QJsonValue r = p["value"];
+	if (!r.isUndefined())
+		m_spinbox->setValue(r.toDouble());
+}
+
 void NoiseCurveOperatorModel::operateCurves()
 {
-	float intensity = m_spinbox->value();
-
-	if (intensity == 0.0)
-		return;
-
-	switch (std::static_pointer_cast<CurvesData>(_nodeData)->curveType())
+	if(_nodeData)
 	{
-		case CPU:
-			// std::cout<<"processing noise curves not possible on CPU\n";
-			break;
+		float intensity = m_spinbox->value();
 
-		case SSBO:
-			// std::cout<<"processing noise curves SSBO\n";
-			ComputeShaderManager::getInstance()->noiseCurvesOperator(m_curvesSSBO, intensity);
-			break;
+		if (intensity == 0.0)
+			return;
+
+		switch (std::static_pointer_cast<CurvesData>(_nodeData)->curveType())
+		{
+			case CPU:
+				// std::cout<<"processing noise curves not possible on CPU\n";
+				break;
+
+			case SSBO:
+				// std::cout<<"processing noise curves SSBO\n";
+				ComputeShaderManager::getInstance()->noiseCurvesOperator(m_curvesSSBO, intensity);
+				break;
+		}
 	}
-
 }

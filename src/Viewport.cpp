@@ -114,7 +114,7 @@ void Viewport::paintGL()
 	loadMatricesToRenderManager();
 	RenderableManager::getInstance()->drawRenderables();
 
-	ComputeShaderManager::getInstance()->endTimer();
+	// ComputeShaderManager::getInstance()->endTimer();
 }
 
 //----------------------------------------------------------------------------------------------------------------------

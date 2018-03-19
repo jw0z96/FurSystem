@@ -32,6 +32,47 @@ MeshRendererModel::~MeshRendererModel()
 	// m_embedded->deleteLater();
 }
 
+QJsonObject MeshRendererModel::save() const
+{
+	QJsonObject modelJson = NodeDataModel::save();
+
+	modelJson["red"] = m_ui->redAmountDoubleSpinBox->value();
+	modelJson["green"] = m_ui->greenAmountDoubleSpinBox->value();
+	modelJson["blue"] = m_ui->blueAmountDoubleSpinBox->value();
+	modelJson["roughness"] = m_ui->roughnessDoubleSpinBox->value();
+	modelJson["metallic"] = m_ui->metallicDoubleSpinBox->value();
+	modelJson["visibiliy"] = m_ui->visibilityCheckBox->isChecked();
+
+	return modelJson;
+}
+
+void MeshRendererModel::restore(QJsonObject const &p)
+{
+	QJsonValue r = p["red"];
+	if (!r.isUndefined())
+		m_ui->redAmountDoubleSpinBox->setValue(r.toDouble());
+
+	QJsonValue g = p["green"];
+	if (!g.isUndefined())
+		m_ui->greenAmountDoubleSpinBox->setValue(g.toDouble());
+
+	QJsonValue b = p["blue"];
+	if (!b.isUndefined())
+		m_ui->blueAmountDoubleSpinBox->setValue(b.toDouble());
+
+	QJsonValue ro = p["roughness"];
+	if (!ro.isUndefined())
+		m_ui->roughnessDoubleSpinBox->setValue(ro.toDouble());
+
+	QJsonValue m = p["metallic"];
+	if (!m.isUndefined())
+		m_ui->metallicDoubleSpinBox->setValue(m.toDouble());
+
+	QJsonValue v = p["visibiliy"];
+	if (!v.isUndefined())
+		m_ui->visibilityCheckBox->setChecked(v.toBool());
+}
+
 unsigned int MeshRendererModel::nPorts(PortType portType) const
 {
 	unsigned int result = 1;

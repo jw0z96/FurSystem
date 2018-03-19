@@ -112,15 +112,18 @@ void AbstractCurveOperatorModel::operateCurves()
 
 void AbstractCurveOperatorModel::resetCurves()
 {
-	switch (_nodeData->curveType())
+	if(_nodeData)
 	{
-		case CPU:
-			m_curves = _nodeData->curves();
-			break;
+		switch (_nodeData->curveType())
+		{
+			case CPU:
+				m_curves = _nodeData->curves();
+				break;
 
-		case SSBO:
-			ComputeShaderManager::getInstance()->copyCurvesSSBO(_nodeData->curvesSSBO(), m_curvesSSBO);
-			break;
+			case SSBO:
+				ComputeShaderManager::getInstance()->copyCurvesSSBO(_nodeData->curvesSSBO(), m_curvesSSBO);
+				break;
+		}
 	}
 }
 

@@ -1,0 +1,250 @@
+{
+    "connections": [
+        {
+            "in_id": "{b3af6f6d-1d40-4f9a-b9ee-bd353459b472}",
+            "in_index": 0,
+            "out_id": "{17c8dfb3-a11b-4968-b050-f2b9e9b84a7f}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{a64ef6fb-baa8-4bf0-9678-8f4f2d61d7d3}",
+            "in_index": 0,
+            "out_id": "{2f53cca5-97f5-40ec-a380-4b716f2735b0}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{a7af0537-f9a6-48b3-b43e-1dbdd90267ae}",
+            "in_index": 1,
+            "out_id": "{522afc20-54ff-4872-87fd-3112a152ac73}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{eaeb8c98-65cb-4cfa-b9b8-e18e2f4f1b29}",
+            "in_index": 0,
+            "out_id": "{a7af0537-f9a6-48b3-b43e-1dbdd90267ae}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{81cef4f6-2024-4a38-b2f3-41ab4236465b}",
+            "in_index": 0,
+            "out_id": "{2f53cca5-97f5-40ec-a380-4b716f2735b0}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{eaeb8c98-65cb-4cfa-b9b8-e18e2f4f1b29}",
+            "in_index": 1,
+            "out_id": "{0519230b-43dd-4635-b531-9b695d1b092d}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{a7af0537-f9a6-48b3-b43e-1dbdd90267ae}",
+            "in_index": 0,
+            "out_id": "{c2f7e49a-aaec-428d-a13b-b26ecc13d179}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{0519230b-43dd-4635-b531-9b695d1b092d}",
+            "in_index": 0,
+            "out_id": "{b4adcada-3661-47db-8181-480523d6a8f9}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{4c39c487-9910-4cd4-a461-db8dbc38cb99}",
+            "in_index": 0,
+            "out_id": "{eaeb8c98-65cb-4cfa-b9b8-e18e2f4f1b29}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{b4adcada-3661-47db-8181-480523d6a8f9}",
+            "in_index": 0,
+            "out_id": "{a64ef6fb-baa8-4bf0-9678-8f4f2d61d7d3}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{c2f7e49a-aaec-428d-a13b-b26ecc13d179}",
+            "in_index": 0,
+            "out_id": "{2f53cca5-97f5-40ec-a380-4b716f2735b0}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{522afc20-54ff-4872-87fd-3112a152ac73}",
+            "in_index": 0,
+            "out_id": "{81cef4f6-2024-4a38-b2f3-41ab4236465b}",
+            "out_index": 0
+        },
+        {
+            "in_id": "{2f5d0e42-8864-44f5-9d15-16633f892168}",
+            "in_index": 0,
+            "out_id": "{4c39c487-9910-4cd4-a461-db8dbc38cb99}",
+            "out_index": 0
+        }
+    ],
+    "nodes": [
+        {
+            "id": "{a7af0537-f9a6-48b3-b43e-1dbdd90267ae}",
+            "model": {
+                "envelope": 0.9,
+                "name": "Clump Curves",
+                "preserve": true
+            },
+            "position": {
+                "x": 332,
+                "y": 676
+            }
+        },
+        {
+            "id": "{522afc20-54ff-4872-87fd-3112a152ac73}",
+            "model": {
+                "name": "Noise Curves",
+                "value": 0.1
+            },
+            "position": {
+                "x": 85.2,
+                "y": 706.8
+            }
+        },
+        {
+            "id": "{81cef4f6-2024-4a38-b2f3-41ab4236465b}",
+            "model": {
+                "count": 1000,
+                "length": 1.2000000000000002,
+                "mode": true,
+                "name": "Random Distributor",
+                "variation": 0
+            },
+            "position": {
+                "x": -400.6,
+                "y": 605.4
+            }
+        },
+        {
+            "id": "{17c8dfb3-a11b-4968-b050-f2b9e9b84a7f}",
+            "model": {
+                "label": "/home/jw0z/dev/FurSystem/meshes/charJames_bust.obj",
+                "name": "Obj Mesh Loader"
+            },
+            "position": {
+                "x": -725,
+                "y": 207
+            }
+        },
+        {
+            "id": "{b3af6f6d-1d40-4f9a-b9ee-bd353459b472}",
+            "model": {
+                "blue": 0.1,
+                "green": 0.1,
+                "metallic": 0.30000000000000004,
+                "name": "Mesh Renderer",
+                "red": 0.1,
+                "roughness": 0.7,
+                "visibiliy": true
+            },
+            "position": {
+                "x": -311.6159999999999,
+                "y": 119.80799999999992
+            }
+        },
+        {
+            "id": "{c2f7e49a-aaec-428d-a13b-b26ecc13d179}",
+            "model": {
+                "count": 500000,
+                "length": 1.1,
+                "mode": true,
+                "name": "Random Distributor",
+                "variation": 0.7
+            },
+            "position": {
+                "x": -158.20000000000005,
+                "y": 419.4
+            }
+        },
+        {
+            "id": "{b4adcada-3661-47db-8181-480523d6a8f9}",
+            "model": {
+                "name": "Bend Curves",
+                "value": 0.02
+            },
+            "position": {
+                "x": -197.99999999999994,
+                "y": 879.5999999999999
+            }
+        },
+        {
+            "id": "{2f53cca5-97f5-40ec-a380-4b716f2735b0}",
+            "model": {
+                "label": "/home/jw0z/dev/FurSystem/meshes/charJames_scalp.obj",
+                "name": "Obj Mesh Loader"
+            },
+            "position": {
+                "x": -771.04,
+                "y": 356.00799999999987
+            }
+        },
+        {
+            "id": "{eaeb8c98-65cb-4cfa-b9b8-e18e2f4f1b29}",
+            "model": {
+                "envelope": 0.9,
+                "name": "Clump Curves",
+                "preserve": true
+            },
+            "position": {
+                "x": 289.64,
+                "y": 813.7200000000001
+            }
+        },
+        {
+            "id": "{2f5d0e42-8864-44f5-9d15-16633f892168}",
+            "model": {
+                "blue": 0.9,
+                "green": 0.5,
+                "metallic": 0.7999999999999999,
+                "name": "Curves Renderer",
+                "red": 0.1,
+                "ribbons": true,
+                "roughness": 0.7999999999999999,
+                "visibiliy": true,
+                "width": 0.001
+            },
+            "position": {
+                "x": 904.56,
+                "y": 662.88
+            }
+        },
+        {
+            "id": "{0519230b-43dd-4635-b531-9b695d1b092d}",
+            "model": {
+                "name": "Noise Curves",
+                "value": 0.2
+            },
+            "position": {
+                "x": 45.60000000000002,
+                "y": 878.4
+            }
+        },
+        {
+            "id": "{a64ef6fb-baa8-4bf0-9678-8f4f2d61d7d3}",
+            "model": {
+                "count": 100,
+                "length": 1.2000000000000002,
+                "mode": true,
+                "name": "Random Distributor",
+                "variation": 0
+            },
+            "position": {
+                "x": -512.6,
+                "y": 827.4
+            }
+        },
+        {
+            "id": "{4c39c487-9910-4cd4-a461-db8dbc38cb99}",
+            "model": {
+                "name": "Noise Curves",
+                "value": 0.2
+            },
+            "position": {
+                "x": 717.84,
+                "y": 1023.6000000000001
+            }
+        }
+    ]
+}

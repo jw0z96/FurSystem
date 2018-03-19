@@ -34,6 +34,57 @@ CurvesRendererModel::~CurvesRendererModel()
 	// m_embedded->deleteLater();
 }
 
+QJsonObject CurvesRendererModel::save() const
+{
+	QJsonObject modelJson = NodeDataModel::save();
+
+	modelJson["red"] = m_ui->redAmountDoubleSpinBox->value();
+	modelJson["green"] = m_ui->greenAmountDoubleSpinBox->value();
+	modelJson["blue"] = m_ui->blueAmountDoubleSpinBox->value();
+	modelJson["width"] = m_ui->widthDoubleSpinBox->value();
+	modelJson["roughness"] = m_ui->roughnessDoubleSpinBox->value();
+	modelJson["metallic"] = m_ui->metallicDoubleSpinBox->value();
+	modelJson["ribbons"] = m_ui->ribbonsCheckBox->isChecked();
+	modelJson["visibiliy"] = m_ui->visibilityCheckBox->isChecked();
+
+	return modelJson;
+}
+
+void CurvesRendererModel::restore(QJsonObject const &p)
+{
+	QJsonValue r = p["red"];
+	if (!r.isUndefined())
+		m_ui->redAmountDoubleSpinBox->setValue(r.toDouble());
+
+	QJsonValue g = p["green"];
+	if (!g.isUndefined())
+		m_ui->greenAmountDoubleSpinBox->setValue(g.toDouble());
+
+	QJsonValue b = p["blue"];
+	if (!b.isUndefined())
+		m_ui->blueAmountDoubleSpinBox->setValue(b.toDouble());
+
+	QJsonValue w = p["width"];
+	if (!w.isUndefined())
+		m_ui->widthDoubleSpinBox->setValue(w.toDouble());
+
+	QJsonValue ro = p["roughness"];
+	if (!ro.isUndefined())
+		m_ui->roughnessDoubleSpinBox->setValue(ro.toDouble());
+
+	QJsonValue m = p["metallic"];
+	if (!m.isUndefined())
+		m_ui->metallicDoubleSpinBox->setValue(m.toDouble());
+
+	QJsonValue ri = p["ribbons"];
+	if (!ri.isUndefined())
+		m_ui->ribbonsCheckBox->setChecked(ri.toBool());
+
+	QJsonValue v = p["visibiliy"];
+	if (!v.isUndefined())
+		m_ui->visibilityCheckBox->setChecked(v.toBool());
+}
+
 unsigned int CurvesRendererModel::nPorts(PortType portType) const
 {
 	unsigned int result = 1;

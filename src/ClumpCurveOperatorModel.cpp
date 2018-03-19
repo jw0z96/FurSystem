@@ -28,6 +28,27 @@ ClumpCurveOperatorModel::~ClumpCurveOperatorModel()
 	delete m_ui;
 }
 
+QJsonObject ClumpCurveOperatorModel::save() const
+{
+	QJsonObject modelJson = NodeDataModel::save();
+
+	modelJson["envelope"] = m_ui->envelopeSpinBox->value();
+	modelJson["preserve"] = m_ui->preserveLengthCheckBox->isChecked();
+
+	return modelJson;
+}
+
+void ClumpCurveOperatorModel::restore(QJsonObject const &p)
+{
+	QJsonValue r = p["envelope"];
+	if (!r.isUndefined())
+		m_ui->envelopeSpinBox->setValue(r.toDouble());
+
+	QJsonValue v = p["preserve"];
+	if (!v.isUndefined())
+		m_ui->preserveLengthCheckBox->setChecked(v.toBool());
+}
+
 QString ClumpCurveOperatorModel::portCaption(PortType portType, PortIndex portIndex) const
 {
 	switch (portType)
@@ -103,32 +124,38 @@ void ClumpCurveOperatorModel::setInData(std::shared_ptr<NodeData> nodeData, Port
 
 void ClumpCurveOperatorModel::resetCurves()
 {
-	AbstractCurveOperatorModel::resetCurves();
-
-	switch (m_clumpNodeData->curveType())
+	if(_nodeData)
 	{
-		case CPU:
-			m_clumpCurves = m_clumpNodeData->curves();
-			break;
+		AbstractCurveOperatorModel::resetCurves();
 
-		case SSBO:
-			ComputeShaderManager::getInstance()->copyCurvesSSBO(m_clumpNodeData->curvesSSBO(), m_clumpCurvesSSBO);
-			break;
+		switch (m_clumpNodeData->curveType())
+		{
+			case CPU:
+				m_clumpCurves = m_clumpNodeData->curves();
+				break;
+
+			case SSBO:
+				ComputeShaderManager::getInstance()->copyCurvesSSBO(m_clumpNodeData->curvesSSBO(), m_clumpCurvesSSBO);
+				break;
+		}
 	}
 }
 
 void ClumpCurveOperatorModel::operateCurves()
 {
-	auto curveType = std::static_pointer_cast<CurvesData>(_nodeData)->curveType();
-	auto clumpCurveType = std::static_pointer_cast<CurvesData>(m_clumpNodeData)->curveType();
+	if(_nodeData)
+	{
+		auto curveType = std::static_pointer_cast<CurvesData>(_nodeData)->curveType();
+		auto clumpCurveType = std::static_pointer_cast<CurvesData>(m_clumpNodeData)->curveType();
 
-	if (curveType == SSBO && clumpCurveType == SSBO)
-	{
-		// std::cout<<"processing clump curves SSBO: "<<m_curvesSSBO<<" & "<<m_clumpCurvesSSBO<<"\n";
-		ComputeShaderManager::getInstance()->clumpCurvesOperator(m_curvesSSBO, m_clumpCurvesSSBO, m_ui->envelopeSpinBox->value(), m_ui->preserveLengthCheckBox->isChecked());
-	}
-	else
-	{
-		std::cout<<"invalid curve types for clumping, SSBO only\n";
+		if (curveType == SSBO && clumpCurveType == SSBO)
+		{
+			// std::cout<<"processing clump curves SSBO: "<<m_curvesSSBO<<" & "<<m_clumpCurvesSSBO<<"\n";
+			ComputeShaderManager::getInstance()->clumpCurvesOperator(m_curvesSSBO, m_clumpCurvesSSBO, m_ui->envelopeSpinBox->value(), m_ui->preserveLengthCheckBox->isChecked());
+		}
+		else
+		{
+			std::cout<<"invalid curve types for clumping, SSBO only\n";
+		}
 	}
 }

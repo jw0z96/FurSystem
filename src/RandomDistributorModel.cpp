@@ -37,6 +37,37 @@ RandomDistributorModel::~RandomDistributorModel()
 	// m_embedded->deleteLater();
 }
 
+QJsonObject RandomDistributorModel::save() const
+{
+	QJsonObject modelJson = NodeDataModel::save();
+
+	modelJson["count"] = m_ui->countSpinBox->value();
+	modelJson["mode"] = m_ui->modeCheckBox->isChecked();
+	modelJson["length"] = m_ui->lengthSpinBox->value();
+	modelJson["variation"] = m_ui->variationSpinBox->value();
+
+	return modelJson;
+}
+
+void RandomDistributorModel::restore(QJsonObject const &p)
+{
+	QJsonValue c = p["count"];
+	if (!c.isUndefined())
+		m_ui->countSpinBox->setValue(c.toInt());
+
+	QJsonValue m = p["mode"];
+	if (!m.isUndefined())
+		m_ui->modeCheckBox->setChecked(m.toBool());
+
+	QJsonValue l = p["length"];
+	if (!l.isUndefined())
+		m_ui->lengthSpinBox->setValue(l.toDouble());
+
+	QJsonValue v = p["variation"];
+	if (!v.isUndefined())
+		m_ui->variationSpinBox->setValue(v.toDouble());
+}
+
 void RandomDistributorModel::meshChanged()
 {
 	ComputeShaderManager::getInstance()->createMeshSSBO(m_meshSSBOID, m_mesh);

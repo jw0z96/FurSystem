@@ -20,27 +20,46 @@ BendCurveOperatorModel::~BendCurveOperatorModel()
 	// delete m_spinbox;
 }
 
+QJsonObject BendCurveOperatorModel::save() const
+{
+	QJsonObject modelJson = NodeDataModel::save();
+
+	modelJson["value"] = m_spinbox->value();
+
+	return modelJson;
+}
+
+void BendCurveOperatorModel::restore(QJsonObject const &p)
+{
+	QJsonValue r = p["value"];
+	if (!r.isUndefined())
+		m_spinbox->setValue(r.toDouble());
+
+}
+
 void BendCurveOperatorModel::operateCurves()
 {
-	float intensity = m_spinbox->value();
-	glm::vec3 bendDirection = glm::vec3(0.0, -1.0, 0.0);
-
-	switch (std::static_pointer_cast<CurvesData>(_nodeData)->curveType())
+	if(_nodeData)
 	{
-		case CPU:
-			for (auto &curve : m_curves.m_curves)
-			{
-				for (unsigned int j = 1; j < 5; ++j)
+		float intensity = m_spinbox->value();
+		glm::vec3 bendDirection = glm::vec3(0.0, -1.0, 0.0);
+
+		switch (std::static_pointer_cast<CurvesData>(_nodeData)->curveType())
+		{
+			case CPU:
+				for (auto &curve : m_curves.m_curves)
 				{
-					curve.vertices[j] += float(j) * float(j) * intensity * bendDirection;
+					for (unsigned int j = 1; j < 5; ++j)
+					{
+						curve.vertices[j] += float(j) * float(j) * intensity * bendDirection;
+					}
 				}
-			}
-			break;
+				break;
 
-		case SSBO:
-			// std::cout<<"processing bend curves SSBO\n";
-			ComputeShaderManager::getInstance()->bendCurvesOperator(m_curvesSSBO, bendDirection, intensity);
-			break;
+			case SSBO:
+				// std::cout<<"processing bend curves SSBO\n";
+				ComputeShaderManager::getInstance()->bendCurvesOperator(m_curvesSSBO, bendDirection, intensity);
+				break;
+		}
 	}
-
 }

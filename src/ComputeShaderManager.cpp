@@ -276,16 +276,16 @@ void ComputeShaderManager::clumpCurvesOperator(unsigned int curvesSSBO, unsigned
 
 //----------------------------------------------------------------------------------------------------------------------
 
-void ComputeShaderManager::startTimer()
-{
-	m_timer = std::chrono::system_clock::now();
-}
+// void ComputeShaderManager::startTimer()
+// {
+// 	m_timer = std::chrono::system_clock::now();
+// }
 
-//----------------------------------------------------------------------------------------------------------------------
+// //----------------------------------------------------------------------------------------------------------------------
 
-void ComputeShaderManager::endTimer()
-{
-	auto endTimer = std::chrono::system_clock::now();
-	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(endTimer - m_timer);
-	std::cout << "timer measured " << elapsed.count() << "ms\n";
-}
+// void ComputeShaderManager::endTimer()
+// {
+// 	auto endTimer = std::chrono::system_clock::now();
+// 	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(endTimer - m_timer);
+// 	std::cout << "timer measured " << elapsed.count() << "ms\n";
+// }

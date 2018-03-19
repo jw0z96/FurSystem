@@ -410,7 +410,7 @@ save() const
   QString fileName =
     QFileDialog::getSaveFileName(nullptr,
                                  tr("Open Flow Scene"),
-                                 QDir::homePath(),
+                                 QDir::currentPath() + "/tests",
                                  tr("Flow Scene Files (*.flow)"));
 
   if (!fileName.isEmpty())
@@ -438,7 +438,7 @@ load()
   QString fileName =
     QFileDialog::getOpenFileName(nullptr,
                                  tr("Open Flow Scene"),
-                                 QDir::homePath(),
+                                 QDir::currentPath() + "/tests",
                                  tr("Flow Scene Files (*.flow)"));
 
   if (!QFileInfo::exists(fileName))

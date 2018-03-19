@@ -23,7 +23,7 @@ static std::shared_ptr<DataModelRegistry> registerDataModels()
 	ret->registerModel<ObjMeshModel>("Mesh Loaders");
 	ret->registerModel<MeshRendererModel>("Renderers");
 	ret->registerModel<CurvesRendererModel>("Renderers");
-	ret->registerModel<BasicDistributorModel>("Distributors");
+	// ret->registerModel<BasicDistributorModel>("Distributors");
 	ret->registerModel<RandomDistributorModel>("Distributors");
 	ret->registerModel<BendCurveOperatorModel>("Curve Operators");
 	ret->registerModel<NoiseCurveOperatorModel>("Curve Operators");
