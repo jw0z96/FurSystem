@@ -69,7 +69,7 @@ void RenderableManager::registerRenderable(std::shared_ptr<Renderable> _renderab
 void RenderableManager::deregisterRenderable(std::shared_ptr<Renderable> _renderable)
 {
 	m_renderables.erase(std::remove(m_renderables.begin(), m_renderables.end(), _renderable), m_renderables.end());
-	std::cout<<"deregistered "<<_renderable<<"\n";
+	// std::cout<<"deregistered "<<_renderable<<"\n";
 }
 
 //----------------------------------------------------------------------------------------------------------------------

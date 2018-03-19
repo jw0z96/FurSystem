@@ -38,7 +38,7 @@ void BendCurveOperatorModel::operateCurves()
 			break;
 
 		case SSBO:
-			std::cout<<"processing bend curves SSBO\n";
+			// std::cout<<"processing bend curves SSBO\n";
 			ComputeShaderManager::getInstance()->bendCurvesOperator(m_curvesSSBO, bendDirection, intensity);
 			break;
 	}

@@ -30,11 +30,11 @@ void NoiseCurveOperatorModel::operateCurves()
 	switch (std::static_pointer_cast<CurvesData>(_nodeData)->curveType())
 	{
 		case CPU:
-			std::cout<<"processing noise curves not possible on CPU\n";
+			// std::cout<<"processing noise curves not possible on CPU\n";
 			break;
 
 		case SSBO:
-			std::cout<<"processing noise curves SSBO\n";
+			// std::cout<<"processing noise curves SSBO\n";
 			ComputeShaderManager::getInstance()->noiseCurvesOperator(m_curvesSSBO, intensity);
 			break;
 	}

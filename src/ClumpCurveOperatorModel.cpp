@@ -124,7 +124,7 @@ void ClumpCurveOperatorModel::operateCurves()
 
 	if (curveType == SSBO && clumpCurveType == SSBO)
 	{
-		std::cout<<"processing clump curves SSBO: "<<m_curvesSSBO<<" & "<<m_clumpCurvesSSBO<<"\n";
+		// std::cout<<"processing clump curves SSBO: "<<m_curvesSSBO<<" & "<<m_clumpCurvesSSBO<<"\n";
 		ComputeShaderManager::getInstance()->clumpCurvesOperator(m_curvesSSBO, m_clumpCurvesSSBO, m_ui->envelopeSpinBox->value(), m_ui->preserveLengthCheckBox->isChecked());
 	}
 	else

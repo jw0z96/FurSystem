@@ -27,7 +27,7 @@ CurvesRendererModel::CurvesRendererModel() :
 
 CurvesRendererModel::~CurvesRendererModel()
 {
-	std::cout<<"~CurvesRendererModel, setting "<<m_curvesRenderable<<" to be deleted\n";
+	// std::cout<<"~CurvesRendererModel, setting "<<m_curvesRenderable<<" to be deleted\n";
 	m_curvesRenderable->setToBeDeleted();
 	delete m_ui;
 	// delete m_embedded; // for some reason these cause crash

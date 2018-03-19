@@ -20,7 +20,7 @@ CurvesRenderable::CurvesRenderable()
 
 CurvesRenderable::~CurvesRenderable()
 {
-	std::cout<<"~CurvesRenderable "<<this<<"\n";
+	// std::cout<<"~CurvesRenderable "<<this<<"\n";
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -41,9 +41,9 @@ void CurvesRenderable::generate()
 			glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_SSBO);
 			glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &SSBOSize);
 			glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-			std::cout<<"SSBO size : "<<SSBOSize<<"\n";
+			// std::cout<<"SSBO size : "<<SSBOSize<<"\n";
 			m_indices = SSBOSize / (sizeof(glm::vec4) * 6);
-			std::cout<<"m_indices from SSBO size : "<<m_indices<<"\n";
+			// std::cout<<"m_indices from SSBO size : "<<m_indices<<"\n";
 			break;
 	}
 
@@ -64,7 +64,7 @@ void CurvesRenderable::cleanUp()
 {
 	if (isConstructed)
 	{
-		std::cout<<"deleting SSBO: "<<m_SSBO<<" and empty VAO: "<<m_emptyVAO<<"\n";
+		// std::cout<<"deleting SSBO: "<<m_SSBO<<" and empty VAO: "<<m_emptyVAO<<"\n";
 
 		if (m_SSBO)
 			glDeleteBuffers(1, &m_SSBO);
@@ -79,7 +79,7 @@ void CurvesRenderable::cleanUp()
 
 void CurvesRenderable::draw()
 {
-	std::cout<<"drawing "<<this<<" & "<<m_indices<<" indices of "<<m_SSBO<<"\n";
+	// std::cout<<"drawing "<<this<<" & "<<m_indices<<" indices of "<<m_SSBO<<"\n";
 
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, m_SSBO);
 

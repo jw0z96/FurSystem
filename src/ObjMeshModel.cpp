@@ -60,7 +60,7 @@ bool ObjMeshModel::eventFilter(QObject *object, QEvent *event)
 				QDir::currentPath() + "/meshes",
 				tr("Mesh Files (*.obj)"));
 
-			ComputeShaderManager::getInstance()->startTimer();
+			// ComputeShaderManager::getInstance()->startTimer();
 
 			m_label->setText(fileName);
 

@@ -53,7 +53,7 @@ void ComputeShaderManager::recompileShaders()
 
 void ComputeShaderManager::createCurvesSSBO(unsigned int &buffer, Curves _curves)
 {
-	std::cout<<"creating an SSBO for curves\n";
+	// std::cout<<"creating an SSBO for curves\n";
 
 	if (buffer)
 		glDeleteBuffers(1, &buffer);
@@ -80,7 +80,7 @@ void ComputeShaderManager::createCurvesSSBO(unsigned int &buffer, Curves _curves
 
 void ComputeShaderManager::createMeshSSBO(unsigned int &buffer, Mesh &mesh)
 {
-	std::cout<<"creating an SSBO for mesh\n";
+	// std::cout<<"creating an SSBO for mesh\n";
 
 	if (buffer)
 		glDeleteBuffers(1, &buffer);
@@ -123,14 +123,14 @@ void ComputeShaderManager::createMeshSSBO(unsigned int &buffer, Mesh &mesh)
 
 void ComputeShaderManager::copyCurvesSSBO(unsigned int src, unsigned int &dst)
 {
-	std::cout<<"copying an SSBO into another: "<<src<<" to "<<dst<<"\n";
+	// std::cout<<"copying an SSBO into another: "<<src<<" to "<<dst<<"\n";
 	// get size of src buffer
 	GLint srcBufferSize = 0;
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, src);
 	glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &srcBufferSize);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
-	std::cout<<"src buffer size : "<<srcBufferSize<<"\n";
+	// std::cout<<"src buffer size : "<<srcBufferSize<<"\n";
 
 	// first check if dst is a buffer and if they are equal sized
 	// if dst buffer exist check if buffers are equal size
@@ -170,8 +170,8 @@ void ComputeShaderManager::copyCurvesSSBO(unsigned int src, unsigned int &dst)
 	GLint newBufferSize = 0;
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, dst);
 	glGetBufferParameteriv(GL_SHADER_STORAGE_BUFFER, GL_BUFFER_SIZE, &newBufferSize);
-	std::cout<<"dst buffer size after copy : "<<newBufferSize<<"\n";
-	std::cout<<"dst after copy : "<<dst<<"\n";
+	// std::cout<<"dst buffer size after copy : "<<newBufferSize<<"\n";
+	// std::cout<<"dst after copy : "<<dst<<"\n";
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
@@ -254,7 +254,7 @@ void ComputeShaderManager::clumpCurvesOperator(unsigned int curvesSSBO, unsigned
 	//second, disptch curveCount to lerp all curves to their clumpee
 	unsigned int curveCount = getIndicesFromCurveSSBO(curvesSSBO);
 	unsigned int clumpCurveCount = getIndicesFromCurveSSBO(clumpCurvesSSBO);
-	std::cout<<"clumping "<<curveCount<<" curves to "<<clumpCurveCount<<" curves\n";
+	// std::cout<<"clumping "<<curveCount<<" curves to "<<clumpCurveCount<<" curves\n";
 
 	// use shader & send uniforms
 	clumpCurvesShader.use();
