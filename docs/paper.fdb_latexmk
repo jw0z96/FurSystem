@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex paper"] 1521418464 "paper.aux" "paper.bbl" "paper" 1521418771
+["bibtex paper"] 1521418464 "paper.aux" "paper.bbl" "paper" 1521420962
   "./acmsiggraph.bst" 1474296809 23357 eedf7aa63e6f1eb845ecfa55cfd9d383 ""
-  "paper.aux" 1521418770 9435 cf1373e2c9611157031b6ffebae79a52 ""
+  "paper.aux" 1521420961 9435 cf1373e2c9611157031b6ffebae79a52 ""
   "references.bib" 1521417082 6895 a88028fc296b4dd4546072d8acdf6a84 ""
   (generated)
   "paper.blg"
   "paper.bbl"
-["pdflatex"] 1521418770 "paper.tex" "paper.pdf" "paper" 1521418771
+["pdflatex"] 1521420961 "paper.tex" "paper.pdf" "paper" 1521420962
   "/home/jw0z/.cache/texlive/texmf-var/web2c/pdftex/pdflatex.fmt" 1510180580 719143 88d356959a00881ccb18a2c476271507 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1463015741 1888031 5317a64a246c13fa560847c387843238 ""
@@ -125,11 +125,11 @@
   "images/triangleStripDistribution.png" 1521410751 50106 5b2a4c7ef0209ee381c4761b349a0ac1 ""
   "lineno.sty" 1474296809 151736 f1e4ea1a3da2e056656e97ed78d62374 ""
   "lipsum.sty" 1474296809 103491 f3a8d28ba533bcdb24167b15de14ff22 ""
-  "paper.aux" 1521418770 9435 cf1373e2c9611157031b6ffebae79a52 ""
+  "paper.aux" 1521420961 9435 cf1373e2c9611157031b6ffebae79a52 ""
   "paper.bbl" 1521418464 3675 88daf9c75c575e293729547317cfd659 "bibtex paper"
-  "paper.tex" 1521418763 26545 76f3def061608415446a32caf19434e1 ""
+  "paper.tex" 1521420959 26608 44a878edec56e8f4b54cd79c9626d86a ""
   "rmlst.sty" 1474296809 1694 ff842d461cee624f8b73af44ce065702 ""
   (generated)
-  "paper.log"
   "paper.aux"
+  "paper.log"
   "paper.pdf"
