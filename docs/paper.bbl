@@ -12,6 +12,7 @@
 \newblock 2010.
 \newblock Parallel poisson disk sampling with spectrum analysis on surfaces.
 \newblock {\em ACM Trans. Graph. 29}, 6 (Dec.), 166:1--166:10.
+\newblock Accessed 5 Feb 2018.
 
 \bibitem[\protect\citename{{CD Projekt RED} }2015]{witcher}
 {\sc {CD Projekt RED}}, 2015.
@@ -23,6 +24,7 @@
 \newblock 2009.
 \newblock Dart throwing on surfaces.
 \newblock 1217 -- 1226.
+\newblock Accessed 5 Feb 2018.
 
 \bibitem[\protect\citename{Fagnou and Leaning }2010]{furtility}
 {\sc Fagnou, D., and Leaning, J.}
@@ -30,12 +32,14 @@
 \newblock Furtility: Dynamic grooming for wolfman.
 \newblock In {\em ACM SIGGRAPH 2010 Talks}, ACM, New York, NY, USA, SIGGRAPH
   '10, 51:1--51:1.
+\newblock Accessed 5 Feb 2018.
 
 \bibitem[\protect\citename{Krs et~al\mbox{.} }2017]{skippy}
 {\sc Krs, V., Yumer, E., Carr, N., Benes, B., and M\v{e}ch, R.}
 \newblock 2017.
 \newblock Skippy: Single view 3d curve interactive modeling.
 \newblock {\em ACM Trans. Graph. 36}, 4 (July), 128:1--128:12.
+\newblock Accessed 5 Feb 2018.
 
 \bibitem[\protect\citename{Marschner et~al\mbox{.} }2003]{Marschner}
 {\sc Marschner, S.~R., Jensen, H.~W., Cammarano, M., Worley, S., and Hanrahan,
@@ -43,6 +47,7 @@
 \newblock 2003.
 \newblock Light scattering from human hair fibers.
 \newblock {\em ACM Trans. Graph. 22}, 3 (July), 780--791.
+\newblock Accessed 13 Mar 2018.
 
 \bibitem[\protect\citename{{NVIDIA} }2014]{hairworks}
 {\sc {NVIDIA}}, 2014.
@@ -54,7 +59,7 @@
 {\sc {Peregrine*labs}}, 2012.
 \newblock Yeti procedural fur toolset.
 \newblock \url{https://github.com/paceholder/nodeeditor}.
-\newblock Accessed 25 Jan 2018.
+\newblock Accessed 5 Feb 2018.
 
 \bibitem[\protect\citename{Pinaev }2017]{Pinaev2017}
 {\sc Pinaev, D.}, 2017.
@@ -67,7 +72,7 @@
 {\sc {Sony Pictures Imageworks and Industrial Light and Magic}}, 2011.
 \newblock Alembic format description.
 \newblock \url{http://www.alembic.io/}.
-\newblock Accessed 11 Oct 2017.
+\newblock Accessed 16 Jan 2017.
 
 \bibitem[\protect\citename{Thompson et~al\mbox{.} }2003]{xgen}
 {\sc Thompson, II, T.~V., Petti, E.~J., and Tappan, C.}
@@ -75,6 +80,7 @@
 \newblock Xgen: Arbitrary primitive generator.
 \newblock In {\em ACM SIGGRAPH 2003 Sketches \&Amp; Applications}, ACM, New
   York, NY, USA, SIGGRAPH '03, 1--1.
+\newblock Accessed 5 Feb 2018.
 
 \bibitem[\protect\citename{Vries }2016]{learnPBR}
 {\sc Vries, J.~D.}, 2016.

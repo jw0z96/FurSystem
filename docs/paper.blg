@@ -8,16 +8,16 @@ Warning--empty organization in furtility
 Warning--empty organization in xgen
 You've used 14 entries,
             2748 wiz_defined-function locations,
-            687 strings with 6295 characters,
-and the built_in function-call counts, 5174 in all, are:
-= -- 520
+            690 strings with 6354 characters,
+and the built_in function-call counts, 5228 in all, are:
+= -- 532
 > -- 212
 < -- 0
 + -- 66
 - -- 74
 * -- 396
-:= -- 856
-add.period$ -- 55
+:= -- 868
+add.period$ -- 61
 call.type$ -- 14
 change.case$ -- 88
 chr.to.int$ -- 14
@@ -25,13 +25,13 @@ cite$ -- 17
 duplicate$ -- 173
 empty$ -- 428
 format.name$ -- 80
-if$ -- 1064
+if$ -- 1076
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 6
-newline$ -- 86
+newline$ -- 92
 num.names$ -- 42
-pop$ -- 109
+pop$ -- 103
 preamble$ -- 1
 purify$ -- 74
 quote$ -- 0
@@ -46,5 +46,5 @@ type$ -- 112
 warning$ -- 3
 while$ -- 48
 width$ -- 17
-write$ -- 202
+write$ -- 214
 (There were 3 warnings)
