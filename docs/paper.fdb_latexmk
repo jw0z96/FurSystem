@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex paper"] 1521483064 "paper.aux" "paper.bbl" "paper" 1521483064
+["bibtex paper"] 1521483064 "paper.aux" "paper.bbl" "paper" 1521509242
   "./acmsiggraph.bst" 1474296809 23357 eedf7aa63e6f1eb845ecfa55cfd9d383 ""
   "paper.aux" 1521483064 9435 3401d147a57a268d8c662ed4470de438 ""
   "references.bib" 1521417082 6895 a88028fc296b4dd4546072d8acdf6a84 ""
   (generated)
-  "paper.bbl"
   "paper.blg"
-["pdflatex"] 1521483064 "paper.tex" "paper.pdf" "paper" 1521483064
+  "paper.bbl"
+["pdflatex"] 1521483064 "paper.tex" "paper.pdf" "paper" 1521509242
   "/home/jw0z/.cache/texlive/texmf-var/web2c/pdftex/pdflatex.fmt" 1510180580 719143 88d356959a00881ccb18a2c476271507 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1463015741 1888031 5317a64a246c13fa560847c387843238 ""
@@ -130,6 +130,6 @@
   "paper.tex" 1521483062 26625 8b8946f688e71fc62fa4037ada832f56 ""
   "rmlst.sty" 1474296809 1694 ff842d461cee624f8b73af44ce065702 ""
   (generated)
-  "paper.pdf"
   "paper.aux"
   "paper.log"
+  "paper.pdf"
