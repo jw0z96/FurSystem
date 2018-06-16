@@ -94,7 +94,7 @@ void main()
 	float metallic = u_metallic;
 	float roughness = u_roughness;
 	vec3 albedo = u_colour;
-	vec3 F0 = vec3(0.01);
+	vec3 F0 = vec3(0.04);
 	F0 = mix(F0, albedo, metallic);
 
 	// Cook-Torrance BRDF
